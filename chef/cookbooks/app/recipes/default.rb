@@ -25,29 +25,37 @@ package 'build-essential' do
 	action:install
 end
 
+package 'libpq-dev' do
+	action:install
+end
+
+package 'python-dev' do
+	action:install
+end
+
 execute 'npm_install' do
-	cwd '/home/vagrant/project/app'
+	cwd '/home/vagrant/project/'
 	command 'npm install'
 end
 
 execute 'pip_install' do
-	cwd '/home/vagrant/project/app'
+	cwd '/home/vagrant/project/'
 	command 'pip install -r requirements.txt'
 end
 
 execute 'db_setup' do
-	cwd '/home/vagrant/project/app'
+	cwd '/home/vagrant/project/'
 	command 'python server/initdb.py'
 end
 
 execute 'app_distribute' do
-	cwd '/home/vagrant/project/app'
+	cwd '/home/vagrant/project/'
 	command 'npm run dist'
 end
 
 # temporary only
 # start server in background and disown, throw away stdout stderr
-execute 'run' do
-	cwd '/home/vagrant/project/app'
-	command 'npm run gunicorn &> /dev/null &|'
-end
+# execute 'run' do
+# 	cwd '/home/vagrant/project/'
+# 	command 'npm run gunicorn &> /dev/null &|'
+# end

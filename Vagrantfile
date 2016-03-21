@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # If you need to more than double the defaults for this course, you have
   # done something wrong.
   cpus = "1"
-  memory = "512" # MB
+  memory = "1024" # MB
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--cpus", cpus, "--memory", memory]
   end
