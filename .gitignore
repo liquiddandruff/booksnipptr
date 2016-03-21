@@ -1,0 +1,15 @@
+node_modules
+
+*.swp
+*.swo
+*.db
+
+*~
+.vagrant
+
+*.pyc
+*.sqite3
+
+Gemfile.lock
+log/*
+.bundle
