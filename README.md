@@ -13,6 +13,7 @@ Prerequisites:
 - Pip (https://pip.pypa.io/en/latest/installing.html)
 - PostgreSQL (http://www.postgresql.org/download/)
 - NPM (https://docs.npmjs.com/getting-started/installing-node)
+-install packages libpq-dev and python-dev
 
 Clone repository:
 
