@@ -61,9 +61,15 @@ python server/initdb.py
 Finally, start local server:
 
 ```
-npm run dist && npm run gunicorn
+npm run start
 
-open http://localhost:3001
+```
+
+Open another terminal:
+
+```
+python server/entry.py
+
 ```
 
 ## What do we have here?
