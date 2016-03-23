@@ -71,6 +71,9 @@ Open another terminal:
 python server/entry.py
 
 ```
+Access the website at:
+
+http://localhost:3000/
 
 ## What do we have here?
 
