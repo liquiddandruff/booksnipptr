@@ -65,7 +65,11 @@ Open another terminal and run:
 
 ```
 python server/entry.py
-
+```
+Access the website at:
+```
+localhost:3000/
+```
 ## What do we have here?
 
 - Simple Flask **API**, powered with [**Flask-RESTful**](https://flask-restful.readthedocs.org/en/0.3.3/), [**SQLAlchemy**](http://www.sqlalchemy.org/) and [**PostgreSQL**](http://www.postgresql.org/)
