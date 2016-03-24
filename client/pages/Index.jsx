@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import useSheet from 'react-jss';
-import Kittens from '../components/Kittens';
 import { connect } from 'react-redux';
+
+import Header from '../components/SiteHeader';
+import Kittens from '../components/Kittens';
 import { requestKittens } from '../actions/kittens';
-
-
 
 
 export default class Index extends Component {
@@ -17,6 +17,7 @@ export default class Index extends Component {
 
     return (
       <div className={sheet.classes.index}>
+        <Header />
         <Kittens />
       </div>
     );
@@ -26,11 +27,11 @@ export default class Index extends Component {
 const STYLES = {
   index: {
     width: '100%',
-    height: '100%',
+    minHeight: '100%',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFDDDD',
+    backgroundColor: '#FFFFFF',
     color: '#660000'
   }
 };
