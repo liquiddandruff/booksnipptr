@@ -34,9 +34,10 @@ class User(Base):
     pwdhash     =   Column(String(54), nullable=True) 
     
     created_at  =   Column(DateTime, default=datetime.utcnow)
+    posts       =   relationship('Post', backref='user', lazy='dynamic')
     #this relationship indicates a many-many relationship between users and tags.
     #the `tags_users` association table is somehow used to enable this relationship
-    tags  =   relationship('Tag', secondary=tags_users, 
+    tags        =   relationship('Tag', secondary=tags_users, 
                         backref = backref('users', lazy='dynamic'))
     #The following creates a many-one relationship between comments and users.
     #A user can have many comments, a comment can only have one user
