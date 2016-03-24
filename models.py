@@ -52,6 +52,7 @@ class Post(Base):
 
     id          =   Column(Integer, primary_key=True)
     uuid        =   Column(String(36), unique=True, nullable=False)
+    user_id     =   Column(Integer, ForeignKey('users.id'))
     likes       =   Column(Integer, default=0)
     created_at  =   Column(DateTime, default=datetime.utcnow)
     tags        =   relationship('Tag', secondary=tags_posts, 
