@@ -14,8 +14,6 @@ Prerequisites:
 - PostgreSQL (http://www.postgresql.org/download/)
 - NPM (https://docs.npmjs.com/getting-started/installing-node)
 
--install packages libpq-dev and python-dev
-
 Clone repository:
 
 ```
@@ -61,19 +59,10 @@ python server/initdb.py
 Finally, start local server:
 
 ```
-npm run start
+npm run dist && npm run gunicorn
 
+open http://localhost:3001
 ```
-
-Open another terminal:
-
-```
-python server/entry.py
-
-```
-Access the website at:
-
-http://localhost:3000/
 
 ## What do we have here?
 

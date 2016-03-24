@@ -2,8 +2,6 @@ node_modules
 venv
 .env
 
-*.log
-
 server/static/scripts/
 server/templates/
 dev/
