@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router';
 import useSheet from 'react-jss';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
@@ -49,7 +50,7 @@ export default class SiteHeader extends Component {
             }
           >
             <MenuItem primaryText= { <Link to="/login"> Login </Link> } />
-            <MenuItem primaryText="Register" />
+            <MenuItem primaryText= { <Link to="/register"> Register </Link> } />
           </IconMenu>
           <ToolbarSeparator />
           <RaisedButton label="Create snippet" primary={true} />

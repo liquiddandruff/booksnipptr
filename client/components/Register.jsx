@@ -17,7 +17,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 
 import TextField from 'material-ui/lib/text-field';
 
-export default class Login extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {value: 2};
@@ -35,7 +35,7 @@ export default class Login extends Component {
       <div>
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label= {<Link to="/"> BookSnippetr </Link> }/>
+          <FlatButton label="BookSnippetr" />
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <IconMenu
@@ -45,16 +45,20 @@ export default class Login extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText= { <Link to="/register"> Register </Link> } />
+            <MenuItem primaryText= { <Link to="/login"> Login </Link> } />
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>
       <form>
 
-      <TextField className = {classes.login} floatingLabelText = "Username" hintText = "Enter Username"/>
+      <TextField className = {classes.register} floatingLabelText = "Username" hintText = "Enter Username"/>
       <br></br>
-      <TextField className = {classes.login} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
-      <FlatButton className = {classes.login} label = "Login" secondary = {true}/>
+      <TextField className = {classes.register} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
+      <br></br>
+      <TextField className = {classes.register} floatingLabelText = "E-mail Address" hintText = "Enter E-mail" type = "email"/>
+      <br></br>
+      <FlatButton className = {classes.register} label = "Register" secondary = {true}/>
+      
       </form>
       </div>
     )
@@ -63,14 +67,13 @@ export default class Login extends Component {
 
 const STYLES = {
   toolbar: {
-    width: '100%',
-    style: 'none'
+    width: '100%'
   },
-  login: {
+  register: {
   	left: '40%',
   	right: 'auto',
-  	top: '12em'
+  	top: '5em'
   }
 };
 
-export default useSheet(Login, STYLES)
+export default useSheet(Register, STYLES)
