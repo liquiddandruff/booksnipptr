@@ -35,7 +35,7 @@ export default class Login extends Component {
       <div>
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label= {<Link to="/"> BookSnippetr </Link> }/>
+          <FlatButton label= {<Link to="/" style = {STYLES.linkstyle} > BookSnippetr </Link> }/>
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <IconMenu
@@ -45,7 +45,7 @@ export default class Login extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText= { <Link to="/register"> Register </Link> }  />
+            <MenuItem primaryText= { <Link to="/register" style = {STYLES.linkstyle} > Register </Link> } />
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>
@@ -70,6 +70,10 @@ const STYLES = {
   	left: '40%',
   	right: 'auto',
   	top: '12em'
+  },
+  linkstyle: {
+    color: '#282828',
+    textDecoration : 'none'
   }
 };
 

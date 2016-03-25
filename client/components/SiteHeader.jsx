@@ -37,7 +37,7 @@ export default class SiteHeader extends Component {
     return (
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label="BookSnippetr" />
+          <FlatButton label= {<Link to="/" style = {STYLES.linkstyle} > BookSnippetr </Link> }/>
           <DropDownMenu value={this.state.value} onChange={this.handleChange} style={menuStyle} >
             <MenuItem value={1} primaryText="Sort by Hot" style={menuStyle} />
             <MenuItem value={2} primaryText="Sort by New" style={menuStyle} />
@@ -53,8 +53,8 @@ export default class SiteHeader extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText= { <Link to="/login"> Login </Link> } />
-            <MenuItem primaryText= { <Link to="/register"> Register </Link> } />
+            <MenuItem primaryText= { <Link to="/login"  style = {STYLES.linkstyle} > Login </Link> } />
+            <MenuItem primaryText= { <Link to="/register" style = {STYLES.linkstyle} > Register </Link> } />
           </IconMenu>
           <ToolbarSeparator />
           <RaisedButton label="Add snippet" primary={true} onClick={this.props.addSnippet} />
@@ -67,6 +67,10 @@ export default class SiteHeader extends Component {
 const STYLES = {
   toolbar: {
     width: '100%'
+  },
+  linkstyle: {
+    color: '#282828',
+    textDecoration : 'none'
   }
 };
 

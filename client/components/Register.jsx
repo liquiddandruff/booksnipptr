@@ -35,7 +35,7 @@ export default class Register extends Component {
       <div>
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label="BookSnippetr" />
+          <FlatButton label= {<Link to="/" style = {STYLES.linkstyle} > BookSnippetr </Link> }/>
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <IconMenu
@@ -45,7 +45,7 @@ export default class Register extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText= { <Link to="/login"> Login </Link> } />
+            <MenuItem primaryText= { <Link to="/login" style = {STYLES.linkstyle} > Login </Link> } />
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>
@@ -73,6 +73,10 @@ const STYLES = {
   	left: '40%',
   	right: 'auto',
   	top: '5em'
+  },
+  linkstyle: {
+    color: '#282828',
+    textDecoration : 'none'
   }
 };
 
