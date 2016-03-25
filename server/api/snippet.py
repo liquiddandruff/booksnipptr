@@ -50,18 +50,18 @@ class SnippetLikeAPI(Resource):
 	@staticmethod
 	def recordLike(snippetID, userID):
         #increment snippet likes
-		snippet_to_update = db.session.query(Post).filter(Post.uuid == snippetID).first()
-		snippet_to_update.likes = snippet_to_update.likes + 1
+        snippet_to_update = db.session.query(Post).filter(Post.uuid == snippetID).first()
+        snippet_to_update.likes = snippet_to_update.likes + 1
 
-		#associate user that liked post with the post's attributes
-		user_to_update = db.session.query(User).filter(User.uuid == userID).first()
-		for stag in snippet_to_update.tags:
-			for utag in user_to_update.tags:
-				if stag == utag:
-					break
-				elif utag == user_to_update.tags.pop():
-				#stag not found in user_to_update.tags, append stag to user's tags
-					user_to_update.tags.append(stag)
+        #associate user that liked post with the post's attributes
+        user_to_update = db.session.query(User).filter(User.uuid == userID).first()
+        for stag in snippet_to_update.tags:
+            for utag in user_to_update.tags:
+                if stag == utag:
+                    break
+                elif utag == user_to_update.tags.pop():
+                    #stag not found in user_to_update.tags, append stag to user's tags
+                    user_to_update.tags.append(stag)
 
-		#commit changes
-		db.session.commit()
+        #commit changes
+        db.session.commit()
