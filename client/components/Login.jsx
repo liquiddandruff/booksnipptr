@@ -14,8 +14,10 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 import DragIcon from 'material-ui/lib/svg-icons/editor/drag-handle';
 import FlatButton from 'material-ui/lib/flat-button';
 
+import TextField from 'material-ui/lib/text-field';
 
-export default class SiteHeader extends Component {
+
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {value: 2};
@@ -30,15 +32,10 @@ export default class SiteHeader extends Component {
   render() {
     const { classes } = this.props.sheet;
     return (
+      <div>
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
           <FlatButton label="BookSnippetr" />
-          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={1} primaryText="Hot" />
-            <MenuItem value={2} primaryText="Newssssss" />
-            <MenuItem value={3} primaryText="Rising" />
-            <MenuItem value={4} primaryText="Top" />
-          </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <IconMenu
@@ -48,13 +45,19 @@ export default class SiteHeader extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText="Login" onClick={'/login'}/>
+            <MenuItem primaryText="Login"/>
             <MenuItem primaryText="Register" />
           </IconMenu>
-          <ToolbarSeparator />
-          <RaisedButton label="Create snippet" primary={true} />
         </ToolbarGroup>
       </Toolbar>
+      <form>
+
+      <TextField className = {classes.login} floatingLabelText = "Username" hintText = "Enter Username"/>
+      <br></br>
+      <TextField className = {classes.login} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
+      <FlatButton className = {classes.login} label = "Login" secondary = {true}/>
+      </form>
+      </div>
     )
   }
 }
@@ -62,7 +65,12 @@ export default class SiteHeader extends Component {
 const STYLES = {
   toolbar: {
     width: '100%'
+  },
+  login: {
+  	left: '40%',
+  	right: 'auto',
+  	top: '12em'
   }
 };
 
-export default useSheet(SiteHeader, STYLES)
+export default useSheet(Login, STYLES)
