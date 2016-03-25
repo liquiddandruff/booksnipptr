@@ -3,7 +3,7 @@ import 'babel-polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, hashHistory, Link } from 'react-router';
 import jss from 'jss';
 import jssVendorPrefixer from 'jss-vendor-prefixer';
 import jssPx from 'jss-px';
@@ -39,8 +39,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={Index}/>
-      <Route path="/lol" component={Index}/>
-      <Route path="/login" component={LoginPage}/>
+      <Route path="lol" component={Index}/>
+      <Route path="login" component={LoginPage}/>
     </Router>
   </Provider>,
   document.getElementById('root')

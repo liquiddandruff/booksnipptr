@@ -15,7 +15,7 @@ import DragIcon from 'material-ui/lib/svg-icons/editor/drag-handle';
 import FlatButton from 'material-ui/lib/flat-button';
 
 
-export default class SiteHeader extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {value: 2};
@@ -33,12 +33,6 @@ export default class SiteHeader extends Component {
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
           <FlatButton label="BookSnippetr" />
-          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={1} primaryText="Hot" />
-            <MenuItem value={2} primaryText="Newssssss" />
-            <MenuItem value={3} primaryText="Rising" />
-            <MenuItem value={4} primaryText="Top" />
-          </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <IconMenu
@@ -48,13 +42,12 @@ export default class SiteHeader extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText="Login" onClick={'/login'}/>
+            <MenuItem primaryText="Login" />
             <MenuItem primaryText="Register" />
           </IconMenu>
-          <ToolbarSeparator />
-          <RaisedButton label="Create snippet" primary={true} />
         </ToolbarGroup>
       </Toolbar>
+
     )
   }
 }
@@ -65,4 +58,4 @@ const STYLES = {
   }
 };
 
-export default useSheet(SiteHeader, STYLES)
+export default useSheet(Login, STYLES)
