@@ -16,7 +16,6 @@ import FlatButton from 'material-ui/lib/flat-button';
 
 import TextField from 'material-ui/lib/text-field';
 
-
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +44,7 @@ export default class Login extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText="Login"/>
+            <MenuItem primaryText="Login" />
             <MenuItem primaryText="Register" />
           </IconMenu>
         </ToolbarGroup>
