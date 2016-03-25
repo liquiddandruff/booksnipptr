@@ -10,6 +10,7 @@ db = SQLAlchemy()
 
 def create_app():
     from api.kittens import kittens_api
+    from api.snippet import snippet_api
     from views.index import index_view
 
     app = Flask(__name__)
@@ -17,6 +18,7 @@ def create_app():
     app.config.from_object('config.Default')
 
     app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
+    app.register_blueprint(snippet_api.blueprint, url_prefix='/api')
     app.register_blueprint(index_view)
 
     db.init_app(app)

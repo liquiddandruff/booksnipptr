@@ -3,7 +3,7 @@ import 'babel-polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, hashHistory, Link } from 'react-router';
 import jss from 'jss';
 import jssVendorPrefixer from 'jss-vendor-prefixer';
 import jssPx from 'jss-px';
@@ -16,6 +16,8 @@ import createLogger from 'redux-logger';
 import promise from 'redux-promise';
 
 import Index from './pages/Index';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import reducers from './reducers';
 
 // needed for some material-ui components; will not be needed in react v1.0
@@ -38,7 +40,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={Index}/>
-      <Route path="/lol" component={Index}/>
+      <Route path="lol" component={Index}/>
+      <Route path="login" component={LoginPage}/>
+      <Route path="register" component={RegisterPage}/>
     </Router>
   </Provider>,
   document.getElementById('root')

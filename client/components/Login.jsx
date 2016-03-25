@@ -1,7 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router';
-import { addSnippet } from '../actions/snippets';
-import { connect } from 'react-redux';
 import useSheet from 'react-jss';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
@@ -17,13 +15,12 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 import DragIcon from 'material-ui/lib/svg-icons/editor/drag-handle';
 import FlatButton from 'material-ui/lib/flat-button';
 
-const menuStyle = {
-  textTransform: 'uppercase'
-};
-export default class SiteHeader extends Component {
+import TextField from 'material-ui/lib/text-field';
+
+export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: 1};
+    this.state = {value: 2};
   }
 
   handleChange = (event, index, value) => {
@@ -35,15 +32,10 @@ export default class SiteHeader extends Component {
   render() {
     const { classes } = this.props.sheet;
     return (
+      <div>
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label="BookSnippetr" />
-          <DropDownMenu value={this.state.value} onChange={this.handleChange} style={menuStyle} >
-            <MenuItem value={1} primaryText="Sort by Hot" style={menuStyle} />
-            <MenuItem value={2} primaryText="Sort by New" style={menuStyle} />
-            <MenuItem value={3} primaryText="Sort by Rising" style={menuStyle} />
-            <MenuItem value={4} primaryText="Sort by Top" style={menuStyle} />
-          </DropDownMenu>
+          <FlatButton label= {<Link to="/"> BookSnippetr </Link> }/>
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <IconMenu
@@ -53,26 +45,32 @@ export default class SiteHeader extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText= { <Link to="/login"> Login </Link> } />
-            <MenuItem primaryText= { <Link to="/register"> Register </Link> } />
+            <MenuItem primaryText= { <Link to="/register"> Register </Link> }  />
           </IconMenu>
-          <ToolbarSeparator />
-          <RaisedButton label="Add snippet" primary={true} onClick={this.props.addSnippet} />
         </ToolbarGroup>
       </Toolbar>
+      <form>
+
+      <TextField className = {classes.login} floatingLabelText = "Username" hintText = "Enter Username"/>
+      <br></br>
+      <TextField className = {classes.login} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
+      <FlatButton className = {classes.login} label = "Login" secondary = {true}/>
+      </form>
+      </div>
     )
   }
 }
 
 const STYLES = {
   toolbar: {
-    width: '100%'
+    width: '100%',
+    style: 'none'
+  },
+  login: {
+  	left: '40%',
+  	right: 'auto',
+  	top: '12em'
   }
 };
 
-export default connect(
-  state => ({}),
-  { addSnippet }
-)(
-  useSheet(SiteHeader, STYLES)
-);
+export default useSheet(Login, STYLES)
