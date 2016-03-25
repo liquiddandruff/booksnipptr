@@ -18,6 +18,7 @@ def create_app():
     app.config.from_object('config.Default')
 
     app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
+    app.register_blueprint(snippet_api.blueprint, url_prefix='/api')
     app.register_blueprint(index_view)
 
     db.init_app(app)
