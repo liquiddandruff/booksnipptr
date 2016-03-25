@@ -1,9 +1,7 @@
 #todo: switch db from sqlite3 to postgres
 #todo: discuss changing userID field to uuid field for consitency
 
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from app import db
 
 from datetime import datetime, timedelta
 from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey
@@ -11,18 +9,18 @@ from sqlalchemy.orm import relationship, backref
 
 #Our two mappings: tags <-> posts and tags <-> users
 
-tags_posts = Table('tag_post', Base.metadata,
+tags_posts = Table('tag_post', db.Model.metadata,
     Column('tag_id', Integer, ForeignKey('tags.id')),
     Column('post_id', Integer, ForeignKey('posts.id'))
 )
 
 
-tags_users = Table('tag_user', Base.metadata,
+tags_users = Table('tag_user', db.Model.metadata,
     Column('tag_id', Integer, ForeignKey('tags.id')),
     Column('user_id', Integer, ForeignKey('users.id'))
 )
 
-class User(Base):
+class User(db.Model):
 
     __tablename__ = 'users'
 
@@ -47,7 +45,7 @@ class User(Base):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
         return "<Post (uuid='%s', created_at=%s)>" % (self.uuid, str_created_at)
 
-class Post(Base):
+class Post(db.Model):
 
     __tablename__ = 'posts'
 
@@ -66,7 +64,7 @@ class Post(Base):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
         return "<Post (uuid='%s', likes='%d', created_at=%s)>" % (self.uuid, self.likes, str_created_at)
 
-class Tag(Base):
+class Tag(db.Model):
 
     __tablename__ = 'tags'
 
@@ -76,7 +74,7 @@ class Tag(Base):
     def __repr__(self):
         return "<Tag (name='%s')>" % (self.name)
 
-class Comment(Base):
+class Comment(db.Model):
 
     __tablename__ = 'comments'
 

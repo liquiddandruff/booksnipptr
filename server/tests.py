@@ -1,5 +1,6 @@
-from models import Base, Tag, User, Post, Comment
-from generateReccomendations import generateReccomendations
+from app import db
+from models import Tag, User, Post, Comment
+from api import generateReccomendations
 from datetime import datetime, timedelta
 
 ##############
@@ -32,7 +33,7 @@ engine = create_engine('sqlite:///:memory:', echo=False)
 # Create the Schema
 #----------------------------
 
-Base.metadata.create_all(engine)
+db.Model.metadata.create_all(engine)
 
 #----------------------------
 # Create the Session class 
