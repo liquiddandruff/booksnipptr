@@ -14,6 +14,8 @@ Prerequisites:
 - PostgreSQL (http://www.postgresql.org/download/)
 - NPM (https://docs.npmjs.com/getting-started/installing-node)
 
+-install packages libpq-dev and python-dev
+
 Clone repository:
 
 ```
@@ -60,8 +62,19 @@ Finally, start local server:
 
 ```
 npm run start
+
+
 ```
-Open another terminal and run:
+
+Open another terminal:
+
+```
+python server/entry.py
+
+```
+Access the website at:
+
+http://localhost:3000/
 
 ```
 python server/entry.py
