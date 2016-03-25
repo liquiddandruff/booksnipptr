@@ -7,6 +7,9 @@ tag_romance = Tag(name='romance')
 tag_poetry = Tag(name='poetry')
 tag_horror = Tag(name='horror')
 tag_classic_lit = Tag(name='classic-lit')
+tag_adventure_fic = Tag(name='adventure-fic')
+tag_novel = Tag(name='novel')
+tag_tragedy = Tag(name='tragedy')
 
 post_lotr = Post(content = "It's a dangerous business, Frodo, going out your door.  \
     You step onto the road, and if you don't keep your feet, there's no knowing where   \
@@ -22,11 +25,22 @@ post_outlander = Post(content = "Don't be afraid. There's the two of us now. - D
     tags=[tag_romance, tag_scifi])
 
 post_ringWorld = Post(content = "The gods do not protect fools. Fools are protected by more capable fools. - Larry Niven, Ringworld",
-                      tags=[tag_scifi])
+    tags=[tag_scifi])
 
-post_snowy = Post(
-    content = "The woods are lovely, dark and deep,\nBut I have promises to keep,\nAnd miles to go before I sleep,\nAnd miles to go before I sleep.", 
-               tags=[tag_classic-lit, tag_poetry])
+post_snowy = Post(content = "The woods are lovely, dark and deep,\nBut I have promises to keep,\nAnd miles to go before I sleep,\nAnd miles to go before I sleep.", 
+    tags=[tag_classic-lit, tag_poetry])
+
+post_mobydick = Post(content = "I know not all that may be coming, but be it what it will, I'll go to it laughing - Herman Melville, Moby Dick",
+    tags=[tag_adventure_fic])
+
+post_thegreatgatsby = Post(content = "So we beat on, boats aganist the current, borne back ceaselessly into the past. - F.Scott Fitzgerald, The Great Gatsby",
+    tags=[novel])
+
+post_thealchemist = Post(content = "It's the possibility of having a dream come true that makes life interesting. - Paulo Coelho, The Alchemist",
+    tags=[adventure_fic])
+
+post_hamlet = Post(content = "To be, or not to be: that is the question. - William Shakespeare, Hamlet",
+    tags=[tragedy], [tag_classic_lit])
 
 user_zhilinz = User(uuid="Zhilinz", tags=[tag_scifi, tag_fantasy, tag_horror])
 
