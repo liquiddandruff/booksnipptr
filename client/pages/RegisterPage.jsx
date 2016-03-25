@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 
 import Header from '../components/SiteHeader';
 import Kittens from '../components/Kittens';
+import Register from '../components/Register';
 
 import { requestKittens } from '../actions/kittens';
 
 
-export default class Index extends Component {
+export default class RegisterPage extends Component {
   componentDidMount() {
     this.props.requestKittens();
   }
@@ -17,16 +18,16 @@ export default class Index extends Component {
     const { sheet } = this.props;
 
     return (
-      <div className={sheet.classes.index}>
+      <div className={sheet.classes.register}>
         <Header />
-        <Kittens />
+        <Register />
       </div>
     );
   }
 }
 
 const STYLES = {
-  index: {
+  register: {
     width: '100%',
     minHeight: '100%',
     display: 'flex',
@@ -41,5 +42,5 @@ export default connect(
   () => ({}),
   { requestKittens }
 )(
-  useSheet(Index, STYLES)
+  useSheet(Register, STYLES)
 );
