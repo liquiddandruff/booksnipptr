@@ -16,6 +16,7 @@ import createLogger from 'redux-logger';
 import promise from 'redux-promise';
 
 import Index from './pages/Index';
+import LoginPage from './pages/LoginPage';
 import reducers from './reducers';
 
 // needed for some material-ui components; will not be needed in react v1.0
@@ -39,6 +40,7 @@ ReactDOM.render(
     <Router history={hashHistory}>
       <Route path="/" component={Index}/>
       <Route path="/lol" component={Index}/>
+      <Route path="/login" component={LoginPage}/>
     </Router>
   </Provider>,
   document.getElementById('root')

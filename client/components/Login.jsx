@@ -35,7 +35,7 @@ export default class SiteHeader extends Component {
           <FlatButton label="BookSnippetr" />
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
             <MenuItem value={1} primaryText="Hot" />
-            <MenuItem value={2} primaryText="Newsssss" />
+            <MenuItem value={2} primaryText="Newssssss" />
             <MenuItem value={3} primaryText="Rising" />
             <MenuItem value={4} primaryText="Top" />
           </DropDownMenu>
@@ -48,7 +48,7 @@ export default class SiteHeader extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText="Login" onClick={<link href="http://www.google.com/">} />
+            <MenuItem primaryText="Login" onClick={'/login'}/>
             <MenuItem primaryText="Register" />
           </IconMenu>
           <ToolbarSeparator />
