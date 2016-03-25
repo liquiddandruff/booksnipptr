@@ -14,7 +14,9 @@ Prerequisites:
 - PostgreSQL (http://www.postgresql.org/download/)
 - NPM (https://docs.npmjs.com/getting-started/installing-node)
 
--install packages libpq-dev and python-dev
+```bash
+sudo apt-get install libpq-dev python-dev
+```
 
 Clone repository:
 
@@ -46,43 +48,52 @@ Copy `.env.example` config file to `.env`:
 cp .env.example .env
 ```
 
-Start PostgreSQL service if needed:
-
-```
-pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
-```
-
 Create database tables:
 
 ```
 python server/initdb.py
 ```
 
-Finally, start local server:
+Start frontend webpack server:
 
 ```
 npm run start
 
-
 ```
 
-Open another terminal:
-
-```
-python server/entry.py
-
-```
-Access the website at:
-
-http://localhost:3000/
+Open another terminal and start the backend python server:
 
 ```
 python server/entry.py
+
 ```
-Access the website at:
+
+Access the app at:
+
 ```
 localhost:3000/
 ```
+
+## Testing the API
+
+Make a new post
+
+```
+curl -X post localhost:5000/api/snippet -d "author=steven&content=random post content"
+```
+
+Like post with id 1
+```
+curl -X post localhost:5000/api/snippet/1/like
+
+```
+
+View posts
+```
+curl localhost:5000/api/snippet
+
+```
+
 ## What do we have here?
 
 - Simple Flask **API**, powered with [**Flask-RESTful**](https://flask-restful.readthedocs.org/en/0.3.3/), [**SQLAlchemy**](http://www.sqlalchemy.org/) and [**PostgreSQL**](http://www.postgresql.org/)

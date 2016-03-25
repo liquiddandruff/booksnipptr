@@ -1,38 +1,48 @@
 from flask import Blueprint
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, reqparse, abort
 from models import Post, User
 from app import db
+from app import Session
 
 snippet_api = Api(Blueprint('snippet_api', __name__))
 
 @snippet_api.resource('/snippet')
 class SnippetAPI(Resource):
-    @staticmethod
-    def get():
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('author', dest='author')
+        self.parser.add_argument('content', dest='content')
+
+    def get(self):
         posts = Post.query
         return [{
-            'uuid': post.uuid,
+            'id': post.id,
+            'content': post.content,
             'likes': post.likes,
-            'created_at': post.created_at,
-            'tags': post.tags,
-            'comments': post.comments
-        }for post in posts]
+            'created_at': post.created_at.isoformat() + 'Z'
+            #'tags': post.tags,
+            #'comments': post.comments
+        } for post in posts]
 
-    @staticmethod
-    def post():
-        new_snippet = Post()
-        db.session.add(new_snippet)
-        db.session.commit()
+    def post(self):
+        args = self.parser.parse_args()
+        print("New snippet:", args, args.author)
+
+        session = Session()
+        new_snippet = Post(content=args.content)
+        session.add(new_snippet)
+        session.commit()
 
         return {
             'id': new_snippet.id,
-            'uuid': new_snippet.uuid,
-            'user_id': new_snippet.user_id,
+            'content': new_snippet.content,
+            #'user_id': new_snippet.user_id,
             'likes': new_snippet.likes,
-            'created_at': new_snippet.created_at,
-            'tags': new_snippet.tags,
-            'comments': new_snippet.comments
+            'created_at': new_snippet.created_at.isoformat() + 'Z'
+            #'tags': new_snippet.tags,
+            #'comments': new_snippet.comments
         }
+
 
 # @snippet_api.resource('/snippet/<int:snippet_id>')
 # class SnippetAPI(Resource):
@@ -47,23 +57,25 @@ class SnippetAPI(Resource):
 
 @snippet_api.resource('/snippet/<int:snippet_id>/like')
 class SnippetLikeAPI(Resource):
-    @staticmethod
-    def recordLike(snippetID, userID):
+    def post(self, snippet_id):
+        session = Session()
+
         #increment snippet likes
-        snippet_to_update = db.session.query(Post).filter(Post.uuid == snippetID).first()
-        #store snippet likes in temp variable
-        snippet_to_update_likes = snippet_to_update.likes
-        snippet_to_update_likes = snippet_to_update_likes + 1
+        snippet_to_update = session.query(Post).filter_by(id=snippet_id).first()
+        snippet_to_update.likes = snippet_to_update.likes + 1
+        session.add(snippet_to_update)
+
+        print("Updated likes for", snippet_to_update)
 
         #associate user that liked post with the post's attributes
-        user_to_update = db.session.query(User).filter(User.uuid == userID).first()
-        for stag in snippet_to_update.tags:
-            for utag in user_to_update.tags:
-                if stag == utag:
-                    break
-                elif utag == user_to_update.tags.pop():
-                    #stag not found in user_to_update.tags, append stag to user's tags
-                    user_to_update.tags.append(stag)
+        #user_to_update = session.query(User).filter(User.uuid == userID).first()
+        #for stag in snippet_to_update.tags:
+            #for utag in user_to_update.tags:
+                #if stag == utag:
+                    #break
+                #elif utag == user_to_update.tags.pop():
+                    ##stag not found in user_to_update.tags, append stag to user's tags
+                    #user_to_update.tags.append(stag)
 
         #commit changes
-        db.session.commit()
+        session.commit()

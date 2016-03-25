@@ -69,7 +69,7 @@ class Post(db.Model):
 
     def __repr__(self):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
-        return "<Post (uuid='%s', likes='%d', created_at=%s)>" % (self.uuid, self.likes, str_created_at)
+        return "<Post (id='%s', likes='%d', created_at=%s)>" % (self.id, self.likes, str_created_at)
 
 class Tag(db.Model):
 
