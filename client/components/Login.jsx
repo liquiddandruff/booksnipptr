@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router';
+import { loginUser } from '../actions/login';
 import useSheet from 'react-jss';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
@@ -35,7 +36,7 @@ export default class Login extends Component {
       <div>
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label= {<Link to="/"> BookSnippetr </Link> }/>
+          <FlatButton label= {<Link to="/" style = {STYLES.linkstyle} > BookSnippetr </Link> }/>
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <IconMenu
@@ -45,7 +46,7 @@ export default class Login extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText= { <Link to="/register"> Register </Link> }  />
+            <MenuItem primaryText= { <Link to="/register" style = {STYLES.linkstyle} > Register </Link> } />
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>
@@ -54,7 +55,7 @@ export default class Login extends Component {
       <TextField className = {classes.login} floatingLabelText = "Username" hintText = "Enter Username"/>
       <br></br>
       <TextField className = {classes.login} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
-      <FlatButton className = {classes.login} label = "Login" secondary = {true}/>
+      <FlatButton className = {classes.login} label = "Login" secondary = {true}/ onClick = {this.props.loginUser} >
       </form>
       </div>
     )
@@ -70,7 +71,16 @@ const STYLES = {
   	left: '40%',
   	right: 'auto',
   	top: '12em'
+  },
+  linkstyle: {
+    color: '#282828',
+    textDecoration : 'none'
   }
 };
 
-export default useSheet(Login, STYLES)
+export default connect(
+  state => ({}),
+  { loginUser }
+)(
+  useSheet(Login, STYLES)
+);

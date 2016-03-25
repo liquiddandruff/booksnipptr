@@ -6,6 +6,7 @@ from app import db
 from datetime import datetime, timedelta
 from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, backref
+from werkzeug import generate_password_hash, check_password_hash
 
 #Our two mappings: tags <-> posts and tags <-> users
 
@@ -40,6 +41,12 @@ class User(db.Model):
     #The following creates a many-one relationship between comments and users.
     #A user can have many comments, a comment can only have one user
     comments    =   relationship('Comment', backref='user', lazy='dynamic')
+
+    def set_password(self, password):
+        self.pwdhash = generate_password_hash(password)
+   
+    def check_password(self, password):
+        return check_password_hash(self.pwdhash, password)
 
     def __repr__(self):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
