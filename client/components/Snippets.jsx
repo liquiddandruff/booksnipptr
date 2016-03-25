@@ -1,50 +1,43 @@
 import React from 'react';
-import Kitten from './Kitten';
+import Snippet from './Snippet';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { addKitten, deleteKitten } from '../actions/kittens';
+import { addSnippet, deleteSnippet } from '../actions/snippets';
 
-const Snippets = ({ sheet, kittens, addKitten, deleteKitten }) =>
+import RaisedButton from 'material-ui/lib/raised-button';
+import Paper from 'material-ui/lib/paper';
+
+const Snippets = ({ sheet, kittens, addKitten, deleteKitten, snippets, addSnippet }) =>
   <div className={sheet.classes.kittens}>
-    {!!kittens.length &&
-      <h1>Look, there are kittens in this basket:</h1>
-    }
+    <Paper className={sheet.classes.paper}>
+      {!!snippets.length &&
+        <h1>There are {snippets.length} actual snippets</h1>
+      }
+      {!snippets.length &&
+        <h1>There are no actual snippets</h1>
+      }
+      {!!kittens.length &&
+        <h1>There are {kittens.length} snippets</h1>
+      }
+      {!kittens.length &&
+        <h1>There are no snippets</h1>
+      }
+      <RaisedButton label="Add snippet" primary={true} onClick={addSnippet} />
+    </Paper>
     {!!kittens.length &&
       <div className={sheet.classes.basket}>
         {kittens.map(kitten => (
-          <Kitten key={`kitten-${kitten.id}`}
-                  kitten={kitten}
+          <Snippet key={`kitten-${kitten.id}`}
+                  snippet={kitten}
                   onDeleteKitten={deleteKitten} />
         ))}
       </div>
     }
-    {!kittens.length &&
-      <h1>This backet has no kittens in it :(</h1>
-    }
-    <a className={sheet.classes.button} onClick={addKitten}>
-      Put another kitten into basket
-    </a>
-    <div className={sheet.classes.credits}>
-      {'Icons made by '}
-      <a className={sheet.classes.link}
-         href='http://www.flaticon.com/authors/freepik'
-         title='Freepik'>
-        Freepik
-      </a>
-      {' from '}
-      <a className={sheet.classes.link}
-         href='http://www.flaticon.com'
-         title='Flaticon'>
-        www.flaticon.com
-      </a>
-      {' is licensed by '}
-      <a className={sheet.classes.link}
-         href='http://creativecommons.org/licenses/by/3.0/'
-         title='Creative Commons BY 3.0'>
-        CC BY 3.0
-      </a>
-    </div>
   </div>;
+
+console.log("here we go");
+console.log(Snippets);
 
 const STYLES = {
   credits: {
@@ -69,24 +62,19 @@ const STYLES = {
     width: '60%'
   },
 
-  button: {
-    padding: '1rem 1.5rem',
-    background: '#FFAAAA',
-    '&:hover': {
-      background: '#FFBBBB'
-    },
-    border: 0,
-    borderRadius: '0.5rem',
-    cursor: 'pointer',
-    margin: '2rem',
+  paper: {
+    height: 300,
+    width: '100%',
+    margin: 0,
     textAlign: 'center',
-    userSelect: 'none'
+    display: 'inline-block',
   }
+
 };
 
 export default connect(
-  state => ({ kittens: state.kittens }),
-  { addKitten, deleteKitten }
+  state => ({ kittens: state.kittens, snippets: state.snippets }),
+  { addKitten, deleteKitten, addSnippet }
 )(
   useSheet(Snippets, STYLES)
 );

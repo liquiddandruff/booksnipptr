@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
+import { addSnippet } from '../actions/snippets';
+import { connect } from 'react-redux';
 import useSheet from 'react-jss';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
@@ -14,11 +16,13 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 import DragIcon from 'material-ui/lib/svg-icons/editor/drag-handle';
 import FlatButton from 'material-ui/lib/flat-button';
 
-
+const menuStyle = {
+  textTransform: 'uppercase'
+};
 export default class SiteHeader extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: 2};
+    this.state = {value: 1};
   }
 
   handleChange = (event, index, value) => {
@@ -33,11 +37,11 @@ export default class SiteHeader extends Component {
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
           <FlatButton label="BookSnippetr" />
-          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={1} primaryText="Hot" />
-            <MenuItem value={2} primaryText="New" />
-            <MenuItem value={3} primaryText="Rising" />
-            <MenuItem value={4} primaryText="Top" />
+          <DropDownMenu value={this.state.value} onChange={this.handleChange} style={menuStyle} >
+            <MenuItem value={1} primaryText="Sort by Hot" style={menuStyle} />
+            <MenuItem value={2} primaryText="Sort by New" style={menuStyle} />
+            <MenuItem value={3} primaryText="Sort by Rising" style={menuStyle} />
+            <MenuItem value={4} primaryText="Sort by Top" style={menuStyle} />
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup float="right">
@@ -52,7 +56,7 @@ export default class SiteHeader extends Component {
             <MenuItem primaryText="Register" />
           </IconMenu>
           <ToolbarSeparator />
-          <RaisedButton label="Create snippet" primary={true} />
+          <RaisedButton label="Add snippet" primary={true} onClick={this.props.addSnippet} />
         </ToolbarGroup>
       </Toolbar>
     )
@@ -65,4 +69,9 @@ const STYLES = {
   }
 };
 
-export default useSheet(SiteHeader, STYLES)
+export default connect(
+  state => ({}),
+  { addSnippet }
+)(
+  useSheet(SiteHeader, STYLES)
+);

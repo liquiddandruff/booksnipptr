@@ -3,13 +3,15 @@ import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
 import Header from '../components/SiteHeader';
-import Kittens from '../components/Kittens';
+import Snippets from '../components/Snippets';
 import { requestKittens } from '../actions/kittens';
+import { requestSnippets } from '../actions/snippets';
 
 
 export default class Index extends Component {
   componentDidMount() {
     this.props.requestKittens();
+    this.props.requestSnippets();
   }
 
   render() {
@@ -18,7 +20,7 @@ export default class Index extends Component {
     return (
       <div className={sheet.classes.index}>
         <Header />
-        <Kittens />
+        <Snippets />
       </div>
     );
   }
@@ -31,14 +33,13 @@ const STYLES = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    color: '#660000'
+    backgroundColor: '#FFFFFF'
   }
 };
 
 export default connect(
   () => ({}),
-  { requestKittens }
+  { requestKittens, requestSnippets }
 )(
   useSheet(Index, STYLES)
 );
