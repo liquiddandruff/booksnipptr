@@ -52,18 +52,18 @@ tag_animal = Tag(name='animal')
 
 comment_rhino = Comment(text='Rhinoceros, often abbreviated as rhino, is a group of five extant species of odd-toed ungulates in the family Rhinocerotidae.')
 
-post_car = Post(uuid='uuid_car', \
+post_car = Post(content='This is a post about a car.', \
     tags=[tag_car, tag_cool], \
     created_at=(datetime.utcnow() - timedelta(days=1)))
 
-post_another_car = Post(uuid='uuid_anothercar', \
+post_another_car = Post(content='This is a post about another car.', \
     tags=[tag_car])
 
-post_rhino = Post(uuid='uuid_rhino', \
+post_rhino = Post(content='Rhinos have a big horn on their face.', \
     tags=[tag_animal], \
     comments=[comment_rhino])
 
-user_joe = User(uuid='Joe blow from cokamoe', userID='Redudant copy of joe blow...', tags=[tag_car, tag_cool, tag_animal])
+user_joe = User(uuid='Joe blow from cokamoe', tags=[tag_car, tag_cool, tag_animal])
 
 # Create a new Session and add the posts:
 session = Session()
@@ -89,7 +89,7 @@ session.commit()
 # Update a Record
 #----------------------------
 
-post_to_update = session.query(Post).filter(Post.uuid == 'uuid_rhino').first()
+post_to_update = session.query(Post).filter(Post.id == 1).first()
 post_to_update.likes = post_to_update.likes + 1
 session.commit()
 
@@ -124,8 +124,8 @@ print (postList)
 
 
 #Test reccomendation function
-print ("glorious reccomendations:\n")
-print (generateReccomendations(session.query(Post), session.query(User).first(), 2))
+#print ("glorious reccomendations:\n")
+#print (generateReccomendations(session.query(Post), session.query(User).first(), 2))
 
 # Get a list of tags:
 
