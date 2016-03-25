@@ -65,7 +65,3 @@ class SnippetLikeAPI(Resource):
 
         #commit changes
         db.session.commit()
-
-                    
-
-        db.session.commit()
