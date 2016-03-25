@@ -8,6 +8,7 @@ Base = declarative_base()
 from datetime import datetime, timedelta
 from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, backref
+from werkzeug import generate_password_hash, check_password_hash
 
 #Our two mappings: tags <-> posts and tags <-> users
 
@@ -46,6 +47,12 @@ class User(Base):
     def __repr__(self):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
         return "<Post (uuid='%s', created_at=%s)>" % (self.uuid, str_created_at)
+
+    def set_password(self, password):
+        self.pwdhash = generate_password_hash(password)
+   
+    def check_password(self, password):
+        return check_password_hash(self.pwdhash, password)
 
 class Post(Base):
 
