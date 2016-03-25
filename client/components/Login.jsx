@@ -45,7 +45,7 @@ export default class Login extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText= { <Link to="/register"> Register </Link> } />
+            <MenuItem primaryText= { <Link to="/register"> Register </Link> }  />
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>

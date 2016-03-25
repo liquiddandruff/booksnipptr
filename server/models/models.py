@@ -53,9 +53,9 @@ class Post(Base):
 
     id          =   Column(Integer, primary_key=True)
     user_id     =   Column(Integer, ForeignKey('users.id'))
-    content     =   Column(String((1000), nullable=False))
-    author      =   Column(String(100), nullable=True))
-    title       =   Column(String(100), nullable=True))
+    content     =   Column(String(1000), nullable=False)
+    author      =   Column(String(100), nullable=True)
+    title       =   Column(String(100), nullable=True)
     likes       =   Column(Integer, default=0)
     created_at  =   Column(DateTime, default=datetime.utcnow)
     tags        =   relationship('Tag', secondary=tags_posts, 
