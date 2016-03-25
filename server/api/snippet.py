@@ -33,3 +33,14 @@ class SnippetAPI(Resource):
 			'tags': new_snippet.tags,
 			'comments': new_snippet.comments
 		}
+
+# @snippet_api.resource('/snippet/<int:snippet_id')
+# class SnippetAPI(Resource):
+# 	@staticmethod
+# 	def delete(snippet_id):
+# 		from app import db
+# 		snippet = Post.query.get_or_404(snippet_id)
+# 		db.session.delete(snippet)
+# 		db.session.commit()
+
+# 		return None, 404
