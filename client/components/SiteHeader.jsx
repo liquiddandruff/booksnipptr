@@ -48,7 +48,7 @@ export default class SiteHeader extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText="Loginsssssssss" />
+            <MenuItem primaryText= { <Link to="/login"> Login </Link> } />
             <MenuItem primaryText="Register" />
           </IconMenu>
           <ToolbarSeparator />
