@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router';
+import { loginUser } from '../actions/login';
 import useSheet from 'react-jss';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
@@ -54,7 +55,7 @@ export default class Login extends Component {
       <TextField className = {classes.login} floatingLabelText = "Username" hintText = "Enter Username"/>
       <br></br>
       <TextField className = {classes.login} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
-      <FlatButton className = {classes.login} label = "Login" secondary = {true}/>
+      <FlatButton className = {classes.login} label = "Login" secondary = {true}/ onClick = {this.props.loginUser} >
       </form>
       </div>
     )
@@ -77,4 +78,9 @@ const STYLES = {
   }
 };
 
-export default useSheet(Login, STYLES)
+export default connect(
+  state => ({}),
+  { loginUser }
+)(
+  useSheet(Login, STYLES)
+);
