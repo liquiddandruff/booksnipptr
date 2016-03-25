@@ -50,7 +50,7 @@ end
 
 execute 'app_distribute' do
 	cwd '/home/vagrant/project/'
-	command 'npm run dist'
+	command 'npm run start'
 end
 
 # temporary only

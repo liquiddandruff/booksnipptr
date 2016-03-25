@@ -1,0 +1,10 @@
+Each Snippet will display
+- Title of the book
+- Author(s)
+- Publisher
+- Description (Up to 200 characters)
+- ISBN
+- Average Rating (Likes?)
+- Thumbnail of the book (128x128)
+
+Using list view instead of grid view so it can display more info about each book.
