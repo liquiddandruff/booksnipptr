@@ -30,7 +30,7 @@ class User(Base):
     uuid        =   Column(String(36), unique=True, nullable=False)
 
     #from flask-tech-demo models.py
-    userID      =   Column(String(64), nullable=False) #replace with uuid for consistency?
+    #userID      =   Column(String(64), nullable=False) #replace with uuid for consistency?
     pwdhash     =   Column(String(54), nullable=True) 
     
     created_at  =   Column(DateTime, default=datetime.utcnow)
@@ -52,8 +52,10 @@ class Post(Base):
     __tablename__ = 'posts'
 
     id          =   Column(Integer, primary_key=True)
-    uuid        =   Column(String(36), unique=True, nullable=False)
     user_id     =   Column(Integer, ForeignKey('users.id'))
+    content     =   Column(String((1000), nullable=False))
+    author      =   Column(String(100), nullable=True))
+    title       =   Column(String(100), nullable=True))
     likes       =   Column(Integer, default=0)
     created_at  =   Column(DateTime, default=datetime.utcnow)
     tags        =   relationship('Tag', secondary=tags_posts, 
