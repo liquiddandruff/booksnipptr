@@ -1,36 +1,33 @@
 import React from 'react';
 import Snippet from './Snippet';
+import NewSnippet from './NewSnippet';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { addKitten, deleteKitten } from '../actions/kittens';
-import { addSnippet, deleteSnippet } from '../actions/snippets';
+import { addSnippet, likeSnippet, deleteSnippet } from '../actions/snippets';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Paper from 'material-ui/lib/paper';
 
-const Snippets = ({ sheet, kittens, addKitten, deleteKitten, snippets, addSnippet }) =>
+const Snippets = ({ sheet, deleteKitten, snippets, addSnippet, likeSnippet, deleteSnippet }) =>
   <div className={sheet.classes.kittens}>
     <Paper className={sheet.classes.paper}>
       {!!snippets.length &&
-        <h1>There are {snippets.length} actual snippets</h1>
+        <h1>There are {snippets.length} snippets</h1>
       }
       {!snippets.length &&
-        <h1>There are no actual snippets</h1>
-      }
-      {!!kittens.length &&
-        <h1>There are {kittens.length} snippets</h1>
-      }
-      {!kittens.length &&
         <h1>There are no snippets</h1>
       }
+      <NewSnippet />
       <RaisedButton label="Add snippet" primary={true} onClick={addSnippet} />
     </Paper>
-    {!!kittens.length &&
+    {!!snippets.length &&
       <div className={sheet.classes.basket}>
-        {kittens.map(kitten => (
-          <Snippet key={`kitten-${kitten.id}`}
-                  snippet={kitten}
-                  onDeleteKitten={deleteKitten} />
+        {snippets.map(snippet => (
+          <Snippet key={`snippet-${snippet.id}`}
+                  snippet={snippet}
+                  onSnippetLike={likeSnippet}
+                  onSnippetDelete={deleteSnippet} />
         ))}
       </div>
     }
@@ -63,7 +60,6 @@ const STYLES = {
   },
 
   paper: {
-    height: 300,
     width: '100%',
     margin: 0,
     textAlign: 'center',
@@ -74,7 +70,7 @@ const STYLES = {
 
 export default connect(
   state => ({ kittens: state.kittens, snippets: state.snippets }),
-  { addKitten, deleteKitten, addSnippet }
+  { addKitten, deleteKitten, addSnippet, likeSnippet, deleteSnippet }
 )(
   useSheet(Snippets, STYLES)
 );
