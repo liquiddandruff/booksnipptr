@@ -1,4 +1,4 @@
-from models import User, Post, Tag
+from models import User, Snippet, Tag
 
 ##############
 #REC FUNCTION#
@@ -16,29 +16,29 @@ from models import User, Post, Tag
 #all elements so it makes sense to keep it a list
 
 #possible improvement: do a shallow copy when this function is called (recFunct(posts[:]...). Save making a copy postTagList
-def generateReccomendations(posts, user, numRecsToReturn):
-    if numRecsToReturn > posts.count():
-        numRecToReturn = posts.count()
+def generateReccomendations(snippets, user, numRecsToReturn):
+    if numRecsToReturn > snippets.count():
+        numRecToReturn = snippets.count()
     
     recList = []
     for index in range (0, numRecsToReturn):
-        recList.append([Post(), 0])
+        recList.append([Snippet(), 0])
     
-    for post in posts:
-        userPostSimilarityRating = 0;
-        postTagList = post.tags
+    for snippet in snippets:
+        userSnippetSimilarityRating = 0;
+        snippetTagList = snippet.tags
         for utag in user.tags:
-            for ptag in postTagList:
+            for ptag in snippetTagList:
                 if ptag == utag:
-                    userPostSimilarityRating+= 1
+                    userSnippetSimilarityRating+= 1
                     #Don't rescan matched next iteration
                     postTagList.remove(ptag)
 
         # Check if this post should be included as a reccomendation, replace if neccesary
         for rec in recList:
-            if rec[1] < userPostSimilarityRating:
-                rec[0] = post
-                rec[1] = userPostSimilarityRating
+            if rec[1] < userSnippetSimilarityRating:
+                rec[0] = snippet
+                rec[1] = userSnippetSimilarityRating
                 break
 
     return recList

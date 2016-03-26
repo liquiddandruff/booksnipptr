@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse, abort
-from models import Post, User
+from models import Snippet, User
 from app import db
 from app import Session
 
@@ -16,22 +16,22 @@ class SnippetAPI(Resource):
         self.parser.add_argument('user_id', dest='user_id')
 
     def get(self):
-        posts = Post.query
+        snippets = Snippet.query
         return [{
-            'id': post.id,
-            'content': post.content,
-            'likes': post.likes,
-            'created_at': post.created_at.isoformat() + 'Z'
-            #'tags': post.tags,
-            #'comments': post.comments
-        } for post in posts]
+            'id': snippet.id,
+            'content': snippet.content,
+            'likes': snippet.likes,
+            'created_at': snippet.created_at.isoformat() + 'Z'
+            #'tags': snippet.tags,
+            #'comments': snippet.comments
+        } for snippet in snippets]
 
     def post(self):
         args = self.parser.parse_args()
         print("New snippet:", args, args.author)
 
         session = Session()
-        new_snippet = Post(content=args.content)
+        new_snippet = Snippet(content=args.content)
         session.add(new_snippet)
         session.commit()
 
@@ -52,7 +52,7 @@ class SnippetAPI(Resource):
 #     @staticmethod
 #     def delete(snippet_id):
 #         session = Session()
-#         snippet = session.query(Post).get_or_404(snippet_id)
+#         snippet = session.query(Snippet).get_or_404(snippet_id)
 #         session.delete(snippet)
 #         session.commit()
 #         return None, 404
@@ -63,13 +63,13 @@ class SnippetLikeAPI(Resource):
         session = Session()
 
         #increment snippet likes
-        snippet_to_update = session.query(Post).filter_by(id=snippet_id).first()
+        snippet_to_update = session.query(Snippet).filter_by(id=snippet_id).first()
         snippet_to_update.likes = snippet_to_update.likes + 1
         session.add(snippet_to_update)
 
         print("Updated likes for", snippet_to_update)
 
-        #associate user that liked post with the post's attributes
+        #associate user that liked snippet with the snippet's attributes
         #user_to_update = session.query(User).filter(User.uuid == userID).first()
         #for stag in snippet_to_update.tags:
             #for utag in user_to_update.tags:
@@ -92,7 +92,7 @@ class SnippetLikeAPI(Resource):
         # don't care about action
         session = Session()
         # TODO: get scoped_session.query to use BaseQuery to allow for get_or_404 etc
-        snippet = session.query(Post).get(snippet_id)
+        snippet = session.query(Snippet).get(snippet_id)
         if(snippet == None):
             abort(404)
         session.delete(snippet)
