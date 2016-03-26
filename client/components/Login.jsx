@@ -22,7 +22,20 @@ import TextField from 'material-ui/lib/text-field';
 export default class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      password: ''
+    };
   }
+
+  handleSubmit = () => {
+    console.log("im clicked");
+    var formData = {
+      username: this.refs.username.getValue(),
+      password: this.refs.password.getValue(),
+    };
+    console.log(formData);
+  };
 
   render() {
     const { classes } = this.props.sheet;
@@ -44,13 +57,14 @@ export default class Login extends Component {
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>
-      <form>
 
-      <TextField className = {classes.login} floatingLabelText = "Username" hintText = "Enter Username"/>
-      <br></br>
-      <TextField className = {classes.login} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
-      <FlatButton className = {classes.login} label = "Login" secondary = {true} onClick = {this.props.loginUser} />
+      <form action='' onSubmit={this.handleSubmit}>
+        <TextField className = {classes.login} ref="username" floatingLabelText = "Username" hintText = "Enter Username"/>
+        <br></br>
+        <TextField className = {classes.login} ref="password" floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
+        <FlatButton className = {classes.login} label = "Login" secondary = {true} type="submit" />
       </form>
+
       </div>
     )
   }
