@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router';
 import { loginUser } from '../actions/login';
+import { connect } from 'react-redux';
 import useSheet from 'react-jss';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
@@ -21,13 +22,6 @@ import TextField from 'material-ui/lib/text-field';
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: 2};
-  }
-
-  handleChange = (event, index, value) => {
-    console.log(event, index, value);
-    console.log("setting state: " + {value});
-    this.setState({value});
   }
 
   render() {

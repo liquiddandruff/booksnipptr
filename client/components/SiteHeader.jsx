@@ -55,6 +55,7 @@ export default class SiteHeader extends Component {
           >
             <MenuItem primaryText= { <Link to="/login"  style = {STYLES.linkstyle} > Login </Link> } />
             <MenuItem primaryText= { <Link to="/register" style = {STYLES.linkstyle} > Register </Link> } />
+            <MenuItem primaryText= { <Link to="/recommendations" style = {STYLES.linkstyle} > Recommended Posts </Link> } />
           </IconMenu>
           <ToolbarSeparator />
           <RaisedButton label="Add snippet" primary={true} onClick={this.props.addSnippet} />
