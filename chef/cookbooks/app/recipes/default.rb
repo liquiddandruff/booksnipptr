@@ -45,18 +45,27 @@ execute 'npm_install' do
 	command 'npm install'
 end
 
-execute 'venv_install' do
-	cwd '/home/vagrant/project/'
-	command 'pip install virtualenv'
-	command 'virtualenv venv'
-	# source<->. (goddamn dash shell pls)
-	command '. ./venv/bin/activate'
+bash 'venv_setup' do
+	user "vagrant"
+	code <<-EOH
+		cd '/home/vagrant/project/'
+		sudo pip install virtualenv
+		virtualenv ./venv
+		source ./venv/bin/activate
+		pip install -r requirements.txt
+    EOH
 end
+# execute 'venv_install' do
+# 	cwd '/home/vagrant/project/'
+# 	command 'pip install virtualenv'
+# 	command 'virtualenv venv'
+# end
 
-execute 'pip_install' do
-	cwd '/home/vagrant/project/'
-	command 'pip install -r requirements.txt'
-end
+# execute 'pip_install' do
+# 	cwd '/home/vagrant/project/'
+# 	command '. ./venv/bin/activate'
+# 	command 'pip install -r requirements.txt'
+# end
 
 execute 'db_setup' do
 	cwd '/home/vagrant/project/'
