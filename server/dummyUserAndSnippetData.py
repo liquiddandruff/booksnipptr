@@ -10,6 +10,7 @@ tag_classic_lit = Tag(name='classic-lit')
 tag_adventure_fic = Tag(name='adventure-fic')
 tag_novel = Tag(name='novel')
 tag_tragedy = Tag(name='tragedy')
+tag_crime = Tag(name='crime')
 
 post_lotr = Post(content = "It's a dangerous business, Frodo, going out your door.  \
     You step onto the road, and if you don't keep your feet, there's no knowing where   \
@@ -42,5 +43,12 @@ post_thealchemist = Post(content = "It's the possibility of having a dream come 
 post_hamlet = Post(content = "To be, or not to be: that is the question. - William Shakespeare, Hamlet",
     tags=[tragedy], [tag_classic_lit])
 
+post_tokillamockingbird = Post(content = "People generally see what they look for, and hear what they listen for. - Harper Lee, To Kill A Mockingbird",
+    tags=[novel])
+
+post_andthentherewerenone = Post(content = "In the midst of life, we are in death. - Agatha Christie, And Then There Were None",
+    tags=[crime])
+
 user_zhilinz = User(uuid="Zhilinz", tags=[tag_scifi, tag_fantasy, tag_horror])
 
+user_ggbaker = User(uuid="Ggbaker", tags=[tag_novel, tag_romance])
