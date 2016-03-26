@@ -55,7 +55,7 @@ export default class Login extends Component {
       <TextField className = {classes.login} floatingLabelText = "Username" hintText = "Enter Username"/>
       <br></br>
       <TextField className = {classes.login} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
-      <FlatButton className = {classes.login} label = "Login" secondary = {true}/ onClick = {this.props.loginUser} >
+      <FlatButton className = {classes.login} label = "Login" secondary = {true} onClick = {this.props.loginUser} />
       </form>
       </div>
     )
