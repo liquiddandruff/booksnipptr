@@ -48,6 +48,7 @@ end
 bash 'venv_app_setup' do
 	user "vagrant"
 	code <<-EOH
+		sudo apt-get install language-pack-en-base -y && sudo locale-gen en_US en_US.UTF-8 && sudo dpkg-reconfigure locales
 		cd '/home/vagrant/project/'
 		sudo pip install virtualenv
 		virtualenv ./venv
