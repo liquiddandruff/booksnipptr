@@ -49,7 +49,8 @@ execute 'venv_install' do
 	cwd '/home/vagrant/project/'
 	command 'pip install virtualenv'
 	command 'virtualenv venv'
-	command 'source ./venv/bin/activate'
+	# source<->. (goddamn dash shell pls)
+	command '. ./venv/bin/activate'
 end
 
 execute 'pip_install' do
