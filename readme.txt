@@ -1,6 +1,6 @@
 What we have working:
 
-The most up-to-date branch is “frontend” branch. Look at it to see the working components listed below. `Vagrant up` is not yet working.
+The most up-to-date branch is the “frontend” branch. Look at it to see the working components listed below. `Vagrant up` is working, but only on Linux. First `vagrant up`, then ssh into the machine and run `service booksnipptr start`. Then navigate to localhost:3001.
 
 - Our Snippet recommendation system can be seen in server/api. The function takes as input all the Snippets (essentially posts) on the site and a user and compares the attributes of each post to the attributes the user liked. The top `n` posts (where n is input to the function) are returned.
 - Our project wiki page can be viewed on GitLab. It provides info on reactJS, a technology we’ve all needed to learn in order to build the site.
