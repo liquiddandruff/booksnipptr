@@ -1,4 +1,4 @@
-from models import Base, Tag, User, Post, Comment
+from models import Base, Tag, User, Snippet, Comment
 from datetime import datetime, timedelta
 
 tag_scifi = Tag(name='scifi')
@@ -12,41 +12,41 @@ tag_novel = Tag(name='novel')
 tag_tragedy = Tag(name='tragedy')
 tag_crime = Tag(name='crime')
 
-post_lotr = Post(content = "It's a dangerous business, Frodo, going out your door.  \
+snippet_lotr = Snippet(content = "It's a dangerous business, Frodo, going out your door.  \
     You step onto the road, and if you don't keep your feet, there's no knowing where   \
     you might be swept off to. - J.R.R. Tolkien, The Lord of the Rings",
     tags=[tag_fantasy, tag_classic_lit], \
     created_at=(datetime.utcnow() - timedelta(days=1)))
 
-post_it = Post(content = "We all float down here! \
+snippet_it = Snippet(content = "We all float down here! \
     - Stephen King, It", \
     tags=[tag_horror, tag_fantasy])
 
-post_outlander = Post(content = "Don't be afraid. There's the two of us now. - Diana Gabaldon, Outlander", \
+snippet_outlander = Snippet(content = "Don't be afraid. There's the two of us now. - Diana Gabaldon, Outlander", \
     tags=[tag_romance, tag_scifi])
 
-post_ringWorld = Post(content = "The gods do not protect fools. Fools are protected by more capable fools. - Larry Niven, Ringworld",
+snippet_ringWorld = Snippet(content = "The gods do not protect fools. Fools are protected by more capable fools. - Larry Niven, Ringworld",
     tags=[tag_scifi])
 
-post_snowy = Post(content = "The woods are lovely, dark and deep,\nBut I have promises to keep,\nAnd miles to go before I sleep,\nAnd miles to go before I sleep.", 
+snippet_snowy = Snippet(content = "The woods are lovely, dark and deep,\nBut I have promises to keep,\nAnd miles to go before I sleep,\nAnd miles to go before I sleep.", 
     tags=[tag_classic-lit, tag_poetry])
 
-post_mobydick = Post(content = "I know not all that may be coming, but be it what it will, I'll go to it laughing - Herman Melville, Moby Dick",
+snippet_mobydick = Snippet(content = "I know not all that may be coming, but be it what it will, I'll go to it laughing - Herman Melville, Moby Dick",
     tags=[tag_adventure_fic])
 
-post_thegreatgatsby = Post(content = "So we beat on, boats aganist the current, borne back ceaselessly into the past. - F.Scott Fitzgerald, The Great Gatsby",
+snippet_thegreatgatsby = Snippet(content = "So we beat on, boats aganist the current, borne back ceaselessly into the past. - F.Scott Fitzgerald, The Great Gatsby",
     tags=[novel])
 
-post_thealchemist = Post(content = "It's the possibility of having a dream come true that makes life interesting. - Paulo Coelho, The Alchemist",
+snippet_thealchemist = Snippet(content = "It's the possibility of having a dream come true that makes life interesting. - Paulo Coelho, The Alchemist",
     tags=[adventure_fic])
 
-post_hamlet = Post(content = "To be, or not to be: that is the question. - William Shakespeare, Hamlet",
+snippet_hamlet = Snippet(content = "To be, or not to be: that is the question. - William Shakespeare, Hamlet",
     tags=[tragedy], [tag_classic_lit])
 
-post_tokillamockingbird = Post(content = "People generally see what they look for, and hear what they listen for. - Harper Lee, To Kill A Mockingbird",
+snippet_tokillamockingbird = Snippet(content = "People generally see what they look for, and hear what they listen for. - Harper Lee, To Kill A Mockingbird",
     tags=[novel])
 
-post_andthentherewerenone = Post(content = "In the midst of life, we are in death. - Agatha Christie, And Then There Were None",
+snippet_andthentherewerenone = Snippet(content = "In the midst of life, we are in death. - Agatha Christie, And Then There Were None",
     tags=[crime])
 
 user_zhilinz = User(uuid="Zhilinz", tags=[tag_scifi, tag_fantasy, tag_horror])

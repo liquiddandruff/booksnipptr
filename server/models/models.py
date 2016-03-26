@@ -33,7 +33,7 @@ class User(db.Model):
     pwdhash     =   Column(String(54), nullable=True) 
     
     created_at  =   Column(DateTime, default=datetime.utcnow)
-    posts       =   relationship('Post', backref='user', lazy='dynamic')
+    snippets       =   relationship('Snippet', backref='user', lazy='dynamic')
     #this relationship indicates a many-many relationship between users and tags.
     #the `tags_users` association table is somehow used to enable this relationship
     tags        =   relationship('Tag', secondary=tags_users, 
@@ -64,8 +64,8 @@ class Post(db.Model):
     likes       =   Column(Integer, default=0)
     created_at  =   Column(DateTime, default=datetime.utcnow)
     tags        =   relationship('Tag', secondary=tags_posts, 
-                        backref = backref('posts', lazy='dynamic'))
-    comments    =   relationship('Comment', backref='post', lazy='dynamic')
+                        backref = backref('snippets', lazy='dynamic'))
+    comments    =   relationship('Comment', backref='snippet', lazy='dynamic')
 
     def __repr__(self):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
@@ -89,7 +89,7 @@ class Comment(db.Model):
     text        =   Column(String(2000))
     #need these foreign keys to enable the many-one relationships
     #Comments have with posts and users.
-    post_id     =   Column(Integer, ForeignKey('posts.id'))
+    snippet_id     =   Column(Integer, ForeignKey('snippets.id'))
     user_id     =   Column(Integer, ForeignKey('users.id'))
 
     def __repr__(self):

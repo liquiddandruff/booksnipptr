@@ -1,5 +1,5 @@
 from app import db
-from models import Tag, User, Post, Comment
+from models import Tag, User, Snippet, Comment
 from api import generateReccomendations
 from datetime import datetime, timedelta
 
@@ -52,14 +52,14 @@ tag_animal = Tag(name='animal')
 
 comment_rhino = Comment(text='Rhinoceros, often abbreviated as rhino, is a group of five extant species of odd-toed ungulates in the family Rhinocerotidae.')
 
-post_car = Post(content='This is a post about a car.', \
+snippet_car = Post(content='This is a post about a car.', \
     tags=[tag_car, tag_cool], \
     created_at=(datetime.utcnow() - timedelta(days=1)))
 
-post_another_car = Post(content='This is a post about another car.', \
+snippet_another_car = Snippet(content='This is a post about another car.', \
     tags=[tag_car])
 
-post_rhino = Post(content='Rhinos have a big horn on their face.', \
+snippet_rhino = Snippet(content='Rhinos have a big horn on their face.', \
     tags=[tag_animal], \
     comments=[comment_rhino])
 
@@ -76,9 +76,9 @@ session.add(tag_animal)
 
 session.add(comment_rhino)
 
-session.add(post_car)
-session.add(post_another_car)
-session.add(post_rhino)
+session.add(snippet_car)
+session.add(snippet_another_car)
+session.add(snippet_rhino)
 
 session.add(user_joe)
 
@@ -89,8 +89,8 @@ session.commit()
 # Update a Record
 #----------------------------
 
-post_to_update = session.query(Post).filter(Post.id == 1).first()
-post_to_update.likes = post_to_update.likes + 1
+snippet_to_update = session.query(Snippet).filter(Snippet.id == 1).first()
+snippet_to_update.likes = snippet_to_update.likes + 1
 session.commit()
 
 #----------------------------
@@ -117,10 +117,10 @@ for user in session.query(User):
 # Get all posts. For each post, add its tags to a list (python equiv of ArrayList/Vector)
 print("Here come the tags for each post!\n")
 
-postList = []
-for post in session.query(Post):
-    postList.append(post.tags)
-print (postList) 
+snippetList = []
+for snippet in session.query(Snippet):
+    snippetList.append(snippet.tags)
+print (snippetList) 
 
 
 #Test reccomendation function
@@ -138,38 +138,38 @@ print(session.query(Tag).count())
 print("Look up at the number of tags in the tag db \n\n\n\n\n\n")
 
 # Get all posts created yesterday:
-session.query(Post) \
-    .filter(Post.created_at < datetime.utcnow().date()) \
+session.query(Snippet) \
+    .filter(Snippet.created_at < datetime.utcnow().date()) \
     .all()
 
 # Get all posts, that belong to the tag 'car' or 'animal', using a subselect:
-session.query(Post) \
-    .filter(Post.tags.any(Tag.name.in_(['car', 'animal']))) \
+session.query(Snippet) \
+    .filter(Snippet.tags.any(Tag.name.in_(['car', 'animal']))) \
     .all()
 
 # Get all posts. For each post, add to a list (python equiv of ArrayList/Vector)
 print("Here come the tags for each post!\n")
 
-postList = []
-for post in session.query(Post):
-    postList.append(post.tags)
-print (postList)   
+snippetList = []
+for snippet in session.query(Snippet):
+    snippetList.append(snippet.tags)
+print (snippetList)   
 
 # This can also be expressed with a join:
-session.query(Post) \
-    .join(Tag, Post.tags) \
+session.query(Snippet) \
+    .join(Tag, Snippet.tags) \
     .filter(Tag.name.in_(['car', 'animal'])) \
     .all()
 
 # Play around with functions:
 from sqlalchemy.sql import func, desc
 
-max_date = session.query(func.max(Post.created_at))
-session.query(Post).filter(Post.created_at == max_date).first()
+max_date = session.query(func.max(Snippet.created_at))
+session.query(Snippet).filter(Snippet.created_at == max_date).first()
 
 # Get a list of tags with the number of posts:
 q = session.query(Tag, func.count(Tag.name)) \
-    .outerjoin(Post, Tag.posts) \
+    .outerjoin(Snippet, Tag.snippets) \
     .group_by(Tag.name) \
     .order_by(desc(func.count(Tag.name))) \
     .all()
@@ -180,9 +180,9 @@ for tag, count in q:
 
 
 # Get posts created in the last two hours and zero likes so far:
-session.query(Post) \
-    .join(Tag, Post.tags) \
-    .filter(Post.created_at > (datetime.utcnow() - timedelta(hours=2))) \
-    .filter(Post.likes == 0) \
+session.query(Snippet) \
+    .join(Tag, Snippet.tags) \
+    .filter(Snippet.created_at > (datetime.utcnow() - timedelta(hours=2))) \
+    .filter(Snippet.likes == 0) \
     .all()
 

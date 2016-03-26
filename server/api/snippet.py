@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse, abort
-from models import Post, User
+from models import Snippet, User
 from app import db
 from app import Session
 
@@ -14,22 +14,22 @@ class SnippetAPI(Resource):
         self.parser.add_argument('content', dest='content')
 
     def get(self):
-        posts = Post.query
+        snippets = Snippet.query
         return [{
-            'id': post.id,
-            'content': post.content,
-            'likes': post.likes,
-            'created_at': post.created_at.isoformat() + 'Z'
+            'id': snippet.id,
+            'content': snippet.content,
+            'likes': snippet.likes,
+            'created_at': snippet.created_at.isoformat() + 'Z'
             #'tags': post.tags,
             #'comments': post.comments
-        } for post in posts]
+        } for snippet in snippets]
 
     def post(self):
         args = self.parser.parse_args()
         print("New snippet:", args, args.author)
 
         session = Session()
-        new_snippet = Post(content=args.content)
+        new_snippet = Snippet(content=args.content)
         session.add(new_snippet)
         session.commit()
 
