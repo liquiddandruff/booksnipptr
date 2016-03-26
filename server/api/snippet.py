@@ -10,8 +10,10 @@ snippet_api = Api(Blueprint('snippet_api', __name__))
 class SnippetAPI(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
+        self.parser.add_argument('title', dest='title')
         self.parser.add_argument('author', dest='author')
-        self.parser.add_argument('content', dest='content')
+        self.parser.add_argument('content', dest='content', required=True)
+        self.parser.add_argument('user_id', dest='user_id')
 
     def get(self):
         posts = Post.query
@@ -44,20 +46,20 @@ class SnippetAPI(Resource):
         }
 
 
+
 # @snippet_api.resource('/snippet/<int:snippet_id>')
 # class SnippetAPI(Resource):
-#	@staticmethod
-#	def delete(snippet_id):
-#		from app import db
-#		snippet = Post.query.get_or_404(snippet_id)
-#		db.session.delete(snippet)
-#		db.session.commit()
+#     @staticmethod
+#     def delete(snippet_id):
+#         session = Session()
+#         snippet = session.query(Post).get_or_404(snippet_id)
+#         session.delete(snippet)
+#         session.commit()
+#         return None, 404
 
-#		return None, 404
-
-@snippet_api.resource('/snippet/<int:snippet_id>/like')
+@snippet_api.resource('/snippet/<int:snippet_id>/<string:action>')
 class SnippetLikeAPI(Resource):
-    def post(self, snippet_id):
+    def handleLike(self, snippet_id):
         session = Session()
 
         #increment snippet likes
@@ -79,3 +81,22 @@ class SnippetLikeAPI(Resource):
 
         #commit changes
         session.commit()
+
+    def post(self, snippet_id, action):
+        if action == 'like':
+            return self.handleLike(snippet_id)
+        elif action == '':
+            return 404
+
+    def delete(self, snippet_id, action):
+        # don't care about action
+        session = Session()
+        # TODO: get scoped_session.query to use BaseQuery to allow for get_or_404 etc
+        snippet = session.query(Post).get(snippet_id)
+        if(snippet == None):
+            abort(404)
+        session.delete(snippet)
+        session.commit()
+        print("Deleted snippet", snippet_id)
+        return ("snippet %s deleted" % snippet_id), 200
+

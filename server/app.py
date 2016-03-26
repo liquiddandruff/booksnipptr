@@ -1,9 +1,10 @@
 import os
-from flask.ext.sqlalchemy import SQLAlchemy
 from logging import StreamHandler
 from sys import stdout
-from flask import Flask
 from contextlib import contextmanager
+
+from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
 
 import config
 
