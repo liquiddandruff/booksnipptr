@@ -45,6 +45,13 @@ execute 'npm_install' do
 	command 'npm install'
 end
 
+execute 'venv_install' do
+	cwd '/home/vagrant/project/'
+	command 'pip install virtualenv'
+	command 'virtualenv venv'
+	command 'source ./venv/bin/activate'
+end
+
 execute 'pip_install' do
 	cwd '/home/vagrant/project/'
 	command 'pip install -r requirements.txt'
@@ -55,7 +62,7 @@ execute 'db_setup' do
 	command 'python server/initdb.py'
 end
 
-execute 'app_distribute' do
+execute 'build app, npm run dist' do
 	cwd '/home/vagrant/project/'
 	command 'npm run dist'
 end
