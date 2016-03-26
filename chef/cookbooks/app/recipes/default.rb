@@ -6,6 +6,13 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+#
+
+# setup upstart service
+cookbook_file "/etc/init.d/booksnipptr" do
+	source "booksnipptr.conf"
+	mode '0755'
+end
 
 # get up-to-date nodejs
 execute 'curl_nodejs_ppa' do
@@ -53,9 +60,13 @@ execute 'app_distribute' do
 	command 'npm run dist'
 end
 
+service 'booksnipptr' do
+	action [ :enable, :start ]
+end
+
 # temporary only
 # start server in background and disown, throw away stdout stderr
-execute 'run' do
-	cwd '/home/vagrant/project/'
-	command 'npm run gunicorn &> /dev/null &|'
-end
+# execute 'run' do
+# 	cwd '/home/vagrant/project/'
+# 	command 'npm run gunicorn &> /dev/null &|'
+# end
