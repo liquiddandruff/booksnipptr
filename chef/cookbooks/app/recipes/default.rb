@@ -55,7 +55,7 @@ end
 
 # temporary only
 # start server in background and disown, throw away stdout stderr
-# execute 'run' do
-# 	cwd '/home/vagrant/project/'
-# 	command 'npm run gunicorn &> /dev/null &|'
-# end
+execute 'run' do
+	cwd '/home/vagrant/project/'
+	command 'npm run gunicorn &> /dev/null &|'
+end

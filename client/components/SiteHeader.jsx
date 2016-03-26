@@ -58,7 +58,7 @@ export default class SiteHeader extends Component {
             <MenuItem primaryText= { <Link to="/recommendations" style = {STYLES.linkstyle} > Recommended Posts </Link> } />
           </IconMenu>
           <ToolbarSeparator />
-          <RaisedButton label="Add snippet" primary={true} onClick={this.props.addSnippet} />
+          <RaisedButton label="Blah blah" primary={true} onClick={this.props.addSnippet} />
         </ToolbarGroup>
       </Toolbar>
     )

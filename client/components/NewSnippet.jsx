@@ -11,7 +11,6 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 import RaisedButton from 'material-ui/lib/raised-button';
 import DragIcon from 'material-ui/lib/svg-icons/editor/drag-handle';
-import FlatButton from 'material-ui/lib/flat-button';
 
 import TextField from 'material-ui/lib/text-field';
 
@@ -39,12 +38,15 @@ export default class NewSnippet extends Component {
       <div>
         <form action='' onSubmit={this.handleSubmit}>
           <TextField className={classes.login} ref="title" floatingLabelText = "Title" hintText = "Book title" />
+          <br />
           <TextField className = {classes.login} ref="author" floatingLabelText = "Author" hintText = "Book author" />
+          <br />
           <TextField className = {classes.login} ref="content" floatingLabelText="Content" hintText="Snippet content"
             multiLine={true}
           /><br />
           <br />
-          <FlatButton className = {classes.login} label = "Submit" secondary = {true} type="submit" />
+          <RaisedButton className = {classes.login} label = "Submit" primary={true} type="submit" />
+          <br />
         </form>
 
       </div>

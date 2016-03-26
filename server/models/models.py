@@ -63,7 +63,7 @@ class Snippet(db.Model):
     created_at  =   db.Column(db.DateTime, default=datetime.utcnow)
     tags        =   relationship('Tag', secondary=tags_snippets, 
                         backref = backref('snippets', lazy='dynamic'))
-    comments    =   relationship('Comment', backref='snippet', lazy='dynamic')
+    comments    =   relationship('Comment', backref='snippets', lazy='dynamic')
 
     def __repr__(self):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")

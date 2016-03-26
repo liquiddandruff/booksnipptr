@@ -19,7 +19,6 @@ const Snippets = ({ sheet, deleteKitten, snippets, addSnippet, likeSnippet, dele
         <h1>There are no snippets</h1>
       }
       <NewSnippet />
-      <RaisedButton label="Add snippet" primary={true} onClick={addSnippet} />
     </Paper>
     {!!snippets.length &&
       <div className={sheet.classes.basket}>
