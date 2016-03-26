@@ -45,7 +45,7 @@ execute 'npm_install' do
 	command 'npm install'
 end
 
-bash 'venv_setup' do
+bash 'venv_app_setup' do
 	user "vagrant"
 	code <<-EOH
 		cd '/home/vagrant/project/'
@@ -53,28 +53,9 @@ bash 'venv_setup' do
 		virtualenv ./venv
 		source ./venv/bin/activate
 		pip install -r requirements.txt
+		python server/initdb.py
+		npm run dist
     EOH
-end
-# execute 'venv_install' do
-# 	cwd '/home/vagrant/project/'
-# 	command 'pip install virtualenv'
-# 	command 'virtualenv venv'
-# end
-
-# execute 'pip_install' do
-# 	cwd '/home/vagrant/project/'
-# 	command '. ./venv/bin/activate'
-# 	command 'pip install -r requirements.txt'
-# end
-
-execute 'db_setup' do
-	cwd '/home/vagrant/project/'
-	command 'python server/initdb.py'
-end
-
-execute 'build app, npm run dist' do
-	cwd '/home/vagrant/project/'
-	command 'npm run dist'
 end
 
 service 'booksnipptr' do
