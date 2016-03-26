@@ -20,15 +20,8 @@ import TextField from 'material-ui/lib/text-field';
 export default class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: 2};
   }
-
-  handleChange = (event, index, value) => {
-    console.log(event, index, value);
-    console.log("setting state: " + {value});
-    this.setState({value});
-  }
-
+  
   render() {
     const { classes } = this.props.sheet;
     return (
