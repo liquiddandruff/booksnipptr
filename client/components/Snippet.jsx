@@ -9,27 +9,35 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 
+import Badge from 'material-ui/lib/badge';
+import IconButton from 'material-ui/lib/icon-button';
+import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications';
+
 const COLORS = [
   '#FFAAAA', '#FFAAFF', '#AAAAFF', '#FFFFAA',
   '#339933', '#333399', '#993399', '#339999'
 ];
 
-const Snippet = ({ sheet, onDeleteKitten, snippet }) => (
-  <Card>
+const Snippet = ({ sheet, snippet, onSnippetLike, onSnippetDelete }) => (
+  <Card className={sheet.classes.snippet} >
     <CardTitle title="Card title" subtitle="Card subtitle" />
     <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+      {snippet.content}
       <p>
-        Created at: <b>{snippet.created}</b>
+        Created at: <b>{snippet.created_at}</b>
       </p>
     </CardText>
     <CardActions>
-      <FlatButton label="Like" />
+      <Badge badgeContent={snippet.likes} secondary={true} badgeStyle={{top: 15, right: 15}} >
+        <FlatButton label="Like" onClick={onSnippetLike.bind(this, snippet.id)} >
+        </FlatButton>
+        {/*
+        <IconButton tooltip="Notifications">
+          <NotificationsIcon />
+          </IconButton>*/}
+      </Badge>
       <FlatButton label="Comment" />
-      <FlatButton label="Remove" onClick={onDeleteKitten.bind(this, snippet.id)} />
+      <FlatButton label="Remove" onClick={onSnippetDelete.bind(this, snippet.id)} />
     </CardActions>
   </Card>
 );
@@ -44,12 +52,7 @@ Snippet.propTypes = {
 
 const STYLES = {
   snippet: {
-    textDecoration: 'none',
-    display: 'flex',
-    flexDirection: 'column',
-    flexBasis: '33%',
-    padding: '0.5rem',
-    boxSizing: 'border-box'
+    width: "100%",
   },
   button: {
     padding: '1rem 1.5rem',
