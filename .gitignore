@@ -3,6 +3,8 @@ venv
 .env
 
 *.log
+*.pid
+*.sock
 
 server/static/scripts/
 server/templates/

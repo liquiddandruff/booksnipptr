@@ -46,32 +46,32 @@ execute 'npm_install' do
 end
 
 bash 'venv_app_setup' do
-	user "vagrant"
-	code <<-EOH
-		# set local settings (python will fail otherwise)
-		export LANGUAGE=en_US.UTF-8
-		export LANG=en_US.UTF-8
-		export LC_ALL=en_US.UTF-8
-		locale-gen en_US.UTF-8
-		sudo dpkg-reconfigure locales
+    user "vagrant"
+    code <<-EOH
+	# set local settings (python will fail otherwise)
+	export LANGUAGE=en_US.UTF-8
+	export LANG=en_US.UTF-8
+	export LC_ALL=en_US.UTF-8
+	locale-gen en_US.UTF-8
+	sudo dpkg-reconfigure locales
 
-		echo INSTALLING virtualenv and virtualenvwrapper
-		sudo pip install virtualenv
-		sudo pip install virtualenvwrapper
-		
-		# use mkvirtualenv to create the vm's venv outside of shared project dir
-		export WORKON_HOME=/home/vagrant/.virtualenvs
-		source /usr/local/bin/virtualenvwrapper.sh
-		echo CREATING + ACTIVATING VENV
-		mkvirtualenv booksnipptr
-		workon booksnipptr
-		cd '/home/vagrant/project/' # workon doesn't seem to chdir
+	echo INSTALLING virtualenv and virtualenvwrapper
+	sudo pip install virtualenv
+	sudo pip install virtualenvwrapper
 
-		echo PIP INSTALLING REQS.TXT
-		# if cache-dir is enabled, pip tries to create stuff in root, so disable it
-		pip install --no-cache-dir -r requirements.txt
-		python server/initdb.py
-		npm run dist
+	# use mkvirtualenv to create the vm's venv outside of shared project dir
+	export WORKON_HOME=/home/vagrant/.virtualenvs
+	source /usr/local/bin/virtualenvwrapper.sh
+	echo CREATING + ACTIVATING VENV
+	mkvirtualenv booksnipptr
+	workon booksnipptr
+	cd '/home/vagrant/project/' # workon doesn't seem to chdir
+
+	echo PIP INSTALLING REQS.TXT
+	# if cache-dir is enabled, pip tries to create stuff in root, so disable it
+	pip install --no-cache-dir -r requirements.txt
+	python server/initdb.py
+	npm run dist
     EOH
 end
 
