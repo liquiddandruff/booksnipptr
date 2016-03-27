@@ -9,7 +9,7 @@ import { requestKittens } from '../actions/kittens';
 import { requestSnippets } from '../actions/snippets';
 
 
-export default class Index extends Component {
+export default class Recommendations extends Component {
   componentDidMount() {
     this.props.requestKittens();
     this.props.requestSnippets();
