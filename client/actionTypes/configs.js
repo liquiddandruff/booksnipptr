@@ -1,0 +1,3 @@
+export const REQUEST_CONFIGS = 'REQUEST_CONFIGS';
+export const PUT_CONFIGS = 'PUT_CONFIGS';
+
