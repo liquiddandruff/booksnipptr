@@ -42,5 +42,5 @@ export default connect(
   () => ({}),
   { requestKittens }
 )(
-  useSheet(Register, STYLES)
+  useSheet(RegisterPage, STYLES)
 );

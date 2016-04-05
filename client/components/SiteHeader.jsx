@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { addSnippet } from '../actions/snippets';
 import { connect } from 'react-redux';
 import useSheet from 'react-jss';
+
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
 import FontIcon from 'material-ui/lib/font-icon';
@@ -37,7 +38,7 @@ export default class SiteHeader extends Component {
     return (
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label= {<Link to="/" style = {STYLES.linkstyle} > BookSnippetr </Link> }/>
+          <FlatButton label= {<Link to="/" style = {STYLES.linkstyle} > BookSnipptr </Link> }/>
           <DropDownMenu value={this.state.value} onChange={this.handleChange} style={menuStyle} >
             <MenuItem value={1} primaryText="Sort by Hot" style={menuStyle} />
             <MenuItem value={2} primaryText="Sort by New" style={menuStyle} />

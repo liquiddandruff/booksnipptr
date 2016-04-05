@@ -33,14 +33,14 @@ const STYLES = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    color: '#660000'
+    backgroundColor: '#FFFFFF'
   }
 };
+
 
 export default connect(
   () => ({}),
   { requestKittens }
 )(
-  useSheet(Login, STYLES)
+  useSheet(LoginPage, STYLES)
 );
