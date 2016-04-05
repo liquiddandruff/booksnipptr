@@ -19,6 +19,8 @@ class SnippetAPI(Resource):
         snippets = Snippet.query
         return [{
             'id': snippet.id,
+            'title': snippet.title,
+            'author': snippet.author,
             'content': snippet.content,
             'likes': snippet.likes,
             'created_at': snippet.created_at.isoformat() + 'Z'
@@ -31,18 +33,25 @@ class SnippetAPI(Resource):
         print("New snippet:", args, args.author)
 
         session = Session()
-        new_snippet = Snippet(content=args.content)
-        session.add(new_snippet)
+        snippet = Snippet(
+            title=args.title,
+            author=args.author,
+            content=args.content
+        )
+        session.add(snippet)
         session.commit()
 
+        # this response is used by the react client to instantly construct the snippet
         return {
-            'id': new_snippet.id,
-            'content': new_snippet.content,
-            #'user_id': new_snippet.user_id,
-            'likes': new_snippet.likes,
-            'created_at': new_snippet.created_at.isoformat() + 'Z'
-            #'tags': new_snippet.tags,
-            #'comments': new_snippet.comments
+            'id': snippet.id,
+            'title': snippet.title,
+            'author': snippet.author,
+            'content': snippet.content,
+            #'user_id': snippet.user_id,
+            'likes': snippet.likes,
+            'created_at': snippet.created_at.isoformat() + 'Z'
+            #'tags': snippet.tags,
+            #'comments': snippet.comments
         }
 
 
