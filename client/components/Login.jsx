@@ -17,7 +17,7 @@ export default class Login extends Component {
   }
 
   handleSubmit = () => {
-    console.log("Login Button Clicked");
+    console.log('Login Button Clicked');
     var formData = {
       username: this.refs.username.getValue(),
       password: this.refs.password.getValue(),

@@ -29,7 +29,7 @@ export function registerUser() {
     });
 
     try {
-      const result = await.post('/api/register');
+      const result = await post('/api/register');
 
       dispatch({
         type: actionTypes.REGISTER_USER_SUCCESS,

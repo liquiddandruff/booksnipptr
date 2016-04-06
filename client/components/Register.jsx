@@ -18,7 +18,7 @@ export default class Register extends Component {
   }
 
   handleSubmit = () => {
-    console.log("Register Button Clicked");
+    console.log('Register Button Clicked');
     var formData = {
       username: this.refs.username.getValue(),
       password: this.refs.password.getValue(),
