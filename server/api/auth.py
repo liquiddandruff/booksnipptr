@@ -1,32 +1,29 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse, abort
-from models import Snippet, User
+from models import User
 from app import db
 from app import Session
 
-snippet_api = Api(Blueprint('snippet_api', __name__))
+auth_api = Api(Blueprint('auth_api', __name__))
 
-@snippet_api.resource('/snippet')
-class SnippetAPI(Resource):
-    def __init__(self):
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument('title', dest='title')
-        self.parser.add_argument('author', dest='author')
-        self.parser.add_argument('content', dest='content', required=True)
-        self.parser.add_argument('user_id', dest='user_id')
+@auth_api.resource('/auth')
+class AuthAPI(Resource):
 
+    # def __init__(self):
+        # self.parser = reqparse.RequestParser()
+        # self.parser.add_argument('title', dest='title')
+        # self.parser.add_argument('author', dest='author')
+        # self.parser.add_argument('content', dest='content', required=True)
+        # self.parser.add_argument('user_id', dest='user_id')
+
+    #getting user id and password hash
     def get(self):
+        logindata = User.query
         snippets = Snippet.query
         return [{
-            'id': snippet.id,
-            'title': snippet.title,
-            'author': snippet.author,
-            'content': snippet.content,
-            'likes': snippet.likes,
-            'created_at': snippet.created_at.isoformat() + 'Z'
-            #'tags': snippet.tags,
-            #'comments': snippet.comments
-        } for snippet in snippets]
+            'id': User.id,
+            'pwdhash': pwdhash.title,
+        } for User in logindata]
 
     def post(self):
         args = self.parser.parse_args()
