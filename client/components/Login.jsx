@@ -23,7 +23,7 @@ export default class Login extends Component {
       password: this.refs.password.getValue(),
     };
     console.log(formData);
-    loginUser(formData);
+    //loginUser();
   };
 
   render() {
