@@ -6,9 +6,13 @@ from contextlib import contextmanager
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
+from flask.ext.login import LoginManager
+
 import config
 
 db = SQLAlchemy()
+
+lm = LoginManager()
 
 def Session():
     return db.create_scoped_session();
@@ -42,6 +46,9 @@ def create_app():
     app.register_blueprint(index_view)
 
     db.init_app(app)
+    
+    lm.init_app(app)
+    lm.login_view = 'login'
 
     handler = StreamHandler(stdout)
     app.logger.addHandler(handler)

@@ -6,6 +6,8 @@ from models import User
 from app import db
 from app import Session
 
+lm = LoginManager()
+
 auth_api = Api(Blueprint('auth_api', __name__))
 
 @lm.user_loader
