@@ -6,8 +6,6 @@ import Header from '../components/SiteHeader';
 
 import Login from '../components/Login';
 
-import { requestKittens } from '../actions/kittens';
-
 
 export default class LoginPage extends Component {
   componentDidMount() {
@@ -38,9 +36,4 @@ const STYLES = {
 };
 
 
-export default connect(
-  () => ({}),
-  { requestKittens }
-)(
-  useSheet(LoginPage, STYLES)
-);
+export default useSheet(LoginPage, STYLES)

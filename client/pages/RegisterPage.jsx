@@ -6,7 +6,6 @@ import Header from '../components/SiteHeader';
 
 import Register from '../components/Register';
 
-import { requestKittens } from '../actions/kittens';
 
 
 export default class RegisterPage extends Component {
@@ -38,9 +37,4 @@ const STYLES = {
   }
 };
 
-export default connect(
-  () => ({}),
-  { requestKittens }
-)(
-  useSheet(RegisterPage, STYLES)
-);
+export default useSheet(RegisterPage, STYLES)
