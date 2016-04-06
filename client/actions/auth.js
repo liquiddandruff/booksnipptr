@@ -9,14 +9,19 @@ export function loginUser() {
 
     try {
       const result = await post('/api/login');
-
+      //create an action (actions change the state tree) and 
+      //send it off to the state tree
       dispatch({
+        //we've defined all our action types in the actionTypes directory
+        //each action has a type and the data describing the action (in this
+        //case the result of the post request to the login backend)
         type: actionTypes.LOGIN_USER_SUCCESS,
         login: result
       });
     } catch(e) {
       dispatch({
         type: actionTypes.LOGIN_USER_ERROR
+        //no data in this action except for the type (no need for anything else)
       });
     }
   }

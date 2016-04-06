@@ -21,7 +21,7 @@ class LoginAPI(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('uuid', dest='uuid')
-	self.parser.add_argument('user_pwd', dest='user_pwd')
+	    self.parser.add_argument('user_pwd', dest='user_pwd')
 
     #getting user id and password hash
     def get(self):
