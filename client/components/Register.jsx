@@ -16,6 +16,16 @@ export default class Register extends Component {
       email: ''
     };
   }
+
+  handleSubmit = () => {
+    console.log("Register Button Clicked");
+    var formData = {
+      username: this.refs.username.getValue(),
+      password: this.refs.password.getValue(),
+      email: this.refs.email.getValue(),
+    };
+    console.log(formData);
+  };
   
   render() {
     const { classes } = this.props.sheet;
