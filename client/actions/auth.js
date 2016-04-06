@@ -1,4 +1,4 @@
-import * as actionTypes from '../actionTypes/login';
+import * as actionTypes from '../actionTypes/auth';
 import { get, post, del } from '../utils/api';
 
 export function loginUser() {
@@ -22,3 +22,23 @@ export function loginUser() {
   }
 }
 
+export function registerUser() {
+  return async dispatch => {
+    dispatch({
+      type: actionTypes.REGISTER_USER
+    });
+
+    try {
+      const result = await post('/api/register');
+
+      dispatch({
+        type: actionTypes.REGISTER_USER_SUCCESS,
+        register: result
+      });
+    }catch(e){
+      dispatch({
+        type:actionTypes.REGISTER_USER_ERROR
+      });
+    }
+  }
+}

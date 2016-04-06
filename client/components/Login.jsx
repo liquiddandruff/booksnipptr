@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router';
-import { loginUser } from '../actions/login';
+import { loginUser } from '../actions/auth';
 import { connect } from 'react-redux';
 import useSheet from 'react-jss';
 
@@ -17,7 +17,7 @@ export default class Login extends Component {
   }
 
   handleSubmit = () => {
-    console.log("im clicked");
+    console.log('Login Button Clicked');
     var formData = {
       username: this.refs.username.getValue(),
       password: this.refs.password.getValue(),

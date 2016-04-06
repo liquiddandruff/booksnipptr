@@ -24,10 +24,9 @@ class LoginAPI(Resource):
     #getting user id and password hash
     def get(self):
         logindata = User.query
-        snippets = Snippet.query
         return [{
             'id': User.id,
-            'pwdhash': pwdhash.title,
+            'pwdhash': User.pwdhash,
         } for User in logindata]
 
     def post(self):

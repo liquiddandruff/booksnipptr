@@ -3,10 +3,8 @@ import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
 import Header from '../components/SiteHeader';
-import Kittens from '../components/Kittens';
-import Login from '../components/Login';
 
-import { requestKittens } from '../actions/kittens';
+import Login from '../components/Login';
 
 
 export default class LoginPage extends Component {
@@ -38,9 +36,4 @@ const STYLES = {
 };
 
 
-export default connect(
-  () => ({}),
-  { requestKittens }
-)(
-  useSheet(LoginPage, STYLES)
-);
+export default useSheet(LoginPage, STYLES)
