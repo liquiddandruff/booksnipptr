@@ -27,7 +27,7 @@ def session_scope():
         session.remove()
 
 def create_app():
-    from api.kittens import kittens_api
+    #from api.kittens import kittens_api
     from api.snippet import snippet_api
     from views.index import index_view
 
@@ -35,7 +35,7 @@ def create_app():
     #app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config.from_object('config.Default')
 
-    app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
+    #app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
     app.register_blueprint(snippet_api.blueprint, url_prefix='/api')
     app.register_blueprint(index_view)
 
