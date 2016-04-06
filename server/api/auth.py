@@ -1,6 +1,6 @@
 from flask import Blueprint
-#from flask.ext.login import LoginManager, login_user, logout_user,\
-#    current_user
+from flask.ext.login import LoginManager, login_user, logout_user,\
+   current_user
 from flask_restful import Api, Resource, reqparse, abort
 from models import User
 from app import db
