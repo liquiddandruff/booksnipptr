@@ -1,4 +1,4 @@
-import * as actionTypes from '../actionTypes/login';
+import * as actionTypes from '../actionTypes/auth';
 import { get, post, del } from '../utils/api';
 
 export function loginUser() {
