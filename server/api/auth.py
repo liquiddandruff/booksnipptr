@@ -5,8 +5,7 @@ from flask_restful import Api, Resource, reqparse, abort
 from models import User
 from app import db
 from app import Session
-
-lm = LoginManager()
+from app import lm
 
 auth_api = Api(Blueprint('auth_api', __name__))
 
