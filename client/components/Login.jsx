@@ -24,6 +24,8 @@ export default class Login extends Component {
     };
     console.log(formData);
     //loginUser();
+    var logininfo = loginUser();
+    console.log(logininfo);
   };
 
   render() {
