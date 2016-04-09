@@ -10,18 +10,28 @@ export default class Register extends Component {
     super(props);
   }
   
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("im clicked");
+    var formData = {
+      username: this.refs.username.getValue(),
+      password: this.refs.password.getValue(),
+    };
+    console.log(formData);
+  };
+
   render() {
     const { classes } = this.props.sheet;
     return (
       <div>
-        <form>
-          <TextField className = {classes.register} floatingLabelText = "Username" hintText = "Enter Username"/>
+        <form action='' onSubmit={this.handleSubmit}>
+          <TextField className = {classes.register} ref="username" floatingLabelText = "Username" hintText = "Enter Username"/>
           <br></br>
-          <TextField className = {classes.register} floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
+          <TextField className = {classes.register} ref="password" floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
           <br></br>
-          <TextField className = {classes.register} floatingLabelText = "E-mail Address" hintText = "Enter E-mail" type = "email"/>
+          <TextField className = {classes.register} ref="email" floatingLabelText = "E-mail Address" hintText = "Enter E-mail" type = "email"/>
           <br></br>
-          <FlatButton className = {classes.register} label = "Register" secondary = {true}/>
+          <FlatButton className = {classes.register} label = "Register" secondary = {true} type="submit"/>
         </form>
       </div>
     )

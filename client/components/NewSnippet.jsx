@@ -21,7 +21,8 @@ export default class NewSnippet extends Component {
     };
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     console.log("im clicked");
     var formData = {
       title: this.refs.title.getValue(),

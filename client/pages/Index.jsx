@@ -8,7 +8,7 @@ import Snippets from '../components/Snippets';
 
 import { requestKittens } from '../actions/kittens';
 import { requestSnippets } from '../actions/snippets';
-import { requestConfigs, putConfigs } from '../actions/configs';
+import { putConfigs } from '../actions/configs';
 
 
 
@@ -18,8 +18,6 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-    console.log('statel', this.props.statel);
-    console.log('configs:', this.props.configs);
     if(!this.props.configs.isFirstLoad) {
       console.log('IS FIRST LOAD');
       this.props.putConfigs({isFirstLoad: true});
@@ -55,15 +53,14 @@ const STYLES = {
 
 function mapStateToProps(state) {
   return {
-    configs: state.configs,
-    state1: state,
+    configs: state.configs
   };
 }
 
 function mapDispatchToProps(dispatch) {
   // http://stackoverflow.com/questions/34458261/how-to-get-simple-dispatch-from-this-props-using-connect-w-redux
   return {
-    ...bindActionCreators({ requestKittens, requestSnippets, requestConfigs, putConfigs }, dispatch),
+    ...bindActionCreators({ requestKittens, requestSnippets, putConfigs }, dispatch),
     dispatch
   };
 }

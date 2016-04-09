@@ -16,7 +16,8 @@ export default class Login extends Component {
     };
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     console.log("im clicked");
     var formData = {
       username: this.refs.username.getValue(),

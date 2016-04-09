@@ -32,9 +32,6 @@ const Snippets = ({ sheet, deleteKitten, snippets, addSnippet, likeSnippet, dele
     }
   </div>;
 
-console.log("here we go");
-console.log(Snippets);
-
 const STYLES = {
   credits: {
     fontSize: 10
