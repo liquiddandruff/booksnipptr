@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router';
+import { registerUser } from '../actions/auth'
+import { connect } from 'react-redux'
 import useSheet from 'react-jss';
 
 import FlatButton from 'material-ui/lib/flat-button';
@@ -8,7 +10,23 @@ import TextField from 'material-ui/lib/text-field';
 export default class Register extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      password: '',
+      email: ''
+    };
   }
+
+  handleSubmit = () => {
+    console.log('Register Button Clicked');
+    var formData = {
+      username: this.refs.username.getValue(),
+      password: this.refs.password.getValue(),
+      email: this.refs.email.getValue(),
+    };
+    console.log(formData);
+    registerUser();
+  };
   
   handleSubmit = (e) => {
     e.preventDefault();
@@ -52,4 +70,9 @@ const STYLES = {
   }
 };
 
-export default useSheet(Register, STYLES)
+export default connect(
+  state => ({}),
+  { registerUser }
+)(
+useSheet(Register, STYLES)
+);

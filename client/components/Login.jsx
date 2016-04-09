@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router';
-import { loginUser } from '../actions/login';
+import { loginUser } from '../actions/auth';
 import { connect } from 'react-redux';
 import useSheet from 'react-jss';
 
@@ -18,12 +18,15 @@ export default class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("im clicked");
+    console.log('Login Button Clicked');
     var formData = {
       username: this.refs.username.getValue(),
       password: this.refs.password.getValue(),
     };
     console.log(formData);
+    //loginUser();
+    var logininfo = loginUser();
+    console.log(logininfo);
   };
 
   render() {

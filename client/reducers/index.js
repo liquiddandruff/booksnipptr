@@ -6,6 +6,7 @@ import configs from './configs';
 const reducers = combineReducers({
   kittens,
   snippets,
+  auth,
   configs
 });
 
