@@ -10,15 +10,15 @@ export function loginUser(formData) {
 
     try {
       const result = await post('/api/login', formData);
-      //create an action (actions change the state tree) and 
+      //create an action (actions change the state tree) and
       //send it off to the state tree
       dispatch({
         //we've defined all our action types in the actionTypes directory
         //each action has a type and the data describing the action (in this
         //case the result of the post request to the login backend)
         type: actionTypes.LOGIN_USER_SUCCESS,
-        login: result
-        
+        result: result
+
       });
 
     } catch(e) {
@@ -30,22 +30,23 @@ export function loginUser(formData) {
   }
 }
 
-export function registerUser({username, password, email}) {
+export function registerUser(formData) {
+  // same as above TODO: {username, password, email}
   return async dispatch => {
     dispatch({
       type: actionTypes.REGISTER_USER
     });
-    
+
     try {
-      const result = await post('/api/register');
+      const result = await post('/api/register', formData);
 
       dispatch({
         type: actionTypes.REGISTER_USER_SUCCESS,
-        register: result
+        result: result
       });
-    }catch(e){
+    } catch(e) {
       dispatch({
-        type:actionTypes.REGISTER_USER_ERROR
+        type: actionTypes.REGISTER_USER_ERROR
       });
     }
   }

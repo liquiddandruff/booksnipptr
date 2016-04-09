@@ -11,13 +11,11 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
-      email: ''
     };
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     console.log('Register Button Clicked');
     var formData = {
       username: this.refs.username.getValue(),
@@ -28,16 +26,6 @@ export default class Register extends Component {
     this.props.registerUser(formData);
   };
   
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("im clicked");
-    var formData = {
-      username: this.refs.username.getValue(),
-      password: this.refs.password.getValue(),
-    };
-    console.log(formData);
-  };
-
   render() {
     const { classes } = this.props.sheet;
     return (
@@ -74,5 +62,5 @@ export default connect(
   state => ({}),
   { registerUser }
 )(
-useSheet(Register, STYLES)
+  useSheet(Register, STYLES)
 );

@@ -10,7 +10,6 @@ import Register from '../components/Register';
 
 export default class RegisterPage extends Component {
   componentDidMount() {
-    this.props.requestKittens();
   }
 
   render() {

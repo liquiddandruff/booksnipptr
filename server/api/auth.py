@@ -30,15 +30,14 @@ class LoginAPI(Resource):
             print("logged in user")
             #redirect to index
             return {
+                'msg': "ok",
                 'route': "#/"
             }
         else:
             #self.email.errors.append("Invalid username or password")
             return {
-                #400: bad request (invalid credentials etc)
-                'error': "400",
-                'msg': "Invalid credentials"
-            }
+                'msg': "Invalid username or password"
+            }, 400
 
 
 @auth_api.resource('/register')
@@ -59,10 +58,9 @@ class RegistrationAPI(Resource):
         if user:
             #user already exists in db
             return {
-                'error': "400",
                 'msg': "Username already exists"
                 #'route': "400" # no route since error code
-            }
+            }, 400
         #Out of the if statement
         newuser = User(username=args.username)
         newuser.set_password(args.password)
@@ -70,17 +68,8 @@ class RegistrationAPI(Resource):
         session.commit()
         #login_user(newuser)
 
-        if user and user.check_password(args.password):
-            #login_user(user, True)
-            #redirect to index
-            return {
-                'route': "#/"
-            }
-        else:
-            #self.email.errors.append("Invalid username or password")
-            return {
-                #404.1= invalid credientials
-                'error': "404.1"
-            }
-
+        return {
+            'msg': "ok",
+            'route': "#/"
+        }
 
