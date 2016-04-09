@@ -1,19 +1,17 @@
 import * as actionTypes from '../actionTypes/auth';
 import { get, post, del } from '../utils/api';
 
-export function loginUser() {
-  console.log("in login user")
+export function loginUser(formData) {
+  // TODO: do stuff like assure formData has fields username, password, eg for below api post
   return async dispatch => {
     dispatch({
       type: actionTypes.LOGIN_USER
     });
 
     try {
-      console.log("time to await get")
-      const result = await get('/api/login');
+      const result = await post('/api/login', formData);
       //create an action (actions change the state tree) and 
       //send it off to the state tree
-      console.log("try block post returned")
       dispatch({
         //we've defined all our action types in the actionTypes directory
         //each action has a type and the data describing the action (in this
@@ -24,7 +22,6 @@ export function loginUser() {
       });
 
     } catch(e) {
-      console.log("catch block fail")
       dispatch({
         type: actionTypes.LOGIN_USER_ERROR
         //no data in this action except for the type (no need for anything else)
@@ -33,15 +30,13 @@ export function loginUser() {
   }
 }
 
-export function registerUser() {
-  console.log("in register user")
+export function registerUser({username, password, email}) {
   return async dispatch => {
     dispatch({
       type: actionTypes.REGISTER_USER
     });
     
     try {
-      console.log("In try block register")
       const result = await post('/api/register');
 
       dispatch({

@@ -53,6 +53,7 @@ export function likeSnippet(snippetId) {
     });
 
     try {
+      // ES6 backtick strings for inline variable subtitution
       await post(`/api/snippet/${snippetId}/like`);
 
       dispatch({

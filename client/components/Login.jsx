@@ -24,9 +24,7 @@ export default class Login extends Component {
       password: this.refs.password.getValue(),
     };
     console.log(formData);
-    //loginUser();
-    var logininfo = loginUser();
-    console.log(logininfo);
+    this.props.loginUser(formData);
   };
 
   render() {

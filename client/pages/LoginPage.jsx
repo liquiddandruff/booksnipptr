@@ -9,7 +9,6 @@ import Login from '../components/Login';
 
 export default class LoginPage extends Component {
   componentDidMount() {
-    this.props.requestKittens();
   }
 
   render() {

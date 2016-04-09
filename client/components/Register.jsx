@@ -25,7 +25,7 @@ export default class Register extends Component {
       email: this.refs.email.getValue(),
     };
     console.log(formData);
-    registerUser();
+    this.props.registerUser(formData);
   };
   
   handleSubmit = (e) => {

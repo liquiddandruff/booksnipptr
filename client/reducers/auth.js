@@ -4,20 +4,21 @@ import * as actionTypes from '../actionTypes/auth';
 const DEFAULT_STATE = [];
 
 
-const requestConfigs = function(state, action) {
+const loginSuccess = function(state, action) {
   let prevState = { ...state };
+  console.log('ay lmao success');
   return prevState;
 };
 
-const putConfigs = function(state, action) {
+const loginError = function(state, action) {
   let prevConfigsState = { ...state };
-  ld.merge(prevConfigsState, action.configs);
+  console.log('ay lmao fail');
   return prevConfigsState;
 };
 
 export default function configs(state = DEFAULT_STATE, action) {
   return ({
-    [actionTypes.REQUEST_CONFIGS]: requestConfigs,
-    [actionTypes.PUT_CONFIGS]: putConfigs
+    [actionTypes.LOGIN_USER_SUCCESS]: loginSuccess,
+    [actionTypes.LOGIN_USER_ERROR]: loginError
   }[action.type] || (s => s))(state, action);
 }
