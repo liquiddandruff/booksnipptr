@@ -34,7 +34,8 @@ def create_app():
 
     app = Flask(__name__)
     #app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-    app.config.from_object('config.Default')
+    #app.config.from_object('config.Default')
+    app.config.from_object('config.Production')
 
     #app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
     app.register_blueprint(snippet_api.blueprint, url_prefix='/api')

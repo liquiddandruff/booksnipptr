@@ -11,5 +11,5 @@ package 'postgresql' do
 end
 
 execute 'setup_postgresql' do
-	command "echo \"CREATE DATABASE app_dev; CREATE USER app_user PASSWORD 'password'; GRANT ALL PRIVILEGES ON DATABASE app_dev TO app_user;\" | sudo -u postgres psql"
+	command "echo \"CREATE DATABASE booksnipptr; CREATE USER app_user PASSWORD 'password'; GRANT ALL PRIVILEGES ON DATABASE booksnipptr TO app_user;\" | sudo -u postgres psql"
 end
