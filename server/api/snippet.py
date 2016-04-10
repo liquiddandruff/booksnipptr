@@ -24,12 +24,6 @@ class SnippetAPI(Resource):
 
     def get(self):
         snippets = Snippet.query
-        print "in the get"
-        #session.query(Snippet).filter(Snippet.id == 1)
-        #print Snippet.query.filter(id==1).first().id, type(Snippet.query.filter(id==1).first().id)
-        for snippet in snippets:
-            if snippet.tags:
-                print snippet.id, snippet.tags[0], type(snippet.tags[0]), '\n'
 
         return [{
             'id': snippet.id,
@@ -43,23 +37,12 @@ class SnippetAPI(Resource):
         } for snippet in snippets]
 
     @auth.requires_auth
-    def post(self):
+    def post(self, user):
         root_args = self.parser.parse_args()
-        print root_args['snippet'],'\n'
-
-        #print 'before: ', root_args['snippet']['tags'], '\n'
-        #root_args['snippet']['tags'] = 'testtststsstststststst'
-        #print 'after: ', root_args['snippet']['tags'], '\n'
-
-        
-        snippet_args = self.snippetParser.parse_args(req=root_args) #['snippet']
+        snippet_args = self.snippetParser.parse_args(req=root_args)
         print("New snippet:", snippet_args, snippet_args.title)
         print("tags: ", snippet_args.tags.split(','))
         new_tag=snippet_args.tags.split(',')
-        #tag = []
-        #for tags in new_tag:
-         #   print tags, type(tags)
-          #  tag.append(Tag(name=tags))
 
         session = Session()
         snippet = Snippet(
@@ -106,7 +89,7 @@ class DeleteAPI(Resource):
         return ("snippet %s deleted" % snippet_id), 200
 
     @auth.requires_auth
-    def post(self):
+    def post(self, user):
         #, snippet_id, action
         args = self.parser.parse_args()
         print("New delete:", args)
@@ -150,7 +133,8 @@ class LikeAPI(Resource):
         session.commit()
 
     @auth.requires_auth
-    def post(self):
+    def post(self, user):
+        print(user)
         args = self.parser.parse_args()
         print("New like:", args)
         if args.type == 'snippet':

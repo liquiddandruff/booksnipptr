@@ -12,7 +12,7 @@ auth_api = Api(Blueprint('auth_api', __name__))
 
 def requires_auth(f):
     @wraps(f)
-    def decorated(*args, **kwargs):
+    def decorated(self, *args, **kwargs):
         parser = reqparse.RequestParser()
         parser.add_argument('token', dest='token')
         parsed_args = parser.parse_args()
@@ -24,7 +24,7 @@ def requires_auth(f):
         if user == None:
             print("Incorrect token auth")
             return abort(401)
-        return f(*args, **kwargs)
+        return f(self, user, *args, **kwargs)
     return decorated
 
 @auth_api.resource('/login')
