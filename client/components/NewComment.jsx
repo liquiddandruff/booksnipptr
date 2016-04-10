@@ -37,9 +37,9 @@ export default class NewComment extends Component {
       <div>
         <form action='' onSubmit={this.handleSubmit}>
           <TextField className={classes.login} ref="text" floatingLabelText = "Comment" hintText = "Enter Comment" />
-          <br />
+          <br></br>
           <RaisedButton className = {classes.login} label = "Submit" primary={true} type="submit" />
-          <br />
+          <br></br>
         </form>
 
       </div>

@@ -13,6 +13,8 @@ import Badge from 'material-ui/lib/badge';
 import IconButton from 'material-ui/lib/icon-button';
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications';
 
+import Comments from './Comments'
+
 const COLORS = [
   '#FFAAAA', '#FFAAFF', '#AAAAFF', '#FFFFAA',
   '#339933', '#333399', '#993399', '#339999'
@@ -28,11 +30,11 @@ const Snippet = ({ sheet, snippet, onSnippetLike, onSnippetDelete }) => (
       </p>
     </CardText>
     <CardActions>
+      <Comments snippetID={snippet.id} />
       <Badge badgeContent={snippet.likes} secondary={true} badgeStyle={{top: 15, right: 15}} >
         <FlatButton label="Like" onClick={onSnippetLike.bind(this, snippet.id)} >
         </FlatButton>
       </Badge>
-      <Comment />
       <FlatButton label="Remove" onClick={onSnippetDelete.bind(this, snippet.id)} />
     </CardActions>
   </Card>

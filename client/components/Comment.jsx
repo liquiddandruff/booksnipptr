@@ -13,12 +13,14 @@ import Badge from 'material-ui/lib/badge';
 import IconButton from 'material-ui/lib/icon-button';
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications';
 
+import { likeComment } from '../actions/comments';
+
 const COLORS = [
   '#FFAAAA', '#FFAAFF', '#AAAAFF', '#FFFFAA',
   '#339933', '#333399', '#993399', '#339999'
 ];
 
-const Comment = ({ sheet, comment }) => (
+const Comment = ({ sheet, comment, likeComment }) => (
   <Card className={sheet.classes.comment} >
     <CardText>
       {comment.text}

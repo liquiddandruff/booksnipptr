@@ -13,7 +13,7 @@ class CommentAPI(Resource):
         self.parser.add_argument('text', dest='text', required = True)
 
     def get(self):
-        comments = Comment.query.filter_by(snippet_id = )
+        # comments = Comment.query.filter_by(snippet_id = )
         return [{
             'id': snippet.id,
             'title': snippet.title,
