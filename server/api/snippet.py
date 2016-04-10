@@ -33,8 +33,14 @@ class SnippetAPI(Resource):
         print("New snippet:", args)
 
         session = Session()
+<<<<<<< HEAD
         new_snippet = Snippet(content=args.content, title=args.title, tags=[args.tags])
         #new_tag = Tag(name=args.tags)
+=======
+        new_snippet = Snippet(content=args.content, title=args.title, tags = args.tags) #tags=args.tags
+        #new_tag = Tag(name=args.tags)
+        print(args.tags)
+>>>>>>> 31fb5ddfde7a53d229358818eee86ad94bdd2e10
         session.add(new_snippet)
         #session.add(new_tag)
         session.commit()
