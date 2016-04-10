@@ -5,6 +5,7 @@ import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { addKitten, deleteKitten } from '../actions/kittens';
 import { addSnippet, likeSnippet, deleteSnippet } from '../actions/snippets';
+import { addComment } from '../actions/comments'
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Paper from 'material-ui/lib/paper';
@@ -27,6 +28,7 @@ const Snippets = ({ sheet, deleteKitten, snippets, addSnippet, likeSnippet, dele
                   snippet={snippet}
                   onSnippetLike={likeSnippet}
                   onSnippetDelete={deleteSnippet} />
+                  
         ))}
       </div>
     }

@@ -31,12 +31,8 @@ const Snippet = ({ sheet, snippet, onSnippetLike, onSnippetDelete }) => (
       <Badge badgeContent={snippet.likes} secondary={true} badgeStyle={{top: 15, right: 15}} >
         <FlatButton label="Like" onClick={onSnippetLike.bind(this, snippet.id)} >
         </FlatButton>
-        {/*
-        <IconButton tooltip="Notifications">
-          <NotificationsIcon />
-          </IconButton>*/}
       </Badge>
-      <FlatButton label="Comment" />
+      <Comment />
       <FlatButton label="Remove" onClick={onSnippetDelete.bind(this, snippet.id)} />
     </CardActions>
   </Card>

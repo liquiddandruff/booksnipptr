@@ -1,32 +1,27 @@
 import React from 'react';
-import Snippet from './Snippet';
-import NewSnippet from './NewSnippet';
+import Comment from './Comment';
+import NewComment from './NewComment';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { addKitten, deleteKitten } from '../actions/kittens';
-import { addSnippet, likeSnippet, deleteSnippet } from '../actions/snippets';
+//don't forget to add delete comment function
+import { likeComment } from '../actions/comments';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Paper from 'material-ui/lib/paper';
 
-const Snippets = ({ sheet, deleteKitten, snippets, addSnippet, likeSnippet, deleteSnippet }) =>
+const Comments = ({ sheet, comments, likeComment }) =>
+  {console.log(this.snippetID)}
   <div className={sheet.classes.kittens}>
     <Paper className={sheet.classes.paper}>
-      {!!snippets.length &&
-        <h1>There are {snippets.length} snippets</h1>
-      }
-      {!snippets.length &&
-        <h1>There are no snippets</h1>
-      }
-      <NewSnippet />
+      <NewComment />
     </Paper>
-    {!!snippets.length &&
+    {!!comments.length &&
       <div className={sheet.classes.basket}>
-        {snippets.map(snippet => (
-          <Snippet key={`snippet-${snippet.id}`}
-                  snippet={snippet}
-                  onSnippetLike={likeSnippet}
-                  onSnippetDelete={deleteSnippet} />
+        {comments.map(comment => (
+          <Comment key={`comment-${comment.id}`}
+                  comment={comment}
+                  onCommentLike={likeComment} />
         ))}
       </div>
     }
@@ -65,8 +60,8 @@ const STYLES = {
 };
 
 export default connect(
-  state => ({ kittens: state.kittens, snippets: state.snippets }),
-  { addKitten, deleteKitten, addSnippet, likeSnippet, deleteSnippet }
+  state => ({ kittens: state.kittens, comments: state.comments }),
+  { addKitten, deleteKitten, addComment, likeComment } //add deleteComment
 )(
-  useSheet(Snippets, STYLES)
+  useSheet(Comments, STYLES)
 );

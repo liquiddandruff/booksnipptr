@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes/comments';
 import { get, post, del } from '../utils/api';
 
-export function addComment(comment) {
+export function addComment(comment, snippetId) {
   console.log("addComment", comment, comment.username, comment.text, comment.created_at);
   return async dispatch => {
     dispatch({
@@ -10,7 +10,7 @@ export function addComment(comment) {
     });
 
     try {
-      const result = await post('/api/comment', comment);
+      const result = await post('/api/comment', comment, snippetId);
 
       dispatch({
         type: actionTypes.ADD_COMMENT_SUCCESS,
@@ -24,7 +24,7 @@ export function addComment(comment) {
   }
 }
 
-export function requestComment() {
+export function requestComments() {
   return async dispatch => {
     dispatch({
       type: actionTypes.REQUEST_COMMENTS

@@ -11,6 +11,7 @@ export function addSnippet(snippet) {
 
     try {
       const result = await post('/api/snippet', snippet);
+      console.log("posted")
 
       dispatch({
         type: actionTypes.ADD_SNIPPET_SUCCESS,

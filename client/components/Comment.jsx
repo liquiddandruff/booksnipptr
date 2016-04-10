@@ -19,7 +19,7 @@ const COLORS = [
 ];
 
 const Comment = ({ sheet, comment }) => (
-  <Card className={sheet.classes.snippet} >
+  <Card className={sheet.classes.comment} >
     <CardText>
       {comment.text}
       <p>
@@ -30,13 +30,9 @@ const Comment = ({ sheet, comment }) => (
       <Badge badgeContent={comment.likes} secondary={true} badgeStyle={{top: 15, right: 15}} >
         <FlatButton label="Like" onClick={onCommentLike.bind(this, comment.id)} >
         </FlatButton>
-        {/*
-        <IconButton tooltip="Notifications">
-          <NotificationsIcon />
-          </IconButton>*/}
+
       </Badge>
       
-      // <FlatButton label="Remove" onClick={onSnippetDelete.bind(this, snippet.id)} />
     </CardActions>
   </Card>
 );
@@ -50,7 +46,7 @@ Comment.propTypes = {
 
 
 const STYLES = {
-  snippet: {
+  comment: {
     width: "100%",
   },
   button: {
