@@ -35,9 +35,6 @@ class User(db.Model):
     #the `tags_users` association table is somehow used to enable this relationship
     tags        =   relationship('Tag', secondary=tags_users,
                                  backref = backref('users', lazy='dynamic'))
-    #The following creates a many-one relationship between comments and users.
-    #A user can have many comments, a comment can only have one user
-    comments    =   relationship('Comment', backref='user', lazy='dynamic')
 
     def set_password(self, password):
         self.pwdhash = generate_password_hash(password)
@@ -100,6 +97,9 @@ class Snippet(db.Model):
     created_at  =   db.Column(db.DateTime, default=datetime.utcnow)
     tags        =   relationship('Tag', secondary=tags_snippets,
                                  backref = backref('snippets', lazy='dynamic'))
+
+    #The following creates a many-one relationship between comments and snippets.
+    #A snippet can have many comments, a comment can only have one snippet
     comments    =   relationship('Comment', backref='snippets', lazy='dynamic')
 
     def __repr__(self):
@@ -122,10 +122,12 @@ class Comment(db.Model):
 
     id          =   db.Column(db.Integer, primary_key=True)
     text        =   db.Column(db.String(2000))
+    created_at  =   db.Column(db.DateTime, default=datetime.utcnow)
+    likes       =   db.Column(db.Integer, default=0)
     #need these foreign keys to enable the many-one relationships
     #Comments have with snippets and users.
     snippet_id     =   db.Column(db.Integer, db.ForeignKey('snippets.id'))
-    user_id     =   db.Column(db.Integer, db.ForeignKey('users.id'))
+    username     =   db.Column(db.Integer, db.ForeignKey('users.username'))
 
     def __repr__(self):
         return "<Comment (text='%s')>" % (self.text)

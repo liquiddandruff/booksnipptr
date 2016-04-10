@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router';
-import { addSnippet } from '../actions/snippets';
+import { addComment } from '../actions/comments';
 import { connect } from 'react-redux';
 import useSheet from 'react-jss';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
@@ -14,7 +14,7 @@ import DragIcon from 'material-ui/lib/svg-icons/editor/drag-handle';
 
 import TextField from 'material-ui/lib/text-field';
 
-export default class NewSnippet extends Component {
+export default class NewComment extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,14 +23,12 @@ export default class NewSnippet extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("im clicked");
+    console.log("Comment Clicked");
     var formData = {
-      title: this.refs.title.getValue(),
-      author: this.refs.author.getValue(),
-      content: this.refs.content.getValue(),
+      text: this.refs.text.getValue(),
     };
     console.log(formData);
-    this.props.addSnippet(formData);
+    this.props.addComment(formData);
   };
 
   render() {
@@ -38,18 +36,11 @@ export default class NewSnippet extends Component {
     return (
       <div>
         <form action='' onSubmit={this.handleSubmit}>
-          <TextField className={classes.login} ref="title" floatingLabelText = "Title" hintText = "Book title" />
-          <br />
-          <TextField className = {classes.login} ref="author" floatingLabelText = "Author" hintText = "Book author" />
-          <br />
-          <TextField className = {classes.login} ref="content" floatingLabelText="Content" hintText="Snippet content"
-            multiLine={true}/>
-          <br />
-          <br />
+          <TextField className={classes.login} ref="text" floatingLabelText = "Comment" hintText = "Enter Comment" multiLine={true}/>
+          <br></br>
           <RaisedButton className = {classes.login} label = "Submit" primary={true} type="submit" />
-          <br />
+          <br></br>
         </form>
-
       </div>
     )
   }
@@ -67,7 +58,7 @@ const STYLES = {
 
 export default connect(
   state => ({}),
-  { addSnippet }
+  { addComment }
 )(
-  useSheet(NewSnippet, STYLES)
+  useSheet(NewComment, STYLES)
 );

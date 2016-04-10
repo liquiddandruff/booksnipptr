@@ -13,35 +13,34 @@ import Badge from 'material-ui/lib/badge';
 import IconButton from 'material-ui/lib/icon-button';
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications';
 
-import Comments from './Comments'
+import { likeComment } from '../actions/comments';
 
 const COLORS = [
   '#FFAAAA', '#FFAAFF', '#AAAAFF', '#FFFFAA',
   '#339933', '#333399', '#993399', '#339999'
 ];
 
-const Snippet = ({ sheet, snippet, onSnippetLike, onSnippetDelete }) => (
-  <Card className={sheet.classes.snippet} >
-    <CardTitle title={snippet.title} subtitle={snippet.author} />
+const Comment = ({ sheet, comment, onCommentLike }) => (
+  <Card className={sheet.classes.comment} >
     <CardText>
-      {snippet.content}
+      {comment.text}
       <p>
-        Created at: <b>{snippet.created_at}</b>
+        Created at: <b>{comment.created_at}</b>
       </p>
     </CardText>
     <CardActions>
-      <Comments snippetID={snippet.id} />
-      <Badge badgeContent={snippet.likes} secondary={true} badgeStyle={{top: 15, right: 15}} >
-        <FlatButton label="Like" onClick={onSnippetLike.bind(this, snippet.id)} >
+      <Badge badgeContent={comment.likes} secondary={true} badgeStyle={{top: 15, right: 15}} >
+        <FlatButton label="Like" onClick={onCommentLike.bind(this, comment.id)} >
         </FlatButton>
+
       </Badge>
-      <FlatButton label="Remove" onClick={onSnippetDelete.bind(this, snippet.id)} />
+      
     </CardActions>
   </Card>
 );
 
-Snippet.propTypes = {
-  snippet: PropTypes.shape({
+Comment.propTypes = {
+  comment: PropTypes.shape({
     id: PropTypes.number.isRequired,
     created: PropTypes.string.isRequired
   }).isRequired
@@ -49,7 +48,7 @@ Snippet.propTypes = {
 
 
 const STYLES = {
-  snippet: {
+  comment: {
     width: "100%",
   },
   button: {
@@ -76,4 +75,4 @@ const STYLES = {
   }
 };
 
-export default useSheet(Snippet, STYLES);
+export default useSheet(Comment, STYLES);

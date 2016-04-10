@@ -31,14 +31,17 @@ def create_app():
     #from api.kittens import kittens_api
     from api.snippet import snippet_api
     from api.auth import auth_api
+    from api.comment import comment_api
     from views.index import index_view
 
     #app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config.from_object('config.Default')
+    #app.config.from_object('config.Production')
 
     #app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
     app.register_blueprint(snippet_api.blueprint, url_prefix='/api')
     app.register_blueprint(auth_api.blueprint, url_prefix='/api')
+    app.register_blueprint(comment_api.blueprint, url_prefix='/api')
     app.register_blueprint(index_view)
 
     db.init_app(app)
