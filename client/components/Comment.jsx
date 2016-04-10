@@ -20,7 +20,7 @@ const COLORS = [
   '#339933', '#333399', '#993399', '#339999'
 ];
 
-const Comment = ({ sheet, comment, likeComment }) => (
+const Comment = ({ sheet, comment, onCommentLike }) => (
   <Card className={sheet.classes.comment} >
     <CardText>
       {comment.text}

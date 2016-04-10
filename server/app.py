@@ -30,6 +30,7 @@ def create_app():
     #from api.kittens import kittens_api
     from api.snippet import snippet_api
     from api.auth import auth_api
+    from api.comment import comment_api
     from views.index import index_view
 
     app = Flask(__name__)
@@ -40,6 +41,7 @@ def create_app():
     #app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
     app.register_blueprint(snippet_api.blueprint, url_prefix='/api')
     app.register_blueprint(auth_api.blueprint, url_prefix='/api')
+    app.register_blueprint(comment_api.blueprint, url_prefix='/api')
     app.register_blueprint(index_view)
 
     db.init_app(app)

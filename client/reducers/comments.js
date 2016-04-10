@@ -12,9 +12,6 @@ const requestComments = (state, action) => ([
   ...action.comments
 ]);
 
-// const deleteSnippet = (state, action) => (
-//   state.filter(snippet => snippet.id !== action.snippetId)
-// );
 
 const likeComment = function(state, action) {
   let newComments = [...state];
@@ -27,7 +24,5 @@ export default function comments(state = DEFAULT_STATE, action) {
     [actionTypes.ADD_COMMENT_SUCCESS]: addComment,
     [actionTypes.REQUEST_COMMENT_SUCCESS]: requestComments,
     [actionTypes.LIKE_COMMENT_SUCCESS]: likeComment
-    // ,
-    // [actionTypes.DELETE_COMMENT_SUCCESS]: deleteComment
   }[action.type] || (s => s))(state, action);
 }

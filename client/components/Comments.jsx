@@ -5,25 +5,26 @@ import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { addKitten, deleteKitten } from '../actions/kittens';
 //don't forget to add delete comment function
+import { likeComment } from '../actions/comments';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Paper from 'material-ui/lib/paper';
 
-const Comments = ({ sheet, comments }) =>
+const Comments = ({ sheet, comments, snippetID }) =>
 
   <div className={sheet.classes.kittens}>
-    <div className={sheet.classes.paper}>
-      <NewComment />
-    </div>
     {!!comments.length &&
       <div className={sheet.classes.basket}>
-        {/*comments.map(comment => (
+        {comments.map(comment => (
           <Comment key={`comment-${comment.id}`}
                   comment={comment}
                   onCommentLike={likeComment} />
-        ))*/}
+        ))}
       </div>
     }
+    <div className={sheet.classes.paper}>
+      <NewComment snippetID={snippetID}/>
+    </div>
   </div>;
 
 const STYLES = {
@@ -59,8 +60,10 @@ const STYLES = {
 };
 
 export default connect(
-  state => ({ comments: [{'id': 1, 'text': 'can'}, {'id': 2, 'text': 'fcan'}] }),
+  state => ({ comments: state.comments }),
   {  }
 )(
   useSheet(Comments, STYLES)
 );
+
+// comments: [{'id': 1, 'text': 'can'}, {'id': 2, 'text': 'fcan'}]

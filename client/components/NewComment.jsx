@@ -36,12 +36,11 @@ export default class NewComment extends Component {
     return (
       <div>
         <form action='' onSubmit={this.handleSubmit}>
-          <TextField className={classes.login} ref="text" floatingLabelText = "Comment" hintText = "Enter Comment" />
+          <TextField className={classes.login} ref="text" floatingLabelText = "Comment" hintText = "Enter Comment" multiLine={true}/>
           <br></br>
           <RaisedButton className = {classes.login} label = "Submit" primary={true} type="submit" />
           <br></br>
         </form>
-
       </div>
     )
   }
