@@ -22,7 +22,7 @@ const likeComment = function(state, action) {
 export default function comments(state = DEFAULT_STATE, action) {
   return ({
     [actionTypes.ADD_COMMENT_SUCCESS]: addComment,
-    [actionTypes.REQUEST_COMMENT_SUCCESS]: requestComments,
+    [actionTypes.REQUEST_COMMENTS_SUCCESS]: requestComments,
     [actionTypes.LIKE_COMMENT_SUCCESS]: likeComment
   }[action.type] || (s => s))(state, action);
 }

@@ -14,10 +14,12 @@ class CommentAPI(Resource):
         self.parser.add_argument('snippetID', dest='snippetID')
 
     def get(self):
-        comments = Comment.query.filter_by(snippet_id = snippetID)
+        comments = Comment.query
         return [{
             'text': comment.text,
-            'created_at': snippet.created_at.isoformat() + 'Z'
+            'created_at': comment.created_at.isoformat() + 'Z',
+            'snippet_id': comment.snippet_id,
+            'id': comment.id
         } for comment in comments]
 
     def post(self):
@@ -28,16 +30,24 @@ class CommentAPI(Resource):
         print("\n")
         print(args.snippetID)
 
-
+        print "about to start session"
         session = Session()
-        comment = Comment(text=args.text)
+        print "session started"
+        print "starting comment creation"
+        comment = Comment(snippet_id= args.snippetID, text=args.text)
+        print "comment created"
+        print "adding comment"
         session.add(comment)
+        print "added comment"
         session.commit()
+        print "commited"
 
         # this response is used by the react client to instantly construct the snippet
         return {
             'text': comment.text,
-            'created_at': comment.created_at.isoformat() + 'Z'
+            'created_at': comment.created_at.isoformat() + 'Z',
+            'snippet_id': comment.snippet_id,
+            'id': comment.id
         }
 
 

@@ -26,6 +26,7 @@ export default class NewComment extends Component {
     console.log("Comment Clicked");
     var formData = {
       text: this.refs.text.getValue(),
+      snippetID: this.props.snippetID,
     };
     console.log(formData);
     this.props.addComment(formData);
