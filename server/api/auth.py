@@ -1,14 +1,31 @@
-from flask import Blueprint
+from functools import wraps
+from pprint import pprint
+
+from flask import Blueprint, current_app, request
 from flask_restful import Api, Resource, reqparse, abort
+
 from models import User
 from app import db
 from app import Session
 
 auth_api = Api(Blueprint('auth_api', __name__))
 
-def load_user(id):
-    return Session().User.query.get(int(id))
-
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        parser = reqparse.RequestParser()
+        parser.add_argument('token', dest='token')
+        parsed_args = parser.parse_args()
+        print("form", parsed_args)
+        token = parsed_args.token
+        if not token:
+            abort(401)
+        user = User.verify_auth_token(token)
+        if user == None:
+            print("Incorrect token auth")
+            return abort(401)
+        return f(*args, **kwargs)
+    return decorated
 
 @auth_api.resource('/login')
 class LoginAPI(Resource):
@@ -28,9 +45,11 @@ class LoginAPI(Resource):
         if user and user.check_password(args.password):
             #login_user(user)
             print("logged in user")
+            token = user.generate_auth_token()
             #redirect to index
             return {
                 'msg': "ok",
+                'token': token.decode('ascii'),
                 'route': "#/"
             }
         else:
@@ -61,15 +80,17 @@ class RegistrationAPI(Resource):
                 'msg': "Username already exists"
                 #'route': "400" # no route since error code
             }, 400
-        #Out of the if statement
-        newuser = User(username=args.username)
-        newuser.set_password(args.password)
-        session.add(newuser)
+
+        new_user = User(username=args.username)
+        new_user.set_password(args.password)
+        session.add(new_user)
         session.commit()
-        #login_user(newuser)
+        # generate token after commit to get ID
+        token = new_user.generate_auth_token()
 
         return {
             'msg': "ok",
+            'token': token.decode('ascii'),
             'route': "#/"
         }
 

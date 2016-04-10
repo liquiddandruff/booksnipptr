@@ -8,8 +8,9 @@ export function loginUser(formData) {
       type: actionTypes.LOGIN_USER
     });
 
+    let result = null;
     try {
-      const result = await post('/api/login', formData);
+      result = await post('/api/login', formData);
       //create an action (actions change the state tree) and
       //send it off to the state tree
       dispatch({
@@ -23,8 +24,8 @@ export function loginUser(formData) {
 
     } catch(e) {
       dispatch({
-        type: actionTypes.LOGIN_USER_ERROR
-        //no data in this action except for the type (no need for anything else)
+        type: actionTypes.LOGIN_USER_ERROR,
+        result: result
       });
     }
   }
@@ -37,8 +38,9 @@ export function registerUser(formData) {
       type: actionTypes.REGISTER_USER
     });
 
+    let result = null;
     try {
-      const result = await post('/api/register', formData);
+      result = await post('/api/register', formData);
 
       dispatch({
         type: actionTypes.REGISTER_USER_SUCCESS,
@@ -46,7 +48,8 @@ export function registerUser(formData) {
       });
     } catch(e) {
       dispatch({
-        type: actionTypes.REGISTER_USER_ERROR
+        type: actionTypes.REGISTER_USER_ERROR,
+        result: result
       });
     }
   }

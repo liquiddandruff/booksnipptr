@@ -1,10 +1,12 @@
 #todo: switch db from sqlite3 to postgres
-
-from app import db
-
 from datetime import datetime, timedelta
+
 from sqlalchemy.orm import relationship, backref
 from werkzeug import generate_password_hash, check_password_hash
+
+from app import app
+from app import db
+from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 
 #Our two mappings: tags <-> snippets and tags <-> users
 
@@ -60,6 +62,27 @@ class User(db.Model):
             return unicode(self.id)  # python 2
         except NameError:
             return str(self.id)  # python 3
+
+    def generate_auth_token(self, expiration = 600):
+        s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
+        dump =  s.dumps({ 'id': self.get_id() })
+        print('dump', dump)
+        recovered = s.loads(dump)
+        print('recovered', recovered)
+        return dump
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None # valid token, but expired
+        except BadSignature:
+            return None # invalid token
+        print('data', data)
+        user = User.query.get(data['id'])
+        return user
 
     def __repr__(self):
         return '<User %r>' % (self.username)

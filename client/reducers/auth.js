@@ -7,6 +7,7 @@ const DEFAULT_STATE = [];
 const loginSuccess = function(state, action) {
   let nextState = { ...state };
   console.log('login 1', action);
+  nextState.token = action.result.token;
   return nextState;
 };
 
@@ -19,6 +20,7 @@ const loginError = function(state, action) {
 const registerSuccess = function(state, action) {
   let nextState = { ...state };
   console.log('register 1', action);
+  nextState.token = action.result.token;
   return nextState;
 };
 
@@ -28,7 +30,7 @@ const registerError = function(state, action) {
   return nextState;
 };
 
-export default function configs(state = DEFAULT_STATE, action) {
+export default function auth(state = DEFAULT_STATE, action) {
   return ({
     [actionTypes.LOGIN_USER_SUCCESS]: loginSuccess,
     [actionTypes.LOGIN_USER_ERROR]: loginError,

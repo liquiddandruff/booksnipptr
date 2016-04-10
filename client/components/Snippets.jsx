@@ -3,14 +3,13 @@ import Snippet from './Snippet';
 import NewSnippet from './NewSnippet';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
-import { addKitten, deleteKitten } from '../actions/kittens';
 import { addSnippet, likeSnippet, deleteSnippet } from '../actions/snippets';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Paper from 'material-ui/lib/paper';
 
-const Snippets = ({ sheet, deleteKitten, snippets, addSnippet, likeSnippet, deleteSnippet }) =>
-  <div className={sheet.classes.kittens}>
+const Snippets = ({ sheet, snippets, auth, addSnippet, likeSnippet, deleteSnippet }) =>
+  <div className={sheet.classes.snippets}>
     <Paper className={sheet.classes.paper}>
       {!!snippets.length &&
         <h1>There are {snippets.length} snippets</h1>
@@ -26,7 +25,8 @@ const Snippets = ({ sheet, deleteKitten, snippets, addSnippet, likeSnippet, dele
           <Snippet key={`snippet-${snippet.id}`}
                   snippet={snippet}
                   onSnippetLike={likeSnippet}
-                  onSnippetDelete={deleteSnippet} />
+                  onSnippetDelete={deleteSnippet}
+                  auth={auth}/>
         ))}
       </div>
     }
@@ -48,7 +48,7 @@ const STYLES = {
     flexWrap: 'wrap'
   },
 
-  kittens: {
+  snippets: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -65,8 +65,8 @@ const STYLES = {
 };
 
 export default connect(
-  state => ({ kittens: state.kittens, snippets: state.snippets }),
-  { addKitten, deleteKitten, addSnippet, likeSnippet, deleteSnippet }
+  state => ({ snippets: state.snippets, auth: state.auth }),
+  { addSnippet, likeSnippet, deleteSnippet }
 )(
   useSheet(Snippets, STYLES)
 );

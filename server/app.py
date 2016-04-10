@@ -4,10 +4,11 @@ from sys import stdout
 from contextlib import contextmanager
 
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 import config
 
+app = Flask(__name__)
 db = SQLAlchemy()
 
 def Session():
@@ -32,7 +33,6 @@ def create_app():
     from api.auth import auth_api
     from views.index import index_view
 
-    app = Flask(__name__)
     #app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config.from_object('config.Default')
 

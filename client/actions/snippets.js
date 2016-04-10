@@ -2,15 +2,20 @@ import * as actionTypes from '../actionTypes/snippets';
 import { get, post, del } from '../utils/api';
 
 export function addSnippet(snippet) {
-  console.log("addSnippet", snippet, snippet.title, snippet.author, snippet.content);
-  return async dispatch => {
+  console.log('addSnippet', snippet, snippet.title, snippet.author, snippet.content);
+  return async (dispatch, getState) => {
+    const { auth } = getState();
     dispatch({
       type: actionTypes.ADD_SNIPPET,
       snippet
     });
 
     try {
-      const result = await post('/api/snippet', snippet);
+      const json = {
+        snippet,
+        token: auth.token
+      }
+      const result = await post('/api/snippet', json);
 
       dispatch({
         type: actionTypes.ADD_SNIPPET_SUCCESS,
@@ -46,15 +51,22 @@ export function requestSnippets() {
 }
 
 export function likeSnippet(snippetId) {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const { auth } = getState();
     dispatch({
       type: actionTypes.LIKE_SNIPPET,
       snippetId
     });
 
     try {
+      const json = {
+        type: 'snippet',
+        id: snippetId,
+        token: auth.token
+      }
       // ES6 backtick strings for inline variable subtitution
-      await post(`/api/snippet/${snippetId}/like`);
+      //await post(`/api/snippet/${snippetId}/like`, json);
+      await post('/api/like', json);
 
       dispatch({
         type: actionTypes.LIKE_SNIPPET_SUCCESS,
@@ -69,14 +81,20 @@ export function likeSnippet(snippetId) {
   }
 }
 export function deleteSnippet(snippetId) {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const { auth } = getState();
     dispatch({
       type: actionTypes.DELETE_SNIPPET,
       snippetId
     });
 
     try {
-      await del(`/api/snippet/${snippetId}/delete`);
+      const json = {
+        type: 'snippet',
+        id: snippetId,
+        token: auth.token
+      }
+      await post('api/delete', json);
 
       dispatch({
         type: actionTypes.DELETE_SNIPPET_SUCCESS,
