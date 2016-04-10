@@ -27,6 +27,7 @@ export default class NewSnippet extends Component {
       title: this.refs.title.getValue(),
       author: this.refs.author.getValue(),
       content: this.refs.content.getValue(),
+      tags: this.refs.tags.getValue(),
     };
     console.log(formData);
     this.props.addSnippet(formData);
@@ -44,6 +45,7 @@ export default class NewSnippet extends Component {
           <TextField className = {classes.login} ref="content" floatingLabelText="Content" hintText="Snippet content"
             multiLine={true}
           /><br />
+          <TextField className = {classes.login} ref="tags" floatingLabelText = "Tags" hintText = "Tags" />
           <br />
           <RaisedButton className = {classes.login} label = "Submit" primary={true} type="submit" />
           <br />

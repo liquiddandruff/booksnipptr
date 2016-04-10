@@ -20,10 +20,11 @@ const COLORS = [
 
 const Snippet = ({ sheet, snippet, onSnippetLike, onSnippetDelete }) => (
   <Card className={sheet.classes.snippet} >
-    <CardTitle title="Card title" subtitle="Card subtitle" />
+    <CardTitle title={snippet.title} subtitle="Card subtitle" />
     <CardText>
       {snippet.content}
       <p>
+        Tags: {snippet.tags}<br/>
         Created at: <b>{snippet.created_at}</b>
       </p>
     </CardText>

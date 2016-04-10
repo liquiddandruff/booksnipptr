@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse, abort
-from models import Snippet, User
+from models import Snippet, User, Tag
 from app import db
 from app import Session
 
@@ -14,34 +14,39 @@ class SnippetAPI(Resource):
         self.parser.add_argument('author', dest='author')
         self.parser.add_argument('content', dest='content', required=True)
         self.parser.add_argument('user_id', dest='user_id')
+        self.parser.add_argument('tags', dest='tags')
 
     def get(self):
         snippets = Snippet.query
         return [{
             'id': snippet.id,
+            'title': snippet.title,
             'content': snippet.content,
             'likes': snippet.likes,
-            'created_at': snippet.created_at.isoformat() + 'Z'
-            #'tags': snippet.tags,
+            'created_at': snippet.created_at.isoformat() + 'Z',
+            'tags': snippet.tags,
             #'comments': snippet.comments
         } for snippet in snippets]
 
     def post(self):
         args = self.parser.parse_args()
-        print("New snippet:", args, args.author)
+        print("New snippet:", args)
 
         session = Session()
-        new_snippet = Snippet(content=args.content)
+        new_snippet = Snippet(content=args.content, title=args.title) #tags=args.tags
+        new_tag = Tag(name=args.tags)
         session.add(new_snippet)
+        session.add(new_tag)
         session.commit()
 
         return {
             'id': new_snippet.id,
+            'title': new_snippet.title,
             'content': new_snippet.content,
             #'user_id': new_snippet.user_id,
             'likes': new_snippet.likes,
-            'created_at': new_snippet.created_at.isoformat() + 'Z'
-            #'tags': new_snippet.tags,
+            'created_at': new_snippet.created_at.isoformat() + 'Z',
+            'tags': new_snippet.tags,
             #'comments': new_snippet.comments
         }
 

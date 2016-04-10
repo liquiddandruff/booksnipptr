@@ -67,7 +67,7 @@ class Snippet(db.Model):
 
     def __repr__(self):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
-        return "<Snippet (id='%s', likes='%d', created_at=%s)>" % (self.id, self.likes, str_created_at)
+        return "<Snippet (id='%s', likes='%d', created_at='%s', tags='%s', title='%s')>" % (self.id, self.likes, str_created_at, self.tags, self.title)
 
 class Tag(db.Model):
 
