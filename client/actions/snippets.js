@@ -2,14 +2,9 @@ import * as actionTypes from '../actionTypes/snippets';
 import { get, post, del } from '../utils/api';
 
 export function addSnippet(snippet) {
-<<<<<<< HEAD
   console.log('addSnippet', snippet, snippet.title, snippet.author, snippet.content, snippet.tags);
-  return async dispatch => {
-=======
-  console.log('addSnippet', snippet, snippet.title, snippet.author, snippet.content);
   return async (dispatch, getState) => {
     const { auth } = getState();
->>>>>>> 2a1147adbe96e611de3383ae9fbb48a8932e967d
     dispatch({
       type: actionTypes.ADD_SNIPPET,
       snippet

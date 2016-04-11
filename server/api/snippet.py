@@ -12,6 +12,7 @@ snippet_api = Api(Blueprint('snippet_api', __name__))
 @snippet_api.resource('/snippet')
 class SnippetAPI(Resource):
     def __init__(self):
+        self.parser = reqparse.RequestParser()
         self.parser.add_argument('snippet', dest='snippet', type=dict)
         self.snippetParser = reqparse.RequestParser()
 
@@ -71,8 +72,8 @@ class SnippetAPI(Resource):
             'content': snippet.content,
             #'user_id': snippet.user_id,
             'likes': snippet.likes,
-            'created_at': snippet.created_at.isoformat() + 'Z'
-            'tags': snippet.tags,
+            'created_at': snippet.created_at.isoformat() + 'Z',
+            'tags': snippet.tags
             #'comments': snippet.comments
         }
 
@@ -81,9 +82,9 @@ class SnippetAPI(Resource):
 @snippet_api.resource('/delete')
 class DeleteAPI(Resource):
     def __init__(self):
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument('type', dest='type')
-        self.parser.add_argument('id', dest='id', required=True)
+        self.snippetParser = reqparse.snippetParser()
+        self.snippetParser.add_argument('type', dest='type')
+        self.snippetParser.add_argument('id', dest='id', required=True)
 
     @staticmethod
     def handleSnippetDelete(snippet_id):
@@ -100,7 +101,7 @@ class DeleteAPI(Resource):
     @auth.requires_auth
     def post(self):
         #, snippet_id, action
-        args = self.parser.parse_args()
+        args = self.snippetParser.parse_args()
         print("New delete:", args)
 
         if args.type == 'snippet':
@@ -112,9 +113,9 @@ class DeleteAPI(Resource):
 @snippet_api.resource('/like')
 class LikeAPI(Resource):
     def __init__(self):
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument('type', dest='type')
-        self.parser.add_argument('id', dest='id', required=True)
+        self.snippetParser = reqparse.RequestParser()
+        self.snippetParser.add_argument('type', dest='type')
+        self.snippetParser.add_argument('id', dest='id', required=True)
 
     @staticmethod
     def handleSnippetLike(snippet_id):
@@ -142,7 +143,7 @@ class LikeAPI(Resource):
 
     @auth.requires_auth
     def post(self):
-        args = self.parser.parse_args()
+        args = self.snippetParser.parse_args()
         print("New like:", args)
         if args.type == 'snippet':
             return self.handleSnippetLike(args.id)
