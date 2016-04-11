@@ -65,6 +65,9 @@ class Snippet(db.Model):
                         backref = backref('snippets', lazy='dynamic'))
     comments    =   relationship('Comment', backref='snippets', lazy='dynamic')
 
+    #def __init__():
+
+
     def __repr__(self):
         str_created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
         return "<Snippet (id='%s', likes='%d', created_at='%s', tags='%s', title='%s')>" % (self.id, self.likes, str_created_at, self.tags, self.title)
@@ -75,6 +78,9 @@ class Tag(db.Model):
 
     id      =   db.Column(db.Integer, primary_key=True)
     name    =   db.Column(db.String(255), unique=True, nullable=False)
+
+    def __str__(self):
+        return self.name
 
     def __repr__(self):
         return "<Tag (name='%s')>" % (self.name)

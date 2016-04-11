@@ -27,7 +27,7 @@ def session_scope():
         session.remove()
 
 def create_app():
-    #from api.kittens import kittens_api
+    from api.kittens import kittens_api
     from api.snippet import snippet_api
     from views.index import index_view
 

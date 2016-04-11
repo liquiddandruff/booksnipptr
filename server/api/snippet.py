@@ -18,32 +18,43 @@ class SnippetAPI(Resource):
 
     def get(self):
         snippets = Snippet.query
+        print "in the get"
+        #session.query(Snippet).filter(Snippet.id == 1)
+        #print Snippet.query.filter(id==1).first().id, type(Snippet.query.filter(id==1).first().id)
+        for snippet in snippets:
+            if snippet.tags:
+                print snippet.id, snippet.tags[0], type(snippet.tags[0]), '\n'
+
         return [{
             'id': snippet.id,
             'title': snippet.title,
             'content': snippet.content,
             'likes': snippet.likes,
             'created_at': snippet.created_at.isoformat() + 'Z',
-            'tags': snippet.tags,
+            'tags': [tag.name for tag in snippet.tags],
             #'comments': snippet.comments
         } for snippet in snippets]
 
     def post(self):
         args = self.parser.parse_args()
         print("New snippet:", args)
+        print("tags: ", args.tags.split(','))
+        new_tag=args.tags.split(',')
+        tag = []
+        for tags in new_tag:
+            print tags, type(tags)
+            tag.append(Tag(name=tags))
 
+        #tag1 = Tag(new_tag[0])
         session = Session()
-<<<<<<< HEAD
-        new_snippet = Snippet(content=args.content, title=args.title, tags=[args.tags])
+        new_snippet = Snippet(content=args.content, title=args.title, tags=tag)
         #new_tag = Tag(name=args.tags)
-=======
-        new_snippet = Snippet(content=args.content, title=args.title, tags = args.tags) #tags=args.tags
-        #new_tag = Tag(name=args.tags)
-        print(args.tags)
->>>>>>> 31fb5ddfde7a53d229358818eee86ad94bdd2e10
+        #print(args.tags)
         session.add(new_snippet)
         #session.add(new_tag)
         session.commit()
+
+        print 'done posting'
 
         return {
             'id': new_snippet.id,
