@@ -50,6 +50,77 @@ export function requestSnippets() {
   }
 }
 
+export function requestNewest() {
+  return async dispatch => {
+    dispatch({
+      type: actionTypes.REQUEST_NEWEST_SNIPPETS
+    });
+
+    try {
+      const result = await get('/api/newest');
+
+      dispatch({
+        type: actionTypes.REQUEST_NEWEST_SNIPPETS_SUCCESS,
+        snippets: result
+      });
+    } catch(e) {
+      dispatch({
+        type: actionTypes.REQUEST_NEWEST_SNIPPETS_ERROR
+      });
+    }
+  }
+}
+
+export function requestRecommended() {
+  return async (dispatch, getState) => {
+    const { auth } = getState();
+    dispatch({
+      type: actionTypes.REQUEST_RECOMMENDED_SNIPPETS
+    });
+
+    try {
+      const json = {  
+        token: auth.token
+      }
+      const result = await post('/api/recommended', json);
+
+      dispatch({
+        type: actionTypes.REQUEST_RECOMMENDED_SNIPPETS_SUCCESS,
+        snippets: result
+      });
+    } catch(e) {
+      dispatch({
+        type: actionTypes.REQUEST_RECOMMENDED_SNIPPETS_ERROR
+      });
+    }
+  }
+}
+
+export function requestHot() {
+  return async (dispatch, getState) => {
+    const { auth } = getState();
+    dispatch({
+      type: actionTypes.REQUEST_HOT_SNIPPETS
+    });
+
+    try {
+      const json = {  
+        token: auth.token
+      }
+      const result = await post('/api/hot', json);
+
+      dispatch({
+        type: actionTypes.REQUEST_HOT_SNIPPETS_SUCCESS,
+        snippets: result
+      });
+    } catch(e) {
+      dispatch({
+        type: actionTypes.REQUEST_HOT_SNIPPETS_ERROR
+      });
+    }
+  }
+}
+
 export function likeSnippet(snippetId) {
   return async (dispatch, getState) => {
     const { auth } = getState();

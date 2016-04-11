@@ -28,7 +28,8 @@ class User(db.Model):
     pwdhash     =   db.Column(db.String(600), nullable=True)
 
     created_at  =   db.Column(db.DateTime, default=datetime.utcnow)
-    snippets       =   relationship('Snippet', backref='users', lazy='dynamic')
+    snippets    =   relationship('Snippet', #secondary=snippets_users,
+                                 backref='users', lazy='dynamic')
     #this relationship indicates a many-many relationship between users and tags.
     #the `tags_users` association table is somehow used to enable this relationship
     tags        =   relationship('Tag', secondary=tags_users,
@@ -108,7 +109,9 @@ class Snippet(db.Model):
 class Tag(db.Model):
 
     id      =   db.Column(db.Integer, primary_key=True)
-    name    =   db.Column(db.String(255), unique=True, nullable=False)
+    #yolo
+    #name    =   db.Column(db.String(255), unique=True, nullable=False)
+    name    =   db.Column(db.String(255), nullable=False)
 
     def __str__(self):
         return self.name

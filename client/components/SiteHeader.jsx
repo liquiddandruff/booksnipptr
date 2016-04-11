@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { addSnippet } from '../actions/snippets';
+import { addSnippet, requestSnippets, requestNewest, requestHot, requestRecommended } from '../actions/snippets';
 import { logoutUser } from '../actions/auth';
 import { connect } from 'react-redux';
 import useSheet from 'react-jss';
@@ -35,6 +35,18 @@ export default class SiteHeader extends Component {
     console.log(event, index, value);
     console.log("setting state: " + {value});
     this.setState({value});
+    if(value === 1) {
+      this.props.requestSnippets();
+    }
+    else if (value === 2) {
+      this.props.requestNewest();
+    }
+    else if(value === 3) {
+      this.props.requestHot();
+    }
+    else if(value === 4) {
+      this.props.requestRecommended();
+    }
   }
 
   render() {
@@ -54,10 +66,10 @@ export default class SiteHeader extends Component {
         <ToolbarGroup firstChild={true} float="left">
           <FlatButton label="BookSnipptr" linkButton={true} containerElement={<Link to="/" />} />
           <DropDownMenu value={this.state.value} onChange={this.handleChange} style={menuStyle} >
-            <MenuItem value={1} primaryText="Sort by Hot" style={menuStyle} />
-            <MenuItem value={2} primaryText="Sort by New" style={menuStyle} />
-            <MenuItem value={3} primaryText="Sort by Rising" style={menuStyle} />
-            <MenuItem value={4} primaryText="Sort by Top" style={menuStyle} />
+            <MenuItem value={1} primaryText="Sort by Oldest" style={menuStyle} />
+            <MenuItem value={2} primaryText="Sort by Newest" style={menuStyle} />
+            <MenuItem value={3} primaryText="Sort by Hot" style={menuStyle} />
+            <MenuItem value={4} primaryText="Sort by Recommended" style={menuStyle} />
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup float="right">
@@ -70,7 +82,6 @@ export default class SiteHeader extends Component {
           >
             {logoutOrLogin}
             {registerOrNull}
-            <MenuItem primaryText="Recommended Posts" containerElement={<Link to="/recommendations" />} />
           </IconMenu>
           <ToolbarSeparator />
           <RaisedButton label="Blah blah" primary={true} onClick={this.props.addSnippet} />
@@ -92,7 +103,7 @@ const STYLES = {
 
 export default connect(
   state => ({ auth: state.auth }),
-  { addSnippet, logoutUser }
+  { addSnippet, logoutUser, requestSnippets, requestNewest, requestHot, requestRecommended }
 )(
   useSheet(SiteHeader, STYLES)
 );

@@ -26,6 +26,7 @@ export default class Index extends Component {
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
+
   componentDidMount() {
     if(this.props.configs.justLoggedIn) {
       this.props.putConfigs({justLoggedIn: false});
