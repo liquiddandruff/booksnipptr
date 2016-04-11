@@ -1,3 +1,19 @@
+## Project Implementation 
+
+### Features
+
+- Token-based authentication
+- Add snippets with Title, Author, Content, and Tag fields
+- Like snippets
+- Comment on snippets
+- Remove snippets
+- Sorting by certain filters (hot etc)
+- Beautiful UI (snackbars)
+- Localstorage persistence 
+- Recommendation system (sort by recommendations)
+
+Everything listed above works
+
 ## TA and Prof
 
 Get the project either through `vagrant up` and navigating to `localhost:3001` or follow local development instructions.
