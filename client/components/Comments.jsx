@@ -15,11 +15,16 @@ const Comments = ({ sheet, comments, snippetID }) =>
   <div className={sheet.classes.kittens}>
     {!!comments.length &&
       <div className={sheet.classes.basket}>
-        {comments.map(comment => (
-          <Comment key={`comment-${comment.id}`}
-                  comment={comment}
-                  onCommentLike={likeComment} />
-        ))}
+        {comments.map(function(comment) {
+            console.log(comment)
+            if (comment.snippet_id == snippetID){
+              return <Comment key={`comment-${comment.id}`}
+                      comment={comment}
+                      onCommentLike={likeComment} />
+            }
+          }
+        )}
+
       </div>
     }
     <div className={sheet.classes.paper}>

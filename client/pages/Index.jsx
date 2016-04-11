@@ -8,6 +8,7 @@ import Snippets from '../components/Snippets';
 
 import { requestSnippets } from '../actions/snippets';
 import { putConfigs } from '../actions/configs';
+import { requestComments } from '../actions/comments';
 
 
 
@@ -21,6 +22,8 @@ export default class Index extends Component {
       console.log('IS FIRST LOAD');
       this.props.putConfigs({isFirstLoad: true});
       this.props.requestSnippets();
+      this.props.requestComments();
+      console.log(this.props.requestComments);
     } else {
       console.log('IS NOT FIRST LOAD');
     }
@@ -58,7 +61,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   // http://stackoverflow.com/questions/34458261/how-to-get-simple-dispatch-from-this-props-using-connect-w-redux
   return {
-    ...bindActionCreators({ requestSnippets, putConfigs }, dispatch),
+    ...bindActionCreators({ requestSnippets, putConfigs, requestComments }, dispatch),
     dispatch
   };
 }
