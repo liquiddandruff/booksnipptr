@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router'
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
@@ -16,7 +15,7 @@ export default class RegisterPage extends Component {
   componentWillReceiveProps(nextProps) {
     // if wasn't previously logged in and is now logged in, redirect to home
     if(!this.props.auth.logged_in && nextProps.auth.logged_in) {
-      this.props.history.push('/');
+      this.context.router.push('/');
     }
   }
 
@@ -31,6 +30,10 @@ export default class RegisterPage extends Component {
     );
   }
 }
+
+RegisterPage.contextTypes = {
+  router: React.PropTypes.func
+};
 
 const STYLES = {
   register: {

@@ -3,7 +3,7 @@ import 'babel-polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, Link } from 'react-router';
+import { Router, Route, browserHistory, Link } from 'react-router';
 import jss from 'jss';
 import jssVendorPrefixer from 'jss-vendor-prefixer';
 import jssPx from 'jss-px';
@@ -38,7 +38,7 @@ const store = createStoreWithMiddleware(reducers);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Route path="/" component={Index}/>
       <Route path="/login" component={LoginPage}/>
       <Route path="/register" component={RegisterPage}/>
