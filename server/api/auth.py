@@ -86,6 +86,7 @@ class RegistrationAPI(Resource):
         session.add(new_user)
         session.commit()
         # generate token after commit to get ID
+        print(new_user.id)
         token = new_user.generate_auth_token()
 
         return {
