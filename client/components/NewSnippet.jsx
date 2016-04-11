@@ -46,7 +46,7 @@ export default class NewSnippet extends Component {
           <TextField className = {classes.login} ref="content" floatingLabelText="Content" hintText="Snippet content"
             multiLine={true}/>
           <br />
-          <TextField className = {classes.login} ref="tags" floatingLabelText = "Tags" hintText = "Tags" />          
+          <TextField className = {classes.login} ref="tags" floatingLabelText = "Tags" hintText = "E.g: Fantasy,Action,Drama" />          
           <br />
           <RaisedButton className = {classes.login} label = "Submit" primary={true} type="submit" />
           <br />
