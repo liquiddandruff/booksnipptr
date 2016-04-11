@@ -37,7 +37,7 @@ export default class Register extends Component {
           <br></br>
           <TextField className = {classes.register} ref="email" floatingLabelText = "E-mail Address" hintText = "Enter E-mail" type = "email"/>
           <br></br>
-          <FlatButton className = {classes.register} label = "Register" secondary = {true} type="submit"/>
+          <FlatButton className={classes.registerButton} label="Register" secondary={true} type="submit"/>
         </form>
       </div>
     )
@@ -51,6 +51,10 @@ const STYLES = {
   register: {
   	right: 'auto',
   	top: '5em'
+  },
+  registerButton: {
+    left: '5em',
+  	top: '7em'
   },
   linkstyle: {
     color: '#282828',
