@@ -9,6 +9,7 @@ const loginSuccess = function(state, action) {
   console.log('login 1', action);
   nextState.token = action.result.token;
   nextState.logged_in = true;
+  nextState.username = action.result.username;
   localStorage.setItem('auth', JSON.stringify(nextState));
   return nextState;
 };
@@ -26,6 +27,7 @@ const registerSuccess = function(state, action) {
   console.log('register 1', action);
   nextState.token = action.result.token;
   nextState.logged_in = true;
+  nextState.username = action.result.username;
   localStorage.setItem('auth', JSON.stringify(nextState));
   return nextState;
 };

@@ -40,6 +40,14 @@ export default class Index extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.configs.loggedInStateChanged) {
+      this.props.putConfigs({loggedInStateChanged: false});
+      this.setState({
+        open: true,
+      });
+    }
+  }
 
   handleRequestClose() {
     this.setState({
@@ -48,13 +56,6 @@ export default class Index extends Component {
   }
 
   render() {
-    if(this.props.configs.loggedInStateChanged) {
-      this.props.putConfigs({loggedInStateChanged: false});
-      this.setState({
-        open: true,
-      });
-    }
-
     const { sheet } = this.props;
 
     return (

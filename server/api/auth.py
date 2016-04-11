@@ -73,7 +73,7 @@ class RegistrationAPI(Resource):
         print("register:", args)
 
         min_characters = 4
-        if len(args.username) <= min_characters or len(args.password) <= min_characters:
+        if len(args.username) < min_characters or len(args.password) < min_characters:
             return {
                 'msg': "Username and password must be greater than %s characters" % min_characters
             }, 400

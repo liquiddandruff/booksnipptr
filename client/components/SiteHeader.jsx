@@ -63,10 +63,13 @@ export default class SiteHeader extends Component {
   render() {
     const { classes } = this.props.sheet;
 
+    let greetingOrNull;
     let logoutOrLogin;
     let registerOrNull;
     if(this.props.auth.logged_in) {
       logoutOrLogin = <MenuItem primaryText="Logout" containerElement={<Link to="/" />} onClick={this.handleLogoutUser} />;
+      let greeting = "Welcome, " + this.props.auth.username;
+      greetingOrNull = <ToolbarTitle text={greeting} style={{width: 150}} />
     } else {
       logoutOrLogin = <MenuItem primaryText="Login" containerElement={<Link to="/login" />} />;
       registerOrNull = <MenuItem primaryText="Register" containerElement={<Link to="/register" />} />;
@@ -90,6 +93,7 @@ export default class SiteHeader extends Component {
           {sortOptionsOrNull}
         </ToolbarGroup>
         <ToolbarGroup float="right">
+          {greetingOrNull}
           {logoutOrLogin}
           {registerOrNull}
         </ToolbarGroup>
