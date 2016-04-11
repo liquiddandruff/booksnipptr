@@ -84,18 +84,8 @@ export default class SiteHeader extends Component {
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <IconMenu
-            iconButtonElement={
-              <IconButton touch={true}>
-                <NavigationExpandMoreIcon />
-              </IconButton>
-            }
-          >
-            {logoutOrLogin}
-            {registerOrNull}
-          </IconMenu>
-          <ToolbarSeparator />
-          <RaisedButton label="Blah blah" primary={true} onClick={this.props.addSnippet} />
+          {logoutOrLogin}
+          {registerOrNull}
         </ToolbarGroup>
       </Toolbar>
     )
