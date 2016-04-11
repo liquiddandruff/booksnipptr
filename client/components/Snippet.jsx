@@ -44,7 +44,7 @@ const Snippet = ({ sheet, snippet, onSnippetLike, onSnippetDelete }) => (
 Snippet.propTypes = {
   snippet: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    created: PropTypes.string.isRequired
+    created_at: PropTypes.string.isRequired
   }).isRequired
 };
 
