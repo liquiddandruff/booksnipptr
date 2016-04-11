@@ -19,7 +19,10 @@ export default class LoginPage extends Component {
     console.log("extprops", nextProps);
     // if wasn't previously logged in and is now logged in, redirect to home
     if(!this.props.auth.logged_in && nextProps.auth.logged_in) {
-      this.props.putConfigs({justLoggedIn: true});
+      this.props.putConfigs({
+        loggedInStateChanged: true,
+        loggedInStateChangedMsg: 'You have logged in'
+      });
       this.context.router.push('/');
     }
   }

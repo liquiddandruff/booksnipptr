@@ -22,18 +22,11 @@ export default class Index extends Component {
     };
 
     // es6 does not autobind this
-    this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
 
   componentDidMount() {
-    if(this.props.configs.justLoggedIn) {
-      this.props.putConfigs({justLoggedIn: false});
-      this.setState({
-        open: true,
-      });
-    }
     if(!this.props.configs.isFirstLoad) {
       console.log('IS FIRST LOAD');
       this.props.putConfigs({isFirstLoad: true});
@@ -48,12 +41,6 @@ export default class Index extends Component {
   }
 
 
-  handleTouchTap() {
-    this.setState({
-      open: true,
-    });
-  }
-
   handleRequestClose() {
     this.setState({
       open: false,
@@ -61,6 +48,13 @@ export default class Index extends Component {
   }
 
   render() {
+    if(this.props.configs.loggedInStateChanged) {
+      this.props.putConfigs({loggedInStateChanged: false});
+      this.setState({
+        open: true,
+      });
+    }
+
     const { sheet } = this.props;
 
     return (
@@ -68,8 +62,8 @@ export default class Index extends Component {
         <Header />
         <Snippets />
         <Snackbar
-          open={this.state.open}
-          message="nice login bro"
+          open={ this.state.open }
+          message={ this.props.configs.loggedInStateChangedMsg }
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />

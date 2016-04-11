@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
-import Header from '../components/SiteHeader';
+import { putConfigs } from '../actions/configs';
 
+import Header from '../components/SiteHeader';
 import Register from '../components/Register';
 
 
@@ -15,6 +16,10 @@ export default class RegisterPage extends Component {
   componentWillReceiveProps(nextProps) {
     // if wasn't previously logged in and is now logged in, redirect to home
     if(!this.props.auth.logged_in && nextProps.auth.logged_in) {
+      this.props.putConfigs({
+        loggedInStateChanged: true,
+        loggedInStateChangedMsg: 'You have just logged in'
+      });
       this.context.router.push('/');
     }
   }
@@ -32,7 +37,7 @@ export default class RegisterPage extends Component {
 }
 
 RegisterPage.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 const STYLES = {
@@ -49,7 +54,7 @@ const STYLES = {
 
 export default connect(
   state => ({ auth: state.auth }),
-  {}
+  { putConfigs }
 )(
   useSheet(RegisterPage, STYLES)
 );
