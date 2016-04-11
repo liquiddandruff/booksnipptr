@@ -41,7 +41,7 @@ const Comment = ({ sheet, comment, onCommentLike }) => (
 Comment.propTypes = {
   comment: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    created: PropTypes.string.isRequired
+    created_at: PropTypes.string.isRequired
   }).isRequired
 };
 

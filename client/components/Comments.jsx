@@ -3,7 +3,6 @@ import Comment from './Comment';
 import NewComment from './NewComment';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
-import { addKitten, deleteKitten } from '../actions/kittens';
 //don't forget to add delete comment function
 import { likeComment } from '../actions/comments';
 
@@ -12,7 +11,7 @@ import Paper from 'material-ui/lib/paper';
 
 const Comments = ({ sheet, comments, snippetID }) =>
 
-  <div className={sheet.classes.kittens}>
+  <div className={sheet.classes.comments}>
     {!!comments.length &&
       <div className={sheet.classes.basket}>
         {comments.map(function(comment) {
@@ -48,11 +47,10 @@ const STYLES = {
     flexWrap: 'wrap'
   },
 
-  kittens: {
+  comments: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    width: '60%'
+    alignItems: 'center'
   },
 
   paper: {
