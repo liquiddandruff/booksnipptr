@@ -2,13 +2,14 @@ import 'whatwg-fetch';
 
 
 
-async function request({ url, data, params = {} }) {
+async function request({ url, data, params = {}, headers = {} }) {
   try {
     const response = await fetch(url, {
       credentials: 'include',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        ...headers
       },
       body: data ? ((data instanceof FormData) ? data : JSON.stringify(data)) : undefined,
       ...params
@@ -35,10 +36,10 @@ export function get(url) {
   return request({ url });
 }
 
-export function post(url, data) {
-  return request({ url, data, params: { method: 'post' } });
+export function post(url, data, headers) {
+  return request({ url, data, params: { method: 'post' }, headers });
 }
 
-export function del(url) {
-  return request({ url, params: { method: 'delete' } });
+export function del(url, data) {
+  return request({ url, data, params: { method: 'delete' } });
 }

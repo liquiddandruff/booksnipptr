@@ -5,13 +5,11 @@ import { connect } from 'react-redux';
 import Header from '../components/SiteHeader';
 import Snippets from '../components/Snippets';
 
-import { requestKittens } from '../actions/kittens';
 import { requestSnippets } from '../actions/snippets';
 
 
 export default class Recommendations extends Component {
   componentDidMount() {
-    this.props.requestKittens();
     this.props.requestSnippets();
   }
 
@@ -40,7 +38,7 @@ const STYLES = {
 
 export default connect(
   () => ({}),
-  { requestKittens, requestSnippets }
+  { requestSnippets }
 )(
   useSheet(Index, STYLES)
 );

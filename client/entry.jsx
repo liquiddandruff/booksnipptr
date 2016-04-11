@@ -40,9 +40,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={Index}/>
-      <Route path="lol" component={Index}/>
-      <Route path="login" component={LoginPage}/>
-      <Route path="register" component={RegisterPage}/>
+      <Route path="/login" component={LoginPage}/>
+      <Route path="/register" component={RegisterPage}/>
     </Router>
   </Provider>,
   document.getElementById('root')

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { addSnippet } from '../actions/snippets';
 import { connect } from 'react-redux';
 import useSheet from 'react-jss';
+
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
 import FontIcon from 'material-ui/lib/font-icon';
@@ -37,7 +38,7 @@ export default class SiteHeader extends Component {
     return (
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label= {<Link to="/" style = {STYLES.linkstyle} > BookSnippetr </Link> }/>
+          <FlatButton label="BookSnipptr" linkButton={true} containerElement={<Link to="/" />} />
           <DropDownMenu value={this.state.value} onChange={this.handleChange} style={menuStyle} >
             <MenuItem value={1} primaryText="Sort by Hot" style={menuStyle} />
             <MenuItem value={2} primaryText="Sort by New" style={menuStyle} />
@@ -53,9 +54,9 @@ export default class SiteHeader extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText= { <Link to="/login"  style = {STYLES.linkstyle} > Login </Link> } />
-            <MenuItem primaryText= { <Link to="/register" style = {STYLES.linkstyle} > Register </Link> } />
-            <MenuItem primaryText= { <Link to="/recommendations" style = {STYLES.linkstyle} > Recommended Posts </Link> } />
+            <MenuItem primaryText="Login" containerElement={<Link to="/login" />} />
+            <MenuItem primaryText="Register" containerElement={<Link to="/register" />} />
+            <MenuItem primaryText="Recommended Posts" containerElement={<Link to="/recommendations" />} />
           </IconMenu>
           <ToolbarSeparator />
           <RaisedButton label="Blah blah" primary={true} onClick={this.props.addSnippet} />

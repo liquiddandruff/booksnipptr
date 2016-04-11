@@ -3,15 +3,12 @@ import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
 import Header from '../components/SiteHeader';
-import Kittens from '../components/Kittens';
-import Login from '../components/Login';
 
-import { requestKittens } from '../actions/kittens';
+import Login from '../components/Login';
 
 
 export default class LoginPage extends Component {
   componentDidMount() {
-    this.props.requestKittens();
   }
 
   render() {
@@ -33,14 +30,9 @@ const STYLES = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    color: '#660000'
+    backgroundColor: '#FFFFFF'
   }
 };
 
-export default connect(
-  () => ({}),
-  { requestKittens }
-)(
-  useSheet(Login, STYLES)
-);
+
+export default useSheet(LoginPage, STYLES)

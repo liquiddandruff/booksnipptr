@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Header from '../components/SiteHeader';
 import Snippets from '../components/Snippets';
 
-import { requestKittens } from '../actions/kittens';
 import { requestSnippets } from '../actions/snippets';
+import { putConfigs } from '../actions/configs';
+
 
 
 export default class Index extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    this.props.requestKittens();
-    this.props.requestSnippets();
+    if(!this.props.configs.isFirstLoad) {
+      console.log('IS FIRST LOAD');
+      this.props.putConfigs({isFirstLoad: true});
+      this.props.requestSnippets();
+    } else {
+      console.log('IS NOT FIRST LOAD');
+    }
   }
 
   render() {
@@ -38,9 +49,23 @@ const STYLES = {
   }
 };
 
+function mapStateToProps(state) {
+  return {
+    configs: state.configs
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  // http://stackoverflow.com/questions/34458261/how-to-get-simple-dispatch-from-this-props-using-connect-w-redux
+  return {
+    ...bindActionCreators({ requestSnippets, putConfigs }, dispatch),
+    dispatch
+  };
+}
+
 export default connect(
-  () => ({}),
-  { requestKittens, requestSnippets }
+  mapStateToProps,
+  mapDispatchToProps
 )(
   useSheet(Index, STYLES)
 );

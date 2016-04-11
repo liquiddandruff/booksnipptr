@@ -3,15 +3,13 @@ import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
 import Header from '../components/SiteHeader';
-import Kittens from '../components/Kittens';
+
 import Register from '../components/Register';
 
-import { requestKittens } from '../actions/kittens';
 
 
 export default class RegisterPage extends Component {
   componentDidMount() {
-    this.props.requestKittens();
   }
 
   render() {
@@ -38,9 +36,4 @@ const STYLES = {
   }
 };
 
-export default connect(
-  () => ({}),
-  { requestKittens }
-)(
-  useSheet(Register, STYLES)
-);
+export default useSheet(RegisterPage, STYLES)
