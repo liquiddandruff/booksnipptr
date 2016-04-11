@@ -29,11 +29,10 @@ const Comment = ({ sheet, comment, onCommentLike }) => (
       </p>
     </CardText>
     <CardActions>
-      <Badge badgeContent={comment.likes} secondary={true} badgeStyle={{top: 15, right: 15}} >
-        <FlatButton label="Like" onClick={onCommentLike.bind(this, comment.id)} >
-        </FlatButton>
-
-      </Badge>
+      {/*<Badge badgeContent={comment.likes} secondary={true} badgeStyle={{top: 15, right: 15}} >
+      <FlatButton label="Like" onClick={onCommentLike.bind(this, comment.id)} >
+      </FlatButton>
+      </Badge>*/}
       
     </CardActions>
   </Card>

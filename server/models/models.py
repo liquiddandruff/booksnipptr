@@ -27,7 +27,7 @@ class User(db.Model):
     id          =   db.Column(db.Integer, primary_key=True)
 
     username    =   db.Column(db.String(36), unique=True, nullable=False)
-    pwdhash     =   db.Column(db.String(54), nullable=True)
+    pwdhash     =   db.Column(db.String(600), nullable=True)
 
     created_at  =   db.Column(db.DateTime, default=datetime.utcnow)
     snippets       =   relationship('Snippet', backref='user', lazy='dynamic')
@@ -133,7 +133,7 @@ class Comment(db.Model):
     #need these foreign keys to enable the many-one relationships
     #Comments have with snippets and users.
     snippet_id     =   db.Column(db.Integer, db.ForeignKey('snippets.id'))
-    username     =   db.Column(db.Integer, db.ForeignKey('users.username'))
+    username     =   db.Column(db.String, db.ForeignKey('users.username'))
 
     def __repr__(self):
         return "<Comment (text='%s')>" % (self.text)
