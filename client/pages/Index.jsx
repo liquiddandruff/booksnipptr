@@ -59,7 +59,7 @@ export default class Index extends Component {
 
     return (
       <div className={sheet.classes.index}>
-        <Header />
+        <Header showSortOptions={true} />
         <Snippets />
         <Snackbar
           open={ this.state.open }

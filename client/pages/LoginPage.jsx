@@ -32,7 +32,7 @@ export default class LoginPage extends Component {
 
     return (
       <div className={sheet.classes.login}>
-        <Header />
+        <Header showSortOptions={false} />
         <Login />
       </div>
     );

@@ -72,16 +72,22 @@ export default class SiteHeader extends Component {
       registerOrNull = <MenuItem primaryText="Register" containerElement={<Link to="/register" />} />;
     }
 
-    return (
-      <Toolbar className={classes.toolbar}>
-        <ToolbarGroup firstChild={true} float="left">
-          <FlatButton label="BookSnipptr" linkButton={true} containerElement={<Link to="/" />} />
+    let sortOptionsOrNull;
+    if(this.props.showSortOptions) {
+      sortOptionsOrNull = 
           <DropDownMenu value={this.state.value} onChange={this.handleChange} style={menuStyle} >
             <MenuItem value={1} primaryText="Sort by Oldest" style={menuStyle} />
             <MenuItem value={2} primaryText="Sort by Newest" style={menuStyle} />
             <MenuItem value={3} primaryText="Sort by Hot" style={menuStyle} />
             <MenuItem value={4} primaryText="Sort by Recommended" style={menuStyle} />
-          </DropDownMenu>
+          </DropDownMenu>;
+    }
+
+    return (
+      <Toolbar className={classes.toolbar}>
+        <ToolbarGroup firstChild={true} float="left">
+          <FlatButton label="BookSnipptr" linkButton={true} containerElement={<Link to="/" />} />
+          {sortOptionsOrNull}
         </ToolbarGroup>
         <ToolbarGroup float="right">
           {logoutOrLogin}
