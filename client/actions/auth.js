@@ -1,4 +1,5 @@
 import * as actionTypes from '../actionTypes/auth';
+import { putConfigs } from './configs';
 import { get, post, del } from '../utils/api';
 
 export function loginUser(formData) {
@@ -11,7 +12,10 @@ export function loginUser(formData) {
     let result = null;
     try {
       result = await post('/api/login', formData);
-      let auth = {token: result.token};
+      let auth = {
+        token: result.token,
+        username: formData.username
+      };
       //create an action (actions change the state tree) and
       //send it off to the state tree
       dispatch({
@@ -24,6 +28,13 @@ export function loginUser(formData) {
       });
 
     } catch(e) {
+      // unwrap promise to get result like above
+      e.response.then(result => {
+        dispatch(putConfigs({
+          snackbarOpen: true,
+          snackbarMsg: result.msg
+        }));
+      });
       dispatch({
         type: actionTypes.LOGIN_USER_ERROR,
         result: result
@@ -57,13 +68,23 @@ export function registerUser(formData) {
     let result = null;
     try {
       result = await post('/api/register', formData);
-      let auth = {token: result.token};
+      let auth = {
+        token: result.token,
+        username: formData.username
+      };
 
       dispatch({
         type: actionTypes.REGISTER_USER_SUCCESS,
         result: auth
       });
     } catch(e) {
+      // unwrap promise to get result like above
+      e.response.then(result => {
+        dispatch(putConfigs({
+          snackbarOpen: true,
+          snackbarMsg: result.msg
+        }));
+      });
       dispatch({
         type: actionTypes.REGISTER_USER_ERROR,
         result: result

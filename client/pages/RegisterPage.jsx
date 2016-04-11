@@ -2,15 +2,22 @@ import React, { Component } from 'react';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
+import Snackbar from 'material-ui/lib/snackbar';
+
 import { putConfigs } from '../actions/configs';
 
 import Header from '../components/SiteHeader';
 import Register from '../components/Register';
 
-
-
 export default class RegisterPage extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    };
+    
+    // es6 does not autobind this
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,6 +29,18 @@ export default class RegisterPage extends Component {
       });
       this.context.router.push('/');
     }
+    if(nextProps.configs.snackbarOpen) {
+      this.props.putConfigs({snackbarOpen: false});
+      this.setState({
+        open: true,
+      });
+    }
+  }
+
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
   }
 
   render() {
@@ -31,6 +50,12 @@ export default class RegisterPage extends Component {
       <div className={sheet.classes.register}>
         <Header />
         <Register />
+        <Snackbar
+          open={ this.state.open }
+          message={ this.props.configs.snackbarMsg }
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
       </div>
     );
   }
@@ -53,7 +78,7 @@ const STYLES = {
 };
 
 export default connect(
-  state => ({ auth: state.auth }),
+  state => ({ configs: state.configs, auth: state.auth }),
   { putConfigs }
 )(
   useSheet(RegisterPage, STYLES)

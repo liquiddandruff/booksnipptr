@@ -72,6 +72,12 @@ class RegistrationAPI(Resource):
         args = self.parser.parse_args()
         print("register:", args)
 
+        min_characters = 4
+        if len(args.username) <= min_characters or len(args.password) <= min_characters:
+            return {
+                'msg': "Username and password must be greater than %s characters" % min_characters
+            }, 400
+
         session = Session()
         user = session.query(User).filter_by(username = args.username).first()
         if user:

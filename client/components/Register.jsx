@@ -19,8 +19,7 @@ export default class Register extends Component {
     console.log('Register Button Clicked');
     var formData = {
       username: this.refs.username.getValue(),
-      password: this.refs.password.getValue(),
-      email: this.refs.email.getValue(),
+      password: this.refs.password.getValue()
     };
     console.log(formData);
     this.props.registerUser(formData);
@@ -34,8 +33,6 @@ export default class Register extends Component {
           <TextField className = {classes.register} ref="username" floatingLabelText = "Username" hintText = "Enter Username"/>
           <br></br>
           <TextField className = {classes.register} ref="password" floatingLabelText = "Password" hintText = "Enter Password" type = "password"/>
-          <br></br>
-          <TextField className = {classes.register} ref="email" floatingLabelText = "E-mail Address" hintText = "Enter E-mail" type = "email"/>
           <br></br>
           <FlatButton className={classes.registerButton} label="Register" secondary={true} type="submit"/>
         </form>

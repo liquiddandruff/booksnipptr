@@ -18,7 +18,7 @@ async function request({ url, data, params = {}, headers = {} }) {
 
     if (response.status < 200 || response.status >= 400) {
       const error = Error('API Error');
-      error.response = response;
+      error.response = response.json();
       throw error;
     }
 
@@ -27,7 +27,7 @@ async function request({ url, data, params = {}, headers = {} }) {
     }
   } catch (err) {
     console.error(err); // eslint-disable-line no-console
-    window.alert(JSON.stringify(await err.response.json()));
+    //window.alert(JSON.stringify(await err.response.json()));
     throw  err;
   }
 }

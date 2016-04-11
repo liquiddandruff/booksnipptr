@@ -42,7 +42,7 @@ const logoutUser = function(state, action) {
   let nextState = { ...state };
   console.log('register 0', action);
   nextState.logged_in = false;
-  nextState.auth = '';
+  nextState.token = '';
   localStorage.setItem('auth', JSON.stringify(nextState));
   return nextState;
 };
