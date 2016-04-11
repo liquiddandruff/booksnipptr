@@ -1,8 +1,7 @@
 import * as actionTypes from '../actionTypes/comments';
-import { get, post, del } from '../utils/api';
+import { get, post } from '../utils/api';
 
 export function addComment(comment) {
-  console.log("addComment", comment, comment.text);
   return async dispatch => {
     dispatch({
       type: actionTypes.ADD_COMMENT,
@@ -10,16 +9,13 @@ export function addComment(comment) {
     });
 
     try {
-      console.log("in comment try")
       const result = await post('/api/comment', comment);
 
       dispatch({
         type: actionTypes.ADD_COMMENT_SUCCESS,
         comment: result
       });
-      console.log("add comment success")
     } catch(e) {
-      console.log("in comment catch")
       dispatch({
         type: actionTypes.ADD_COMMENT_ERROR
       });

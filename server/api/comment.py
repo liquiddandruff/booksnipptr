@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse, abort
+
 from models import Comment
-from app import db
 from app import Session
 
 comment_api = Api(Blueprint('comment_api', __name__))
@@ -30,17 +30,10 @@ class CommentAPI(Resource):
         print("\n")
         print(args.snippetID)
 
-        print "about to start session"
         session = Session()
-        print "session started"
-        print "starting comment creation"
         comment = Comment(snippet_id= args.snippetID, text=args.text)
-        print "comment created"
-        print "adding comment"
         session.add(comment)
-        print "added comment"
         session.commit()
-        print "commited"
 
         # this response is used by the react client to instantly construct the snippet
         return {

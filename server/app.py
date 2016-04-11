@@ -36,7 +36,12 @@ def create_app():
 
     #app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config.from_object('config.Default')
-    #app.config.from_object('config.Production')
+    # this env var will be set to 'production' in vagrant in /etc/init.d/booksnipptr
+    release = os.getenv('BOOKSNIPPTR_ENV')
+    print(release)
+    if release == 'production':
+        # override default confs with production confs
+        app.config.from_object('config.Production')
 
     #app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
     app.register_blueprint(snippet_api.blueprint, url_prefix='/api')

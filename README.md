@@ -101,7 +101,21 @@ Access the app at:
 localhost:3000/
 ```
 
-## Testing the API
+## Misc
+
+Drop and recreate tables:
+
+```
+python server/dropdb.py
+````
+
+Start server using production config:
+
+```
+env BOOKSNIPPTR_ENV="production" python server/entry.py
+```
+
+## Testing the API (out of date)
 
 Make a new post
 
