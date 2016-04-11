@@ -11,6 +11,7 @@ export function loginUser(formData) {
     let result = null;
     try {
       result = await post('/api/login', formData);
+      let auth = {token: result.token};
       //create an action (actions change the state tree) and
       //send it off to the state tree
       dispatch({
@@ -18,7 +19,7 @@ export function loginUser(formData) {
         //each action has a type and the data describing the action (in this
         //case the result of the post request to the login backend)
         type: actionTypes.LOGIN_USER_SUCCESS,
-        result: result
+        result: auth
 
       });
 
@@ -28,6 +29,21 @@ export function loginUser(formData) {
         result: result
       });
     }
+  }
+}
+
+export function logoutUser() {
+  return async dispatch => {
+    dispatch({
+      type: actionTypes.LOGOUT_USER
+    });
+  }
+}
+export function reloadFromLocalStorage() {
+  return async dispatch => {
+    dispatch({
+      type: actionTypes.RELOAD_FROM_LOCAL_STORAGE
+    });
   }
 }
 
@@ -41,10 +57,11 @@ export function registerUser(formData) {
     let result = null;
     try {
       result = await post('/api/register', formData);
+      let auth = {token: result.token};
 
       dispatch({
         type: actionTypes.REGISTER_USER_SUCCESS,
-        result: result
+        result: auth
       });
     } catch(e) {
       dispatch({

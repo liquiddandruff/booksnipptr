@@ -3,7 +3,6 @@ import * as actionTypes from '../actionTypes/configs';
 
 const DEFAULT_STATE = [];
 
-
 const requestConfigs = function(state, action) {
   let prevState = { ...state };
   return prevState;

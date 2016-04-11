@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { addSnippet } from '../actions/snippets';
+import { logoutUser } from '../actions/auth';
 import { connect } from 'react-redux';
 import useSheet from 'react-jss';
 
@@ -27,6 +28,9 @@ export default class SiteHeader extends Component {
     this.state = {value: 1};
   }
 
+  componentWillReceiveProps(nextProps) {
+  }
+
   handleChange = (event, index, value) => {
     console.log(event, index, value);
     console.log("setting state: " + {value});
@@ -35,6 +39,16 @@ export default class SiteHeader extends Component {
 
   render() {
     const { classes } = this.props.sheet;
+
+    let logoutOrLogin;
+    let registerOrNull;
+    if(this.props.auth.logged_in) {
+      logoutOrLogin = <MenuItem primaryText="Logout" containerElement={<Link to="/" />} onClick={this.props.logoutUser} />;
+    } else {
+      logoutOrLogin = <MenuItem primaryText="Login" containerElement={<Link to="/login" />} />;
+      registerOrNull = <MenuItem primaryText="Register" containerElement={<Link to="/register" />} />;
+    }
+
     return (
       <Toolbar className={classes.toolbar}>
         <ToolbarGroup firstChild={true} float="left">
@@ -54,8 +68,8 @@ export default class SiteHeader extends Component {
               </IconButton>
             }
           >
-            <MenuItem primaryText="Login" containerElement={<Link to="/login" />} />
-            <MenuItem primaryText="Register" containerElement={<Link to="/register" />} />
+            {logoutOrLogin}
+            {registerOrNull}
             <MenuItem primaryText="Recommended Posts" containerElement={<Link to="/recommendations" />} />
           </IconMenu>
           <ToolbarSeparator />
@@ -77,8 +91,8 @@ const STYLES = {
 };
 
 export default connect(
-  state => ({}),
-  { addSnippet }
+  state => ({ auth: state.auth }),
+  { addSnippet, logoutUser }
 )(
   useSheet(SiteHeader, STYLES)
 );

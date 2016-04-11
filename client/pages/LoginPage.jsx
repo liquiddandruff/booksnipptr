@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
-import Header from '../components/SiteHeader';
+import { putConfigs } from '../actions/configs';
 
+import Header from '../components/SiteHeader';
 import Login from '../components/Login';
 
-
 export default class LoginPage extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
   }
 
@@ -15,6 +19,7 @@ export default class LoginPage extends Component {
     console.log("extprops", nextProps);
     // if wasn't previously logged in and is now logged in, redirect to home
     if(!this.props.auth.logged_in && nextProps.auth.logged_in) {
+      this.props.putConfigs({justLoggedIn: true});
       this.context.router.push('/');
     }
   }
@@ -32,7 +37,7 @@ export default class LoginPage extends Component {
 }
 
 LoginPage.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 const STYLES = {
@@ -49,7 +54,7 @@ const STYLES = {
 
 export default connect(
   state => ({ auth: state.auth }),
-  {}
+  { putConfigs }
 )(
   useSheet(LoginPage, STYLES)
 );
