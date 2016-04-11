@@ -1,12 +1,8 @@
 from flask import Blueprint, current_app
 from flask_restful import Api, Resource, reqparse, abort
-<<<<<<< HEAD
 from models import Snippet, User, Tag
-=======
-from models import Snippet, User
 
 from app import config
->>>>>>> 2a1147adbe96e611de3383ae9fbb48a8932e967d
 from app import db
 from app import Session
 from api import auth
@@ -16,22 +12,14 @@ snippet_api = Api(Blueprint('snippet_api', __name__))
 @snippet_api.resource('/snippet')
 class SnippetAPI(Resource):
     def __init__(self):
-        self.parser = reqparse.RequestParser()
-<<<<<<< HEAD
-        self.parser.add_argument('title', dest='title')
-        self.parser.add_argument('author', dest='author')
-        self.parser.add_argument('content', dest='content', required=True)
-        self.parser.add_argument('user_id', dest='user_id')
-        self.parser.add_argument('tags', dest='tags')
-=======
         self.parser.add_argument('snippet', dest='snippet', type=dict)
-
         self.snippetParser = reqparse.RequestParser()
+
         self.snippetParser.add_argument('title', dest='title', location='snippet')
         self.snippetParser.add_argument('author', dest='author', location='snippet')
         self.snippetParser.add_argument('content', dest='content', required=True, location='snippet')
         self.snippetParser.add_argument('user_id', dest='user_id', location='snippet')
->>>>>>> 2a1147adbe96e611de3383ae9fbb48a8932e967d
+        self.snippetParser.add_argument('tags', dest='tags')
 
     def get(self):
         snippets = Snippet.query
@@ -45,10 +33,7 @@ class SnippetAPI(Resource):
         return [{
             'id': snippet.id,
             'title': snippet.title,
-<<<<<<< HEAD
-=======
             'author': snippet.author,
->>>>>>> 2a1147adbe96e611de3383ae9fbb48a8932e967d
             'content': snippet.content,
             'likes': snippet.likes,
             'created_at': snippet.created_at.isoformat() + 'Z',
@@ -58,46 +43,22 @@ class SnippetAPI(Resource):
 
     @auth.requires_auth
     def post(self):
-<<<<<<< HEAD
-        args = self.parser.parse_args()
-        print("New snippet:", args)
-        print("tags: ", args.tags.split(','))
-        new_tag=args.tags.split(',')
+        root_args = self.parser.parse_args()
+        snippet_args = self.snippetParser.parse_args(req=root_args)
+        print("New snippet:", snippet_args, snippet_args.title)
+        print("tags: ", snippet_args.tags.split(','))
+        new_tag=snippet_args.tags.split(',')
         tag = []
         for tags in new_tag:
             print tags, type(tags)
             tag.append(Tag(name=tags))
 
-        #tag1 = Tag(new_tag[0])
-        session = Session()
-        new_snippet = Snippet(content=args.content, title=args.title, tags=tag)
-        #new_tag = Tag(name=args.tags)
-        #print(args.tags)
-        session.add(new_snippet)
-        #session.add(new_tag)
-        session.commit()
-
-        print 'done posting'
-
-        return {
-            'id': new_snippet.id,
-            'title': new_snippet.title,
-            'content': new_snippet.content,
-            #'user_id': new_snippet.user_id,
-            'likes': new_snippet.likes,
-            'created_at': new_snippet.created_at.isoformat() + 'Z',
-            'tags': new_snippet.tags,
-            #'comments': new_snippet.comments
-=======
-        root_args = self.parser.parse_args()
-        snippet_args = self.snippetParser.parse_args(req=root_args)
-        print("New snippet:", snippet_args, snippet_args.title)
-
         session = Session()
         snippet = Snippet(
             title=snippet_args.title,
             author=snippet_args.author,
-            content=snippet_args.content
+            content=snippet_args.content,
+            tags=tag
         )
         session.add(snippet)
         session.commit()
@@ -111,9 +72,8 @@ class SnippetAPI(Resource):
             #'user_id': snippet.user_id,
             'likes': snippet.likes,
             'created_at': snippet.created_at.isoformat() + 'Z'
-            #'tags': snippet.tags,
+            'tags': snippet.tags,
             #'comments': snippet.comments
->>>>>>> 2a1147adbe96e611de3383ae9fbb48a8932e967d
         }
 
 

@@ -22,11 +22,7 @@ const COLORS = [
 
 const Snippet = ({ sheet, snippet, onSnippetLike, onSnippetDelete }) => (
   <Card className={sheet.classes.snippet} >
-<<<<<<< HEAD
-    <CardTitle title={snippet.title} subtitle="Card subtitle" />
-=======
     <CardTitle title={snippet.title} subtitle={snippet.author} />
->>>>>>> 2a1147adbe96e611de3383ae9fbb48a8932e967d
     <CardText>
       {snippet.content}
       <p>
