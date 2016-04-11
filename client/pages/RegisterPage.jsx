@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router'
 import useSheet from 'react-jss';
 import { connect } from 'react-redux';
 
@@ -10,6 +11,13 @@ import Register from '../components/Register';
 
 export default class RegisterPage extends Component {
   componentDidMount() {
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // if wasn't previously logged in and is now logged in, redirect to home
+    if(!this.props.auth.logged_in && nextProps.auth.logged_in) {
+      this.props.history.push('/');
+    }
   }
 
   render() {
@@ -36,4 +44,9 @@ const STYLES = {
   }
 };
 
-export default useSheet(RegisterPage, STYLES)
+export default connect(
+  state => ({ auth: state.auth }),
+  {}
+)(
+  useSheet(RegisterPage, STYLES)
+);

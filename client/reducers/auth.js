@@ -8,12 +8,14 @@ const loginSuccess = function(state, action) {
   let nextState = { ...state };
   console.log('login 1', action);
   nextState.token = action.result.token;
+  nextState.logged_in = true;
   return nextState;
 };
 
 const loginError = function(state, action) {
   let nextState = { ...state };
   console.log('login 0:', action);
+  nextState.logged_in = false;
   return nextState;
 };
 
@@ -21,12 +23,14 @@ const registerSuccess = function(state, action) {
   let nextState = { ...state };
   console.log('register 1', action);
   nextState.token = action.result.token;
+  nextState.logged_in = true;
   return nextState;
 };
 
 const registerError = function(state, action) {
   let nextState = { ...state };
   console.log('register 0', action);
+  nextState.logged_in = false;
   return nextState;
 };
 
