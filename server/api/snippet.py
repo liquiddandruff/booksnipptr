@@ -20,7 +20,7 @@ class SnippetAPI(Resource):
         self.snippetParser.add_argument('author', dest='author', location='snippet')
         self.snippetParser.add_argument('content', dest='content', required=True, location='snippet')
         self.snippetParser.add_argument('user_id', dest='user_id', location='snippet')
-        self.snippetParser.add_argument('tags', dest='tags')
+        self.snippetParser.add_argument('tags', dest='tags', location='snippet')
 
     def get(self):
         snippets = Snippet.query
@@ -45,21 +45,28 @@ class SnippetAPI(Resource):
     @auth.requires_auth
     def post(self):
         root_args = self.parser.parse_args()
-        snippet_args = self.snippetParser.parse_args(req=root_args)
+        print root_args['snippet'],'\n'
+
+        #print 'before: ', root_args['snippet']['tags'], '\n'
+        #root_args['snippet']['tags'] = 'testtststsstststststst'
+        #print 'after: ', root_args['snippet']['tags'], '\n'
+
+        
+        snippet_args = self.snippetParser.parse_args(req=root_args) #['snippet']
         print("New snippet:", snippet_args, snippet_args.title)
         print("tags: ", snippet_args.tags.split(','))
         new_tag=snippet_args.tags.split(',')
-        tag = []
-        for tags in new_tag:
-            print tags, type(tags)
-            tag.append(Tag(name=tags))
+        #tag = []
+        #for tags in new_tag:
+         #   print tags, type(tags)
+          #  tag.append(Tag(name=tags))
 
         session = Session()
         snippet = Snippet(
             title=snippet_args.title,
             author=snippet_args.author,
             content=snippet_args.content,
-            tags=tag
+            tags=[Tag(name=tagName) for tagName in new_tag]
         )
         session.add(snippet)
         session.commit()
@@ -73,7 +80,7 @@ class SnippetAPI(Resource):
             #'user_id': snippet.user_id,
             'likes': snippet.likes,
             'created_at': snippet.created_at.isoformat() + 'Z',
-            'tags': snippet.tags
+            'tags': snippet_args.tags
             #'comments': snippet.comments
         }
 
@@ -82,9 +89,9 @@ class SnippetAPI(Resource):
 @snippet_api.resource('/delete')
 class DeleteAPI(Resource):
     def __init__(self):
-        self.snippetParser = reqparse.snippetParser()
-        self.snippetParser.add_argument('type', dest='type')
-        self.snippetParser.add_argument('id', dest='id', required=True)
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('type', dest='type')
+        self.parser.add_argument('id', dest='id', required=True)
 
     @staticmethod
     def handleSnippetDelete(snippet_id):
@@ -101,7 +108,7 @@ class DeleteAPI(Resource):
     @auth.requires_auth
     def post(self):
         #, snippet_id, action
-        args = self.snippetParser.parse_args()
+        args = self.parser.parse_args()
         print("New delete:", args)
 
         if args.type == 'snippet':
@@ -113,9 +120,9 @@ class DeleteAPI(Resource):
 @snippet_api.resource('/like')
 class LikeAPI(Resource):
     def __init__(self):
-        self.snippetParser = reqparse.RequestParser()
-        self.snippetParser.add_argument('type', dest='type')
-        self.snippetParser.add_argument('id', dest='id', required=True)
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('type', dest='type')
+        self.parser.add_argument('id', dest='id', required=True)
 
     @staticmethod
     def handleSnippetLike(snippet_id):
@@ -129,6 +136,7 @@ class LikeAPI(Resource):
         print("Updated likes for", snippet_to_update)
 
         #associate user that liked snippet with the snippet's attributes
+
         #user_to_update = session.query(User).filter(User.uuid == userID).first()
         #for stag in snippet_to_update.tags:
             #for utag in user_to_update.tags:
@@ -143,7 +151,7 @@ class LikeAPI(Resource):
 
     @auth.requires_auth
     def post(self):
-        args = self.snippetParser.parse_args()
+        args = self.parser.parse_args()
         print("New like:", args)
         if args.type == 'snippet':
             return self.handleSnippetLike(args.id)
