@@ -8,7 +8,6 @@ const addSnippet = (state, action) => ([
 ]);
 
 const requestSnippets = (state, action) => ([
-  ...state,
   ...action.snippets
 ]);
 
@@ -37,5 +36,6 @@ export default function snippets(state = DEFAULT_STATE, action) {
     [actionTypes.LIKE_SNIPPET_SUCCESS]: likeSnippet,
     [actionTypes.DELETE_SNIPPET_SUCCESS]: deleteSnippet,
     [actionTypes.REQUEST_RECOMMENDED_SNIPPETS_SUCCESS]: requestRecommended,
+    [actionTypes.REQUEST_HOT_SNIPPETS_SUCCESS]: requestHot,
   }[action.type] || (s => s))(state, action);
 }

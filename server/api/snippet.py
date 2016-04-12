@@ -160,7 +160,6 @@ class GetRecommended(Resource):
     @auth.requires_auth
     def post(self, user):
         snippets = Snippet.query
-        numRecsToReturn = snippets.count()
         #print('uesr tags', user.tags)
 
         recList = []
@@ -184,36 +183,30 @@ class GetRecommended(Resource):
             #'comments': snippet.comments
         } for rec in recList]
         #print("lmao", ret)
+        print "type of ret is"
+        print(type(ret))
         return ret;
 
-# @snippet_api.resource('/hot')
-# class GetHot(Resource):
+@snippet_api.resource('/hot')
+class GetHot(Resource):
 
-#     @auth.requires_auth
-#     def post(self):
-#         snippets = Snippet.query
-#         numRecsToReturn = snippets.count()
-#         #print('uesr tags', user.tags)
+    @auth.requires_auth
+    def post(self, user):
+        snippets = Snippet.query
 
-#         recList = []
-#         for snippet in snippets:
-#             for tag in snippet.tags:
-#                 print('tags of this snippet', snippet, tag) 
-#                 if tag in user.tags:
-#                     recList.append(snippet) 
-#                 break
+        hot = [{
+            'id': snippet.id,
+            'title': snippet.title,
+            'author': snippet.author,
+            'content': snippet.content,
+            'likes': snippet.likes,
+            'created_at': snippet.created_at.isoformat() + 'Z',
+            'tags': [tag.name for tag in snippet.tags],
+        } for snippet in snippets]
 
-#         #print("\nwtf", recList)
-
-#         ret = [{
-#             'id': rec.id,
-#             'title': rec.title,
-#             'author': rec.author,
-#             'content': rec.content,
-#             'likes': rec.likes,
-#             'created_at': rec.created_at.isoformat() + 'Z',
-#             'tags': [tag.name for tag in rec.tags],
-#             #'comments': snippet.comments
-#         } for rec in recList]
-#         #print("lmao", ret)
-#         return ret;
+        hotList = sorted(hot, key = lambda k: k['likes'], reverse = True)
+        print "hotlist is\n"
+        print(hotList)
+        print "hotlist is type \n\n"
+        print(type(hotList))
+        return hotList;
