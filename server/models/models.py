@@ -30,11 +30,12 @@ class User(db.Model):
     pwdhash     =   db.Column(db.String(600), nullable=True)
 
     created_at  =   db.Column(db.DateTime, default=datetime.utcnow)
-    snippets       =   relationship('Snippet', backref='user', lazy='dynamic')
+    snippets    =   relationship('Snippet', #secondary=snippets_users,
+                                backref='user', lazy='dynamic')
     #this relationship indicates a many-many relationship between users and tags.
     #the `tags_users` association table is somehow used to enable this relationship
     tags        =   relationship('Tag', secondary=tags_users,
-                                 backref = backref('users', lazy='dynamic'))
+                                backref = backref('users', lazy='dynamic'))
 
     def set_password(self, password):
         self.pwdhash = generate_password_hash(password)
@@ -114,7 +115,9 @@ class Tag(db.Model):
     __tablename__ = 'tags'
 
     id      =   db.Column(db.Integer, primary_key=True)
-    name    =   db.Column(db.String(255), unique=True, nullable=False)
+    #yolo
+    #name    =   db.Column(db.String(255), unique=True, nullable=False)
+    name    =   db.Column(db.String(255), nullable=False)
 
     def __str__(self):
         return self.name

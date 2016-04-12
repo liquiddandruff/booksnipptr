@@ -12,6 +12,14 @@ const requestSnippets = (state, action) => ([
   ...action.snippets
 ]);
 
+const requestRecommended = (state, action) => ([
+  ...action.snippets
+]);
+
+const requestHot = (state, action) => ([
+  ...action.snippets
+]);
+
 const deleteSnippet = (state, action) => (
   state.filter(snippet => snippet.id !== action.snippetId)
 );
@@ -27,6 +35,7 @@ export default function snippets(state = DEFAULT_STATE, action) {
     [actionTypes.ADD_SNIPPET_SUCCESS]: addSnippet,
     [actionTypes.REQUEST_SNIPPETS_SUCCESS]: requestSnippets,
     [actionTypes.LIKE_SNIPPET_SUCCESS]: likeSnippet,
-    [actionTypes.DELETE_SNIPPET_SUCCESS]: deleteSnippet
+    [actionTypes.DELETE_SNIPPET_SUCCESS]: deleteSnippet,
+    [actionTypes.REQUEST_RECOMMENDED_SNIPPETS_SUCCESS]: requestRecommended,
   }[action.type] || (s => s))(state, action);
 }

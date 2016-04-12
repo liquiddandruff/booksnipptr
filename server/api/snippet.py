@@ -14,6 +14,7 @@ class SnippetAPI(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('snippet', dest='snippet', type=dict)
+        self.parser.add_argument('sort', dest='sort')
         self.snippetParser = reqparse.RequestParser()
 
         self.snippetParser.add_argument('title', dest='title', location='snippet')
@@ -24,7 +25,6 @@ class SnippetAPI(Resource):
 
     def get(self):
         snippets = Snippet.query
-
         return [{
             'id': snippet.id,
             'title': snippet.title,
@@ -40,8 +40,9 @@ class SnippetAPI(Resource):
     def post(self, user):
         root_args = self.parser.parse_args()
         snippet_args = self.snippetParser.parse_args(req=root_args)
-        print("New snippet:", snippet_args, snippet_args.title)
-        print("tags: ", snippet_args.tags.split(','))
+
+        #print("New snippet:", snippet_args, snippet_args.title)
+        #print("tags: ", snippet_args.tags.split(','))
         new_tag=snippet_args.tags.split(',')
 
         session = Session()
@@ -85,14 +86,14 @@ class DeleteAPI(Resource):
             abort(404)
         session.delete(snippet)
         session.commit()
-        print("Deleted snippet", snippet_id)
+        #print("Deleted snippet", snippet_id)
         return ("snippet %s deleted" % snippet_id), 200
 
     @auth.requires_auth
     def post(self, user):
         #, snippet_id, action
         args = self.parser.parse_args()
-        print("New delete:", args)
+        #print("New delete:", args)
 
         if args.type == 'snippet':
             return self.handleSnippetDelete(args.id)
@@ -108,7 +109,7 @@ class LikeAPI(Resource):
         self.parser.add_argument('id', dest='id', required=True)
 
     @staticmethod
-    def handleSnippetLike(snippet_id):
+    def handleSnippetLike(snippet_id, user):
         session = Session()
 
         #increment snippet likes
@@ -116,30 +117,103 @@ class LikeAPI(Resource):
         snippet_to_update.likes = snippet_to_update.likes + 1
         session.add(snippet_to_update)
 
-        print("Updated likes for", snippet_to_update)
+        #print("Updated likes for", snippet_to_update)
 
         #associate user that liked snippet with the snippet's attributes
 
-        #user_to_update = session.query(User).filter(User.uuid == userID).first()
-        #for stag in snippet_to_update.tags:
-            #for utag in user_to_update.tags:
-                #if stag == utag:
-                    #break
-                #elif utag == user_to_update.tags.pop():
-                    ##stag not found in user_to_update.tags, append stag to user's tags
-                    #user_to_update.tags.append(stag)
+        #print('id:', user.id)
+        #print("about to print temp snippet")
+        tempSnippetTags = snippet_to_update.tags[:]
+        #print(tempSnippetTags, '\n')
 
+        user_to_update = session.query(User).filter_by(id = user.id).first()
+        #print(user_to_update)
+        #print('before', user_to_update.tags, '\n')
+        for stag in tempSnippetTags:
+            for utag in user_to_update.tags:
+                if stag == utag:
+                    tempSnippetTags.remove(stag)
+                    break
+        
+        user_to_update.tags.extend(tempSnippetTags) 
+        #print('after', user_to_update.tags, '\n')
+
+
+        session.add(user_to_update)
         #commit changes
         session.commit()
 
     @auth.requires_auth
     def post(self, user):
-        print(user)
+        #print(user)
         args = self.parser.parse_args()
-        print("New like:", args)
+        #print("New like:", args)
         if args.type == 'snippet':
-            return self.handleSnippetLike(args.id)
+            return self.handleSnippetLike(args.id, user)
         else:
             return 404
 
 
+@snippet_api.resource('/recommended')
+class GetRecommended(Resource):
+
+    @auth.requires_auth
+    def post(self, user):
+        snippets = Snippet.query
+        numRecsToReturn = snippets.count()
+        #print('uesr tags', user.tags)
+
+        recList = []
+        for snippet in snippets:
+            for tag in snippet.tags:
+                print('tags of this snippet', snippet, tag) 
+                if tag in user.tags:
+                    recList.append(snippet) 
+                break
+
+        #print("\nwtf", recList)
+
+        ret = [{
+            'id': rec.id,
+            'title': rec.title,
+            'author': rec.author,
+            'content': rec.content,
+            'likes': rec.likes,
+            'created_at': rec.created_at.isoformat() + 'Z',
+            'tags': [tag.name for tag in rec.tags],
+            #'comments': snippet.comments
+        } for rec in recList]
+        #print("lmao", ret)
+        return ret;
+
+# @snippet_api.resource('/hot')
+# class GetHot(Resource):
+
+#     @auth.requires_auth
+#     def post(self):
+#         snippets = Snippet.query
+#         numRecsToReturn = snippets.count()
+#         #print('uesr tags', user.tags)
+
+#         recList = []
+#         for snippet in snippets:
+#             for tag in snippet.tags:
+#                 print('tags of this snippet', snippet, tag) 
+#                 if tag in user.tags:
+#                     recList.append(snippet) 
+#                 break
+
+#         #print("\nwtf", recList)
+
+#         ret = [{
+#             'id': rec.id,
+#             'title': rec.title,
+#             'author': rec.author,
+#             'content': rec.content,
+#             'likes': rec.likes,
+#             'created_at': rec.created_at.isoformat() + 'Z',
+#             'tags': [tag.name for tag in rec.tags],
+#             #'comments': snippet.comments
+#         } for rec in recList]
+#         #print("lmao", ret)
+#         return ret;

@@ -17,6 +17,7 @@ export default class Index extends Component {
     super(props);
   }
 
+
   componentDidMount() {
     if(!this.props.configs.isFirstLoad) {
       console.log('IS FIRST LOAD');
