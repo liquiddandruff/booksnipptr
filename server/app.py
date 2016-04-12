@@ -39,9 +39,9 @@ def create_app():
     # this env var will be set to 'production' in vagrant in /etc/init.d/booksnipptr
     release = os.getenv('BOOKSNIPPTR_ENV')
     print(release)
-    if release == 'production':
+    #if release == 'production':
         # override default confs with production confs
-        app.config.from_object('config.Production')
+        #app.config.from_object('config.Production')
 
     #app.register_blueprint(kittens_api.blueprint, url_prefix='/api')
     app.register_blueprint(snippet_api.blueprint, url_prefix='/api')

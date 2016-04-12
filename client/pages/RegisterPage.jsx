@@ -22,7 +22,7 @@ export default class RegisterPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     // if wasn't previously logged in and is now logged in, redirect to home
-    if(!this.props.auth.logged_in && nextProps.auth.logged_in) {
+    if(this.props.auth && !this.props.auth.logged_in && nextProps.auth.logged_in) {
       this.props.putConfigs({
         loggedInStateChanged: true,
         loggedInStateChangedMsg: 'You have just logged in'

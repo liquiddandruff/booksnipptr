@@ -11,25 +11,26 @@ from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSign
 #Our two mappings: tags <-> snippets and tags <-> users
 
 tags_snippets = db.Table('tag_snippet', db.Model.metadata,
-                         db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
-                         db.Column('snippet_id', db.Integer, db.ForeignKey('snippet.id'))
+                         db.Column('tag_id', db.Integer, db.ForeignKey('tags.id')),
+                         db.Column('snippet_id', db.Integer, db.ForeignKey('snippets.id'))
                          )
 
 tags_users = db.Table('tag_user', db.Model.metadata,
-                      db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
-                      db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+                      db.Column('tag_id', db.Integer, db.ForeignKey('tags.id')),
+                      db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
                       )
 
 class User(db.Model):
 
+    __tablename__ = 'users'
+
     id          =   db.Column(db.Integer, primary_key=True)
 
     username    =   db.Column(db.String(36), unique=True, nullable=False)
-    pwdhash     =   db.Column(db.String(600), nullable=True)
+    pwdhash     =   db.Column(db.String(54), nullable=True)
 
     created_at  =   db.Column(db.DateTime, default=datetime.utcnow)
-    snippets    =   relationship('Snippet', #secondary=snippets_users,
-                                 backref='users', lazy='dynamic')
+    snippets       =   relationship('Snippet', backref='user', lazy='dynamic')
     #this relationship indicates a many-many relationship between users and tags.
     #the `tags_users` association table is somehow used to enable this relationship
     tags        =   relationship('Tag', secondary=tags_users,
@@ -85,8 +86,10 @@ class User(db.Model):
 
 class Snippet(db.Model):
 
+    __tablename__ = 'snippets'
+
     id          =   db.Column(db.Integer, primary_key=True)
-    user_id     =   db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id     =   db.Column(db.Integer, db.ForeignKey('users.id'))
     content     =   db.Column(db.String(1000), nullable=False)
     author      =   db.Column(db.String(100), nullable=True)
     title       =   db.Column(db.String(100), nullable=True)
@@ -108,10 +111,10 @@ class Snippet(db.Model):
 
 class Tag(db.Model):
 
+    __tablename__ = 'tags'
+
     id      =   db.Column(db.Integer, primary_key=True)
-    #yolo
-    #name    =   db.Column(db.String(255), unique=True, nullable=False)
-    name    =   db.Column(db.String(255), nullable=False)
+    name    =   db.Column(db.String(255), unique=True, nullable=False)
 
     def __str__(self):
         return self.name
@@ -121,14 +124,16 @@ class Tag(db.Model):
 
 class Comment(db.Model):
 
+    __tablename__ = 'comments'
+
     id          =   db.Column(db.Integer, primary_key=True)
     text        =   db.Column(db.String(2000))
     created_at  =   db.Column(db.DateTime, default=datetime.utcnow)
     likes       =   db.Column(db.Integer, default=0)
     #need these foreign keys to enable the many-one relationships
     #Comments have with snippets and users.
-    snippet_id     =   db.Column(db.Integer, db.ForeignKey('snippet.id'))
-    username     =   db.Column(db.String, db.ForeignKey('user.username'))
+    snippet_id     =   db.Column(db.Integer, db.ForeignKey('snippets.id'))
+    username     =   db.Column(db.Integer, db.ForeignKey('users.username'))
 
     def __repr__(self):
         return "<Comment (text='%s')>" % (self.text)

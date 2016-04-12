@@ -66,7 +66,7 @@ export default class SiteHeader extends Component {
     let greetingOrNull;
     let logoutOrLogin;
     let registerOrNull;
-    if(this.props.auth.logged_in) {
+    if(this.props.auth && this.props.auth.logged_in) {
       logoutOrLogin = <MenuItem primaryText="Logout" containerElement={<Link to="/" />} onClick={this.handleLogoutUser} />;
       let greeting = "Welcome, " + this.props.auth.username;
       greetingOrNull = <ToolbarTitle text={greeting} style={{width: 150}} />
