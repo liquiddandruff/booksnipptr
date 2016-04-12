@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { addSnippet, requestSnippets, requestRecommended, requestHot } from '../actions/snippets';
+import { addSnippet, requestSnippets, requestNewest, requestHot, requestRecommended } from '../actions/snippets';
 import { connect } from 'react-redux';
 import useSheet from 'react-jss';
 
@@ -34,11 +34,14 @@ export default class SiteHeader extends Component {
     if(value === 1) {
       this.props.requestSnippets();
     }
-    if (value === 2) {
-      this.props.requestRecommended();
+    else if (value === 2) {
+      this.props.requestNewest();
     }
-    if(value === 3) {
+    else if(value === 3) {
       this.props.requestHot();
+    }
+    else if(value === 4) {
+      this.props.requestRecommended();
     }
   }
 
@@ -50,9 +53,9 @@ export default class SiteHeader extends Component {
           <FlatButton label="BookSnipptr" linkButton={true} containerElement={<Link to="/" />} />
           <DropDownMenu value={this.state.value} onChange={this.handleChange} style={menuStyle} >
             <MenuItem value={1} primaryText="Sort by Oldest" style={menuStyle} />
-            <MenuItem value={2} primaryText="Sort by Recommended" style={menuStyle} />
+            <MenuItem value={2} primaryText="Sort by Newest" style={menuStyle} />
             <MenuItem value={3} primaryText="Sort by Hot" style={menuStyle} />
-            <MenuItem value={4} primaryText="Sort by Top" style={menuStyle} />
+            <MenuItem value={4} primaryText="Sort by Recommended" style={menuStyle} />
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup float="right">
@@ -87,7 +90,7 @@ const STYLES = {
 
 export default connect(
   state => ({}),
-  { addSnippet, requestSnippets, requestRecommended, requestHot }
+  { addSnippet, requestSnippets, requestNewest, requestHot, requestRecommended }
 )(
   useSheet(SiteHeader, STYLES)
 );

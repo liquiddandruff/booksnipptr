@@ -205,8 +205,28 @@ class GetHot(Resource):
         } for snippet in snippets]
 
         hotList = sorted(hot, key = lambda k: k['likes'], reverse = True)
-        print "hotlist is\n"
-        print(hotList)
-        print "hotlist is type \n\n"
-        print(type(hotList))
+        # print "hotlist is\n"
+        # print(hotList)
+        # print "hotlist is type \n\n"
+        # print(type(hotList))
         return hotList;
+
+@snippet_api.resource('/newest')
+class GetNewest(Resource):
+
+    def get(self):
+        snippets = Snippet.query
+        newest = [{
+            'id': snippet.id,
+            'title': snippet.title,
+            'author': snippet.author,
+            'content': snippet.content,
+            'likes': snippet.likes,
+            'created_at': snippet.created_at.isoformat() + 'Z',
+            'tags': [tag.name for tag in snippet.tags],
+        } for snippet in snippets]
+
+        newestList = sorted(newest, key= lambda d: d['created_at'], reverse = True)
+        # print "newest List is "
+        # print(newestList)
+        return newestList

@@ -50,6 +50,27 @@ export function requestSnippets() {
   }
 }
 
+export function requestNewest() {
+  return async dispatch => {
+    dispatch({
+      type: actionTypes.REQUEST_NEWEST_SNIPPETS
+    });
+
+    try {
+      const result = await get('/api/newest');
+
+      dispatch({
+        type: actionTypes.REQUEST_NEWEST_SNIPPETS_SUCCESS,
+        snippets: result
+      });
+    } catch(e) {
+      dispatch({
+        type: actionTypes.REQUEST_NEWEST_SNIPPETS_ERROR
+      });
+    }
+  }
+}
+
 export function requestRecommended() {
   return async (dispatch, getState) => {
     const { auth } = getState();
